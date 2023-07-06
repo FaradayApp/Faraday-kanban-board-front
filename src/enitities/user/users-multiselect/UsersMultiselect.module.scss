@@ -1,0 +1,33 @@
+.usersMultiselect {
+  position: relative;
+
+  &__selectedList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  &__foundUsersList {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 16px 16px;
+
+    border-radius: 4px;
+    border: 1px solid var(--input-border);
+
+    width: 100%;
+    max-height: 210px;
+    overflow-y: auto;
+    background: var(--layer-0);
+
+    transform: translateY(calc(-100% - 12px));
+
+    box-shadow: var(--shadow-0);
+
+    z-index: 10;
+  }
+}
