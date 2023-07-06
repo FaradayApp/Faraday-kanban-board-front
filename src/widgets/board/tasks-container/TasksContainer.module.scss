@@ -1,0 +1,30 @@
+.tasksContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 6px;
+  min-height: 100px;
+  flex-shrink: 0;
+  width: 185px;
+
+  border-radius: 10px;
+  background: var(--layer-1);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    max-height: 60vh;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
