@@ -1,0 +1,1 @@
+export { UserShortCard } from './UserShortCard';
