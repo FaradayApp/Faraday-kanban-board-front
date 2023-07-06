@@ -1,0 +1,47 @@
+@import '@/shared/styles/floating-form.scss';
+
+.floatingTeaxArea {
+  @include floatingForm();
+  min-height: 110px;
+  overflow: hidden;
+
+  &_invalid {
+    border-color: var(--input-border-error);
+  }
+  
+  > .label {
+    @include floatingLabel();
+    padding: 16px 16px;
+  }
+
+  > .textarea {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    margin: 0px 16px 16px 16px;
+    padding: 0px;
+    outline: none;
+    border: none;
+    resize: none;
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+  > .textarea:focus,
+  > .textarea:not(:placeholder-shown) {
+    ~ .label {
+      @include floatingLabelFilled();
+    }
+  }
+
+  > .textarea:-webkit-autofill {
+    ~ .label {
+      @include floatingLabelFilled();
+    }
+  }
+}
