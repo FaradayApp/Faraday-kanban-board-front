@@ -1,0 +1,23 @@
+.form {
+  &__title {
+    margin-bottom: 30px;
+  }
+  
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__errors {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  &__error {
+    margin: 0;
+    font-size: 12px;
+  }
+}
