@@ -1,0 +1,82 @@
+{
+  "authForm": {
+    "title": "Авторизация",
+    "labels": {
+      "login": "Логин",
+      "password": "Пароль"
+    },
+    "buttons": {
+      "submit": "Войти"
+    }
+  },
+  "widgetsManagement": {
+    "title": "Управление виджетами",
+    "placeholders": {
+      "note": "Заметка"
+    },
+    "buttons": {
+      "addWidget": "Добавить виджет"
+    },
+    "deleteModal": {
+      "message": "Вы уверены, что хотите удалить виджет?",
+      "buttons": {
+        "delete": "Удалить",
+        "cancel": "Отменить"
+      }
+    },
+    "addWidgetModal": {
+      "message": "Создание нового виджета",
+      "placeholders": {
+        "link": "Ссылка"
+      }
+    }
+  },
+  "board": {
+    "title": "Задачи",
+    "sort": {
+      "byDate": "По дате окончания задачи",
+      "byName": "По названию задачи",
+      "byPriority": "По приоритету задачи"
+    }
+  },
+  "taskEdit": {
+    "titles": {
+      "create": "Создание задачи",
+      "edit": "Редактирование задачи"
+    },
+    "labels": {
+      "name": "Название задачи",
+      "priority": "Приоритет",
+      "status": "Статус",
+      "description": "Описание задачи",
+      "endDate": "Дата окончания",
+      "workers": "Ответственный по задаче"
+    },
+    "buttons": {
+      "save": "Сохранить"
+    }
+  },
+  "task": {
+    "title": "Задача",
+    "priority": {
+      "label": "Приоритет:",
+      "level": {
+        "hight": "Высокий",
+        "medium": "Средний",
+        "low": "Низкий"
+      }
+    },
+    "dates": {
+      "start": "Дата постановки",
+      "end": "Дата окончания"
+    },
+    "producer": "Постановщик",
+    "workers": "Ответственные по задаче",
+    "labels": {
+      "comment": "Комментарий"
+    },
+    "buttons": {
+      "save": "Сохранить"
+    }
+  }
+}
