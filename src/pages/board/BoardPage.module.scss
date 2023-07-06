@@ -1,0 +1,8 @@
+.boardPage {
+  &__taskContainers {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    overflow-y: auto;
+  }
+}
