@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__counter {
+    display: flex;
+    margin-left: auto !important;
+    margin-top: 8px !important;
+
+    color: var(--black-60);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+
+    &_warning {
+      color: var(--text-warning);
+    }
+  }
+}
