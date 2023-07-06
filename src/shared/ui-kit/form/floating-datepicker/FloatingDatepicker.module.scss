@@ -1,0 +1,65 @@
+@import '@/shared/styles/floating-form.scss';
+
+.floatingDatepicker {
+  @include floatingForm();
+  height: 52px;
+  flex-grow: 1;
+
+  &_invalid {
+    border-color: var(--input-border-error);
+  }
+  
+  > .label {
+    @include floatingLabel();
+    display: flex;
+    align-items: center;
+  }
+
+  > .date {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+  }
+
+  > .datepicker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &::-webkit-calendar-picker-indicator {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      color: transparent;
+      background: transparent;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+
+  &_filled {
+    > .label {
+      @include floatingLabelFilled();
+    }
+  }
+}
