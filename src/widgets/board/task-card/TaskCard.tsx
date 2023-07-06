@@ -13,23 +13,15 @@ import {
 } from '@/shared/ui-kit';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { BoardTask } from '@/enitities/types';
 
-type TaskCardProps = {
-  id: string;
-  title: string;
-  date: string;
-  workers: { avatar: string }[];
-  priority: 'hight' | 'medium' | 'low';
-  comments: number;
-};
-
-export const TaskCard = observer((props: TaskCardProps) => {
+export const TaskCard = observer((props: BoardTask) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { id, title, date, workers, priority, comments } = props;
+  const { id, name, dates, workers, priority, comments } = props;
 
   const selectedUsers = workers?.slice(0, 3) ?? [];
-  const formattedDate = dayjs(date).format('DD MMM');
+  const formattedDate = dayjs(dates.end).format('DD MMM');
 
   const openTaskInfo = () => {
     navigate(`/task/${id}`);
@@ -45,7 +37,7 @@ export const TaskCard = observer((props: TaskCardProps) => {
     <div className={styles.taskCard__controls}>
       <MenuIcon />
       <div className={styles.taskCard__controlsComments}>
-        <Text tag='span' size='xsm' children={comments} />
+        <Text tag='span' size='xsm' children={comments.length} />
         <CommentIcon />
       </div>
     </div>
@@ -54,7 +46,7 @@ export const TaskCard = observer((props: TaskCardProps) => {
   return (
     <article className={styles.taskCard} onClick={openTaskInfo}>
       <Heading tag='h3' size='sm' weight='bold' className={styles.taskCard__title}>
-        {title}
+        {name}
       </Heading>
       <div className={styles.taskCard__content}>
         <div className={styles.taskCard__priority}>
