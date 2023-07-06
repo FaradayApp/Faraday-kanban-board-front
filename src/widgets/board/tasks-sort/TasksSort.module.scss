@@ -1,0 +1,24 @@
+.sortButtons {
+  display: flex;
+  flex-direction: column;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+    background: none;
+    border: none;
+
+    color: var(--text-primary);
+
+    &:hover {
+      background: var(--sort-button-bg);
+    }
+
+    &_selected {
+      background: var(--sort-button-bg);
+    }
+  }
+}
