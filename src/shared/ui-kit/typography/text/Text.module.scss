@@ -1,0 +1,32 @@
+.text {
+  padding: 0;
+  margin: 0;
+  
+  font-family: Inter;
+  font-style: normal;
+  line-height: normal;
+  
+  &_light {
+    font-weight: 300;
+  }
+
+  &_normal {
+    font-weight: 500;
+  }
+
+  &_bold {
+    font-weight: 600;
+  }
+
+  &_md {
+    font-size: 16px;
+  }
+
+  &_sm {
+    font-size: 14px;
+  }
+
+  &_xsm {
+    font-size: 12px;
+  }
+}
