@@ -7,7 +7,7 @@ type TextProps = HTMLAttributes<HTMLSpanElement> &
   PropsWithChildren<{
     tag: 'p' | 'span';
     size?: 'sm' | 'md' | 'xsm';
-    weight?: 'bold' | 'light' | 'normal';
+    weight?: 'bold' | 'light' | 'normal' | 'regular';
   }>;
 
 export const Text = (props: TextProps) => {
@@ -22,6 +22,7 @@ export const Text = (props: TextProps) => {
     [styles.text_bold]: weight === 'bold',
     [styles.text_light]: weight === 'light',
     [styles.text_normal]: weight === 'normal',
+    [styles.text_regular]: weight === 'regular',
   });
 
   return <TextComponent className={classes} {...otherProps} />;

@@ -8,6 +8,10 @@
   color: var(--heading-primary);
 
   &_light {
+    font-weight: 300;
+  }
+
+  &_regular {
     font-weight: 400;
   }
 

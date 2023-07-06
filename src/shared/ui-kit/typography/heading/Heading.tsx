@@ -6,7 +6,7 @@ type HeadingProps = HTMLAttributes<HTMLHeadingElement> &
   PropsWithChildren<{
     tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
     size?: 'xl' | 'lg' | 'md' | 'sm' | 'xsm';
-    weight?: 'bold' | 'light' | 'normal';
+    weight?: 'bold' | 'light' | 'normal' | 'regular';
   }>;
 
 export const Heading = (props: HeadingProps) => {
@@ -22,6 +22,7 @@ export const Heading = (props: HeadingProps) => {
     [styles.heading_bold]: weight === 'bold',
     [styles.heading_light]: weight === 'light',
     [styles.heading_normal]: weight === 'normal',
+    [styles.heading_regular]: weight === 'regular',
   });
 
   return <Component className={classes} {...otherProps} />;
