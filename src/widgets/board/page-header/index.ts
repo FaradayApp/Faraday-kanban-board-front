@@ -1,0 +1,1 @@
+export { BoardPageHeader } from './BoardPageHeader';
