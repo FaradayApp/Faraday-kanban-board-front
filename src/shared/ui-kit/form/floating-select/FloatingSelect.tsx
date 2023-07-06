@@ -9,14 +9,14 @@ export type SelectOption = {
   value: string;
 };
 
-type FloatingSelectProps = {
+type FloatingSelectProps<T> = {
   label: string;
-  value: SelectOption | null;
-  options: SelectOption[];
-  onChange: (option: SelectOption | null) => void;
+  value: T | null;
+  options: T[];
+  onChange: (option: T | null) => void;
 };
 
-export const FloatingSelect = (props: FloatingSelectProps) => {
+export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProps<T>) => {
   const { label, options, value, onChange } = props;
 
   const buttonClasses = clsx(styles.select__button, {
