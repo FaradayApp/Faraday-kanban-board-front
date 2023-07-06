@@ -1,0 +1,11 @@
+.textarea {
+  display: flex;
+  width: 100%;
+  padding: 8px 10px;
+
+  border-radius: 4px;
+  border: 1px solid var(--input-border);
+  outline: none;
+
+  resize: none;
+}
