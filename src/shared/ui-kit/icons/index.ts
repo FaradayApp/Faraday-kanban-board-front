@@ -6,6 +6,7 @@ export { ClockIcon } from './ClockIcon';
 export { CloseIcon } from './CloseIcon';
 export { CommentIcon } from './CommentIcon';
 export { CopyIcon } from './CopyIcon';
+export { EditIcon } from './EditIcon';
 export { EyeIcon } from './EyeIcon';
 export { LogoutIcon } from './LogoutIcon';
 export { MenuIcon } from './MenuIcon';
