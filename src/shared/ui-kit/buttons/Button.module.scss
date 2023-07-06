@@ -1,0 +1,34 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 14px 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  transition: transform 0.32s ease;
+
+  &_primary {
+    background: var(--button-bg-primary);
+    color: var(--button-text-primary);
+  }
+
+  &_secondary {
+    background: var(--button-bg-secondary);
+    color: var(--button-text-secondary);
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  &:active {
+    transform: translateY(1px) scale(0.98);
+  }
+}
