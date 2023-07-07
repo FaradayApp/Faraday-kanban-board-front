@@ -2,6 +2,14 @@ import { createBrowserRouter, Outlet, RouterProvider, ScrollRestoration } from '
 import { observer } from 'mobx-react-lite';
 
 import { sessionStore } from '@/stores';
+import {
+  AuthPage,
+  BoardPage,
+  TaskCreatePage,
+  TaskEditPage,
+  TaskInfoPage,
+  WidgetsPage,
+} from '@/pages';
 
 const AuthGuard = observer(() => {
   return sessionStore.isUser ? (
@@ -10,7 +18,7 @@ const AuthGuard = observer(() => {
       <ScrollRestoration />
     </>
   ) : (
-    <div />
+    <AuthPage />
   );
 });
 
@@ -21,31 +29,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <div />,
+        element: <BoardPage />,
       },
       {
         path: '/board',
-        element: <div />,
+        element: <BoardPage />,
       },
       {
         path: '/task/:id',
-        element: <div />,
+        element: <TaskInfoPage />,
       },
       {
         path: '/task/create',
-        element: <div />,
+        element: <TaskCreatePage />,
       },
       {
         path: '/task/:id/edit',
-        element: <div />,
+        element: <TaskEditPage />,
       },
       {
         path: '/widgets',
-        element: <div />,
+        element: <WidgetsPage />,
       },
       {
         path: '*',
-        element: <div />,
+        element: <BoardPage />,
       },
     ],
   },
