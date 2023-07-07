@@ -1,0 +1,1 @@
+export { WidgetNew } from './WidgetNew';
