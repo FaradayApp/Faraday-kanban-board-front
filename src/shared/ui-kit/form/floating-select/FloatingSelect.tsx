@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useMemo } from 'react';
 import { Listbox } from '@headlessui/react';
 
 import styles from './FloatingSelect.module.scss';
@@ -9,11 +10,13 @@ export type SelectOption = {
   value: string;
 };
 
+type OptionValue = SelectOption['value'];
+
 type FloatingSelectProps<T> = {
   label: string;
-  value: T | null;
+  value: OptionValue | null;
   options: T[];
-  onChange: (option: T | null) => void;
+  onChange: (option: OptionValue | null) => void;
 };
 
 export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProps<T>) => {
@@ -23,6 +26,10 @@ export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProp
     [styles.select__button_filled]: !!value,
   });
 
+  const selectedOption = useMemo(() => {
+    return options.find((option) => option.value === value) || null;
+  }, [options, value]);
+
   return (
     <Listbox as='div' value={value} onChange={onChange} className={styles.select}>
       <Listbox.Button className={buttonClasses}>
@@ -30,7 +37,7 @@ export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProp
           <>
             <label className={styles.select__label}>{label}</label>
             <Text tag='span' size='md' className={styles.select__selectedOption}>
-              {value?.label}
+              {selectedOption?.label}
             </Text>
             <div
               className={clsx(styles.select__arrow, {
@@ -46,10 +53,10 @@ export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProp
         {options.map((option) => (
           <Listbox.Option
             as='p'
-            value={option}
+            value={option.value}
             key={option.value}
             className={clsx(styles.select__option, {
-              [styles.select__option_active]: option.value === value?.value,
+              [styles.select__option_active]: option.value === value,
             })}>
             {option.label}
           </Listbox.Option>
