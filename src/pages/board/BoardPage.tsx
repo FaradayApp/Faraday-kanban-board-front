@@ -15,7 +15,7 @@ export const BoardPage = observer(() => {
             title={column.status}
             control={<TasksSort onSort={(sortType) => column.sortTasks(sortType)} />}>
             {column.tasks.map((task) => (
-              <TaskCard key={task.id} {...task} />
+              <TaskCard key={task.data.id} task={task} />
             ))}
           </TasksContainer>
         ))}
