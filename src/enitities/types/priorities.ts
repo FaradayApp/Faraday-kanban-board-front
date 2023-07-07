@@ -11,7 +11,3 @@ export const PRIORITY_OPTIONS: { label: string; value: TaskPriority }[] = [
   { label: 'Средний', value: 'medium' },
   { label: 'Низкий', value: 'low' },
 ];
-
-export const getPriorityValue = (value: TaskPriority | null) => {
-  return PRIORITY_OPTIONS.find((option) => option.value === value) || null;
-};
