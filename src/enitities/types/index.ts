@@ -7,4 +7,4 @@ export {
 } from './priorities';
 export { type TaskStatus, getStatusValue, STATUS_OPTIONS } from './statuses';
 export { type BoardTask } from './task';
-export { type BoardColumn } from './board';
+export { type User } from './user';

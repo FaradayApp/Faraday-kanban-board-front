@@ -1,20 +1,16 @@
 import { TaskPriority, TaskStatus } from '.';
-import { User } from './user';
 
 export type BoardTask = {
-  id: string;
+  id: TaskId;
   name: string;
-
-  workers: User[];
-  priority: TaskPriority;
   status: TaskStatus;
+  priority: TaskPriority;
   description: string;
-
+  workers: UserId[];
+  producer: UserId;
+  comments: unknown[];
   dates: {
     start: string;
     end: string;
   };
-
-  producer: User;
-  comments: unknown[];
 };
