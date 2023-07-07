@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react-lite';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './TaskCard.module.scss';
 import {
@@ -11,33 +13,36 @@ import {
   PriorityTag,
   Avatar,
 } from '@/shared/ui-kit';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { BoardTask } from '@/enitities/types';
+import { usersStore, Task } from '@/stores';
 
-export const TaskCard = observer((props: BoardTask) => {
+type TaskCardProps = {
+  task: Task;
+};
+
+export const TaskCard = observer(({ task }: TaskCardProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { id, name, dates, workers, priority, comments } = props;
 
-  const selectedUsers = workers?.slice(0, 3) ?? [];
-  const formattedDate = dayjs(dates.end).format('DD MMM');
+  const selectedUsers = task.data.workers?.slice(0, 3) ?? [];
+  const formattedDate = dayjs(task.data.dates.end, { format: 'DD.MM.YYYY' }).format('DD MMM');
 
   const openTaskInfo = () => {
-    navigate(`/task/${id}`);
+    navigate(`/task/${task.data.id}`);
   };
 
-  const Users = selectedUsers.map((user, i) => (
-    <div key={user.avatar} style={{ position: 'absolute', left: `${14 * i}px` }}>
-      <Avatar size={20} src={user.avatar} />
+  const Users = selectedUsers.map((id, i) => (
+    <div key={id} style={{ position: 'absolute', left: `${14 * i}px` }}>
+      <Avatar size={20} src={usersStore.getById(id).avatar} />
     </div>
   ));
 
-  const Comments = comments ? (
+  const Comments = task.data.comments ? (
     <div className={styles.taskCard__controls}>
       <MenuIcon />
       <div className={styles.taskCard__controlsComments}>
-        <Text tag='span' size='xsm' children={comments.length} />
+        <Text tag='span' size='xsm'>
+          {task.data.comments.length}
+        </Text>
         <CommentIcon />
       </div>
     </div>
@@ -46,14 +51,14 @@ export const TaskCard = observer((props: BoardTask) => {
   return (
     <article className={styles.taskCard} onClick={openTaskInfo}>
       <Heading tag='h3' size='sm' weight='bold' className={styles.taskCard__title}>
-        {name}
+        {task.data.name}
       </Heading>
       <div className={styles.taskCard__content}>
         <div className={styles.taskCard__priority}>
           <Text tag='span' size='xsm' weight='light'>
             {t('task.priority.label')}
           </Text>
-          <PriorityTag type={priority} />
+          <PriorityTag type={task.data.priority} />
         </div>
         <DateTag date={formattedDate} />
       </div>
