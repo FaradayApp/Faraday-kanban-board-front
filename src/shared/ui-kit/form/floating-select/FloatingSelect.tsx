@@ -48,11 +48,9 @@ export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProp
             as='p'
             value={option}
             key={option.value}
-            className={({ selected }) =>
-              clsx(styles.select__option, {
-                [styles.select__option_active]: selected,
-              })
-            }>
+            className={clsx(styles.select__option, {
+              [styles.select__option_active]: option.value === value?.value,
+            })}>
             {option.label}
           </Listbox.Option>
         ))}
