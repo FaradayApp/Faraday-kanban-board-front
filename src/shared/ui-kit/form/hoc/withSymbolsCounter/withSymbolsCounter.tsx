@@ -7,7 +7,7 @@ import { Text } from '@/shared/ui-kit';
 type WrapperProps = {
   value?: string;
   defaultValue?: string;
-  onChange?: ChangeEventHandler;
+  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   maxSymbols: number;
 };
 
