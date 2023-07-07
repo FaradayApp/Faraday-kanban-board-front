@@ -1,57 +1,50 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 
 import styles from './UsersMultiselect.module.scss';
-import { UserShortCard } from '..';
+import { UsersMultiselectStore } from './UsersMultiselectStore';
+import { UserShortCard } from '@/enitities/user';
 import { SearchIcon, FloatingInput, CloseIcon } from '@/shared/ui-kit';
 
-type UserInfo = {
-  id: string;
-  name: string;
-  avatar?: string;
-};
-
 type UsersMultiselectProps = {
-  selectedUsers: UserInfo[];
-  foundedUsers: UserInfo[];
-  searchValue: string;
-
-  onChange: (search: string) => void;
+  selectedUsers: UserId[];
   onSelect: (id: string) => void;
   onRemove: (id: string) => void;
 };
 
 export const UsersMultiselect = observer((props: UsersMultiselectProps) => {
   const { t } = useTranslation();
-  const { selectedUsers, foundedUsers, searchValue, onChange, onSelect, onRemove } = props;
+  const [searchStore] = useState(() => new UsersMultiselectStore());
+  const { selectedUsers, onSelect, onRemove } = props;
 
-  const showFoundedUsers = foundedUsers.length > 0 && searchValue;
+  const showFoundedUsers = searchStore.foundedUsers.length > 0 && searchStore.search;
 
   return (
     <div className={styles.usersMultiselect}>
       {showFoundedUsers && (
         <div className={styles.usersMultiselect__foundUsersList}>
-          {foundedUsers.map((user) => (
-            <div key={user.id} onClick={() => onSelect(user.id)}>
-              <UserShortCard name={user.name} />
+          {searchStore.foundedUsers.map((id) => (
+            <div key={id} onClick={() => onSelect(id)}>
+              <UserShortCard userId={id} />
             </div>
           ))}
         </div>
       )}
 
       <FloatingInput
-        value={searchValue}
-        onChange={(event) => onChange(event.target.value)}
+        value={searchStore.search}
+        onChange={(event) => searchStore.searchUsers(event.target.value)}
         label={t('taskEdit.labels.workers')}
         controls={<SearchIcon />}
       />
 
       <div className={styles.usersMultiselect__selectedList}>
-        {selectedUsers.map((user) => (
+        {selectedUsers.map((id) => (
           <UserShortCard
-            key={user.id}
-            name={user.name}
-            controls={<CloseIcon onClick={() => onRemove(user.id)} />}
+            key={id}
+            userId={id}
+            controls={<CloseIcon onClick={() => onRemove(id)} />}
           />
         ))}
       </div>
