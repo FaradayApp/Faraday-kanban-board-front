@@ -1,22 +1,26 @@
 import { makeAutoObservable } from 'mobx';
 
-import { mockBoard } from './__mocks__';
 import { BoardColumnStore } from './BoardColumn';
+import { getBoardColumns } from '@/shared/api';
 
 class BoardStore {
   board: Record<string, BoardColumnStore> = {};
 
   constructor() {
     makeAutoObservable(this);
-
-    Object.keys(mockBoard).forEach((key) => {
-      const boardColumn = mockBoard[key];
-      this.board[key] = new BoardColumnStore(boardColumn.id, boardColumn.status, boardColumn.tasks);
-    });
+    this.load();
   }
 
   get columns() {
     return Object.values(this.board);
+  }
+
+  async load() {
+    const columns = await getBoardColumns();
+    
+    columns.forEach((column) => {
+      this.board[column.id] = new BoardColumnStore(column.id, column.status);
+    });
   }
 }
 
