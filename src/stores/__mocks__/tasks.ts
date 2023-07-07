@@ -1,8 +1,8 @@
-import { BoardTask } from '@/enitities/types';
+import { type BoardTask } from '@/enitities/types';
 import { mockUsers } from '.';
 import { comments } from './comments';
 
-export const mockTasks: Record<string, BoardTask> = {
+export const mockTasks: Record<TaskId, BoardTask> = {
   '1': {
     id: '1',
     name: 'Task 1',
@@ -13,8 +13,8 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '16.01.2023',
       end: '08.03.2023',
     },
-    producer: mockUsers[1],
-    workers: [mockUsers[2], mockUsers[3], mockUsers[4]],
+    producer: mockUsers[1].id,
+    workers: [mockUsers[2].id, mockUsers[3].id, mockUsers[4].id],
     comments: [comments[1], comments[1]],
   },
   '2': {
@@ -27,8 +27,8 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '16.02.2023',
       end: '08.05.2023',
     },
-    producer: mockUsers[2],
-    workers: [mockUsers[1], mockUsers[3]],
+    producer: mockUsers[2].id,
+    workers: [mockUsers[1].id, mockUsers[3].id],
     comments: [],
   },
   '3': {
@@ -41,8 +41,8 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '16.01.2022',
       end: '08.03.2026',
     },
-    producer: mockUsers[1],
-    workers: [mockUsers[2]],
+    producer: mockUsers[1].id,
+    workers: [mockUsers[2].id],
     comments: [],
   },
   '4': {
@@ -55,8 +55,8 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '19.01.2023',
       end: '07.03.2023',
     },
-    producer: mockUsers[1],
-    workers: [mockUsers[2], mockUsers[3], mockUsers[4]],
+    producer: mockUsers[1].id,
+    workers: [mockUsers[2].id, mockUsers[3].id, mockUsers[4].id],
     comments: [],
   },
   '5': {
@@ -69,8 +69,8 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '26.01.2023',
       end: '01.03.2023',
     },
-    producer: mockUsers[1],
-    workers: [mockUsers[2], mockUsers[3], mockUsers[4]],
+    producer: mockUsers[1].id,
+    workers: [mockUsers[2].id, mockUsers[3].id, mockUsers[4].id],
     comments: [],
   },
   '6': {
@@ -83,8 +83,8 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '05.01.2023',
       end: '08.07.2023',
     },
-    producer: mockUsers[1],
-    workers: [mockUsers[2], mockUsers[3], mockUsers[4]],
+    producer: mockUsers[1].id,
+    workers: [mockUsers[2].id, mockUsers[3].id, mockUsers[4].id],
     comments: [],
   },
   '7': {
@@ -97,7 +97,7 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '16.01.2023',
       end: '08.04.2023',
     },
-    producer: mockUsers[1],
+    producer: mockUsers[1].id,
     workers: [],
     comments: [],
   },
@@ -111,7 +111,7 @@ export const mockTasks: Record<string, BoardTask> = {
       start: '10.01.2023',
       end: '08.04.2023',
     },
-    producer: mockUsers[1],
+    producer: mockUsers[1].id,
     workers: [],
     comments: [],
   },

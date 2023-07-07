@@ -16,30 +16,6 @@ export const mockWidgets = {
     title: '№ 2',
     note: '',
     link: '',
-  },
-  '4': {
-    id: '3',
-    title: '№ 2',
-    note: '',
-    link: '',
-  },
-  '5': {
-    id: '3',
-    title: '№ 2',
-    note: '',
-    link: '',
-  },
-  '6': {
-    id: '3',
-    title: '№ 2',
-    note: '',
-    link: '',
-  },
-  '7': {
-    id: '3',
-    title: '№ 2',
-    note: '',
-    link: '',
-  },
+  }
 };
 
