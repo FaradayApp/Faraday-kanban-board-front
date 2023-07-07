@@ -13,14 +13,9 @@ import {
   FloatingTextArea,
   withSymbolsCounter,
 } from '@/shared/ui-kit';
-import { UsersMultiselect } from '@/enitities/user';
 import { tasksStore } from '@/stores';
-import {
-  PRIORITY_OPTIONS,
-  STATUS_OPTIONS,
-  getPriorityValue,
-  getStatusValue,
-} from '@/enitities/types';
+import { UsersMultiselect } from '@/enitities/user';
+import { PRIORITY_OPTIONS, STATUS_OPTIONS } from '@/enitities/types';
 
 const InputWithCounter = withSymbolsCounter(FloatingInput);
 const TextAreaWithCounter = withSymbolsCounter(FloatingTextArea);
@@ -47,7 +42,7 @@ export const TaskEditForm = observer(() => {
       <Controller
         name='status'
         control={control}
-        defaultValue={getStatusValue(task.data.status)}
+        defaultValue={task.data.status}
         render={({ field }) => (
           <FloatingSelect
             label={t('taskEdit.labels.status')}
@@ -61,7 +56,7 @@ export const TaskEditForm = observer(() => {
       <Controller
         name='priority'
         control={control}
-        defaultValue={getPriorityValue(task.data.priority)}
+        defaultValue={task.data.priority}
         render={({ field }) => (
           <FloatingSelect
             label={t('taskEdit.labels.priority')}

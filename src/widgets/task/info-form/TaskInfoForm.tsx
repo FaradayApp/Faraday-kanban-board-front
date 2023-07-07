@@ -15,7 +15,7 @@ import {
 } from '@/shared/ui-kit';
 import { tasksStore } from '@/stores';
 import { UserComment, UserShortCard } from '@/enitities/user';
-import { STATUS_OPTIONS, TaskStatus, getStatusValue } from '@/enitities/types';
+import { STATUS_OPTIONS, TaskStatus } from '@/enitities/types';
 
 const TextAreaWithCounter = withSymbolsCounter(FloatingTextArea);
 
@@ -39,8 +39,8 @@ export const TaskInfoForm = observer(() => {
       <FloatingSelect
         label={t('taskEdit.labels.status')}
         options={STATUS_OPTIONS}
-        value={getStatusValue(task.data.status)}
-        onChange={(option) => task.changeStatus(option?.value as TaskStatus)}
+        value={task.data.status}
+        onChange={(option) => task.changeStatus(option as TaskStatus)}
       />
 
       <div className={styles.taskInfoForm__info}>
