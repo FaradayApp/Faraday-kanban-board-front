@@ -1,0 +1,1 @@
+export { WidgetsPageHeader } from './WidgetsPageHeader';
