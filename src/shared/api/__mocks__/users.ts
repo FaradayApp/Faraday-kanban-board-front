@@ -1,7 +1,7 @@
 import TmpAavatar1 from '@/shared/assets/tmp_avatar1.png';
 import TmpAavatar2 from '@/shared/assets/tmp_avatar2.png';
 import TmpAavatar3 from '@/shared/assets/tmp_avatar3.png';
-import { User } from '../Users';
+import { User } from '../../../stores/Users';
 
 
 export const mockUsers: Record<string, User> = {
