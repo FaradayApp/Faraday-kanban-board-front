@@ -7,6 +7,9 @@
     },
     "buttons": {
       "submit": "Войти"
+    },
+    "errors": {
+      "wrongCredentials": "Неправильные логин или пароль"
     }
   },
   "widgetsManagement": {
