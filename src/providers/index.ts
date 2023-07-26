@@ -1,2 +1,2 @@
-export { I18n } from './I18n';
-export { Router } from './Router';
+export { I18nProvider } from './i18n.provider';
+export { RouterProvider } from './router.provider';

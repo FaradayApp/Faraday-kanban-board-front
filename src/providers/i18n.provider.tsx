@@ -8,6 +8,6 @@ i18n.use(Backend).use(initReactI18next).init({
   fallbackLng: 'ru',
 });
 
-export const I18n = (props: PropsWithChildren) => (
+export const I18nProvider = (props: PropsWithChildren) => (
   <I18nextProvider i18n={i18n} defaultNS={'translation'} {...props} />
 );

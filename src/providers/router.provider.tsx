@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, RouterProvider, ScrollRestoration } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider as ReactRouterProvider, ScrollRestoration } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import { sessionStore } from '@/stores';
@@ -59,6 +59,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const Router = () => {
-  return <RouterProvider router={router} />;
+export const RouterProvider = () => {
+  return <ReactRouterProvider router={router} />;
 };
