@@ -11,6 +11,9 @@ const AuthTokens = t.type({
 
 const kyInstance = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
+  headers: {
+    'content-type': 'application/json',
+  },
 });
 
 function trySetAccessHeader(request: Request) {
