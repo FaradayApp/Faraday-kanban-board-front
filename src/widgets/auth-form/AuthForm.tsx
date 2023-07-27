@@ -1,30 +1,54 @@
 import { useTranslation } from 'react-i18next';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 import styles from './AuthForm.module.scss';
-import { useAuthForm, type LoginFn } from './useAuthForm';
 import { Heading, FloatingInput, Button, EyeIcon } from '@/shared/ui-kit';
 
+const schema = z.object({
+  username: z.string().nonempty(),
+  password: z.string().nonempty(),
+});
+
+type FormSchema = z.infer<typeof schema>;
 type AuthFormProps = {
-  login?: LoginFn;
+  login: (data: FormSchema) => Promise<{ success: boolean }>;
 };
 
-export const AuthForm = ({ login }: AuthFormProps) => {
+export const AuthForm = (props: AuthFormProps) => {
+  const { login } = props;
   const { t } = useTranslation();
-  const { register, handleSubmit, errors, isValid, isDirty } = useAuthForm(login);
+  const { register, handleSubmit, formState, setError } = useForm<FormSchema>({
+    resolver: zodResolver(schema),
+  });
+
+  const { errors, isValid, isDirty } = formState;
+
+  const usernameError = errors.username?.message;
+  const passwordError = errors.password?.message;
+  const rootError = errors.root?.message;
+
+  const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+    const response = await login(data);
+    if (!response?.success) {
+      setError('root', { message: t('authForm.errors.wrongCredentials') });
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Heading tag='h1' size='xl' className={styles.form__title}>
         {t('authForm.title')}
       </Heading>
 
       <div className={styles.form__inputs}>
         <FloatingInput
-          {...register('login')}
+          {...register('username')}
           autoComplete='username'
           label={t('authForm.labels.login')}
-          isInvalid={!!errors.login?.message}
-          errorMessage={errors.login?.message}
+          isInvalid={!!usernameError}
+          errorMessage={usernameError}
           data-testid='username'
         />
 
@@ -34,8 +58,8 @@ export const AuthForm = ({ login }: AuthFormProps) => {
           label={t('authForm.labels.password')}
           type='password'
           controls={<EyeIcon />}
-          isInvalid={!!errors.password?.message}
-          errorMessage={errors.password?.message}
+          isInvalid={!!passwordError}
+          errorMessage={passwordError}
           data-testid='password'
         />
 
@@ -46,8 +70,9 @@ export const AuthForm = ({ login }: AuthFormProps) => {
 
       {isDirty && (
         <footer className={styles.form__errors}>
-          <p className={styles.form__error}>{errors.login?.message}</p>
-          <p className={styles.form__error}>{errors.password?.message}</p>
+          {usernameError && <p className={styles.form__error}>{usernameError}</p>}
+          {passwordError && <p className={styles.form__error}>{passwordError}</p>}
+          {rootError && <p className={styles.form__error}>{rootError}</p>}
         </footer>
       )}
     </form>
