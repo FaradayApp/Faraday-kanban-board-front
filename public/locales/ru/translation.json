@@ -64,10 +64,18 @@
     "priority": {
       "label": "Приоритет:",
       "level": {
-        "hight": "Высокий",
+        "high": "Высокий",
         "medium": "Средний",
         "low": "Низкий"
       }
+    },
+    "status": {
+      "label": "Статус",
+      "backlog": "Backlog",
+      "todo": "To Do",
+      "in_progress": "In Progress",
+      "done": "Done",
+      "archive": "Archive"
     },
     "dates": {
       "start": "Дата постановки",
