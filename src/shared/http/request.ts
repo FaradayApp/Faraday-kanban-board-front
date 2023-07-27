@@ -1,65 +1,45 @@
 import ky from 'ky';
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
 
-import { sessionStore } from '@/stores/Session';
+import { RefreshTokenError } from '@/shared/errors';
+import { validateAuthResponse } from '@/shared/api/auth';
+import { sessionStore } from '@/stores/session/SessionStore';
+import { serialize } from '../lib/serialize';
 
-const AuthTokens = t.type({
-  access: t.string,
-  refresh: t.string,
-});
-
-const kyInstance = ky.create({
+export const baseRequest = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
-  headers: {
-    'content-type': 'application/json',
-  },
+  headers: { 'content-type': 'application/json' },
 });
 
-function trySetAccessHeader(request: Request) {
+function setAccessHeader(request: Request) {
   if (sessionStore.isUser) {
     request.headers.set('Authorization', `Bearer ${sessionStore.tokens.access}`);
   }
+  return request;
 }
 
-function tryRefreshToken() {
-  if (!sessionStore.tokens.refresh) {
-    throw new Error('REFRESH ERROR');
+async function tryRefreshToken() {
+  const options = { body: serialize({ refresh: sessionStore.tokens.refresh }) };
+  const response = await baseRequest.post('auth/refresh/', options).json();
+  const data = validateAuthResponse(response);
+
+  if (data instanceof Error) {
+    sessionStore.clearSession();
+    throw new RefreshTokenError();
   }
 
-  return kyInstance
-    .post('/refresh', {
-      headers: {
-        Authorization: `Bearer ${sessionStore.tokens.refresh}`,
-      },
-    })
-    .json();
+  sessionStore.setTokens(data);
 }
 
-export const request = kyInstance.extend({
+export const request = baseRequest.extend({
   hooks: {
-    beforeRequest: [
-      (request) => {
-        trySetAccessHeader(request);
-      },
-    ],
+    beforeRequest: [setAccessHeader],
     afterResponse: [
       async (request, _, response) => {
-        if (response.status === 403) {
-          const data = await tryRefreshToken();
-          const tokens = AuthTokens.decode(data);
-
-          if (isLeft(tokens)) {
-            sessionStore.logout();
-            throw new Error('REFRESH ERROR');
-          }
-
-          sessionStore.setTokens(tokens.right);
-          trySetAccessHeader(request);
-
-          return ky(request);
+        if (response.status === 401) {
+          console.log(response);
+          await tryRefreshToken();
+          return ky(setAccessHeader(request));
         }
-
         return response;
       },
     ],
