@@ -4,17 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { FloatingSelect } from '@/shared/ui-kit';
 import { TaskStatus } from './task.types';
 
-type Options = { label: string; value: TaskStatus }[];
+type Option = { label: string; value: TaskStatus };
 type TaskStatusSelectProps = {
   value: TaskStatus | null;
-  onChange: (option: string | null) => void;
+  onChange: (option: TaskStatus) => void;
 };
 
 export const TaskStatusSelect = (props: TaskStatusSelectProps) => {
   const { value, onChange } = props;
   const { t } = useTranslation();
 
-  const options: Options = useMemo(
+  const options: Option[] = useMemo(
     () => [
       { label: t('task.status.backlog'), value: 'BACKLOG' },
       { label: t('task.status.todo'), value: 'TODO' },
