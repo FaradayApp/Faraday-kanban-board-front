@@ -16,7 +16,7 @@ export const FloatingTextArea = forwardRef<HTMLTextAreaElement, FloatingTextArea
     const { label, className, isInvalid, errorMessage, ...textareaProps } = props;
 
     const classes = clsx(className, styles.floatingTeaxArea, {
-      [styles.floatingTeaxArea_invalid]: isInvalid,
+      [styles.floatingTeaxArea_invalid]: isInvalid || errorMessage,
     });
 
     return (
@@ -24,7 +24,7 @@ export const FloatingTextArea = forwardRef<HTMLTextAreaElement, FloatingTextArea
         <textarea
           id={id}
           ref={ref}
-          aria-invalid={isInvalid}
+          aria-invalid={!!errorMessage || isInvalid}
           aria-errormessage={errorMessage}
           className={styles.textarea}
           placeholder={label}
