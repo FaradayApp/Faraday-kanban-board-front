@@ -5,27 +5,28 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './TasksSort.module.scss';
 import { OptionsIcon, Text } from '@/shared/ui-kit';
-import { SortOptions } from '@/enitities/types';
+import { SortType } from '@/features/tasks';
+import { observer } from 'mobx-react-lite';
 
 type TasksSortProps = {
-  onSort: (sortType: SortOptions) => void;
+  onSort: (sortType: SortType) => void;
+  selected?: SortType;
 };
 
-export const TasksSort = ({ onSort }: TasksSortProps) => {
+export const TasksSort = observer((props: TasksSortProps) => {
+  const { onSort, selected } = props;
   const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const buttonClasses = clsx(styles.sortButtons__button);
+  const buttonClasses = (type: SortType) =>
+    clsx(styles.sortButtons__button, {
+      [styles.sortButtons__button_selected]: selected === type,
+    });
 
-  const selectedButtonClasses = clsx(
-    styles.sortButtons__button,
-    styles.sortButtons__button_selected
-  );
-
-  const pickSortOption = (sortType: SortOptions) => {
+  const pickSortOption = (sortType: SortType) => {
     onSort(sortType);
     setOpen(false);
-  }
+  };
 
   return (
     <>
@@ -36,17 +37,19 @@ export const TasksSort = ({ onSort }: TasksSortProps) => {
           <Sheet.Header />
           <Sheet.Content>
             <div className={styles.sortButtons}>
-              <button onClick={() => pickSortOption('byDate')} className={buttonClasses}>
+              <button onClick={() => pickSortOption('date')} className={buttonClasses('date')}>
                 <Text tag='span' size='md'>
                   {t('board.sort.byDate')}
                 </Text>
               </button>
-              <button onClick={() => pickSortOption('byName')} className={buttonClasses}>
+              <button onClick={() => pickSortOption('title')} className={buttonClasses('title')}>
                 <Text tag='span' size='md'>
                   {t('board.sort.byName')}
                 </Text>
               </button>
-              <button onClick={() => pickSortOption('byPriority')} className={buttonClasses}>
+              <button
+                onClick={() => pickSortOption('priority')}
+                className={buttonClasses('priority')}>
                 <Text tag='span' size='md'>
                   {t('board.sort.byPriority')}
                 </Text>
@@ -58,4 +61,4 @@ export const TasksSort = ({ onSort }: TasksSortProps) => {
       </Sheet>
     </>
   );
-};
+});
