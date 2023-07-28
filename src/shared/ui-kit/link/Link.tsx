@@ -3,7 +3,7 @@ import { LinkHTMLAttributes, PropsWithChildren } from 'react';
 
 import styles from './Link.module.scss';
 import { CopyIcon } from '@/shared/ui-kit';
-import { tryCopyText } from '@/shared/lib/copyText';
+import { copyText } from '@/shared/lib/copy-text';
 
 type LinkProps = LinkHTMLAttributes<HTMLAnchorElement> &
   PropsWithChildren<{
@@ -17,7 +17,7 @@ export const Link = (props: LinkProps) => {
   const linkClasses = clsx(className, styles.container__link);
 
   const copy = () => {
-    tryCopyText(linkProps.href);
+    copyText(linkProps.href);
   };
 
   return (
