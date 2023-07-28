@@ -15,13 +15,16 @@ type FloatingSelectProps<T extends SelectOption> = {
   value: T['value'] | null;
   options: T[];
   onChange: (option: T['value']) => void;
+  errorMessage?: string;
+  isInvalid?: boolean;
 };
 
 export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProps<T>) => {
-  const { label, options, value, onChange } = props;
+  const { label, options, value, errorMessage, isInvalid, onChange } = props;
 
   const buttonClasses = clsx(styles.select__button, {
     [styles.select__button_filled]: !!value,
+    [styles.select__button_invalid]: isInvalid || errorMessage,
   });
 
   const selectedOption = useMemo(() => {
@@ -29,7 +32,13 @@ export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProp
   }, [options, value]);
 
   return (
-    <Listbox as='div' value={value} onChange={onChange} className={styles.select}>
+    <Listbox
+      as='div'
+      value={value || null}
+      onChange={onChange}
+      className={styles.select}
+      aria-invalid={!!errorMessage || isInvalid}
+      aria-errormessage={errorMessage}>
       <Listbox.Button className={buttonClasses}>
         {({ open }) => (
           <>

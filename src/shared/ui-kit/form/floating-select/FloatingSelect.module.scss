@@ -13,6 +13,10 @@
         @include floatingLabelFilled();
       }
     }
+
+    &_invalid {
+      border-color: var(--input-border-error);
+    }
   }
 
   &__arrow {
