@@ -1,4 +1,4 @@
-import { Dayjs } from 'dayjs';
+import { type Dayjs } from 'dayjs';
 
 export type TaskStatus = 'BACKLOG' | 'TODO' | 'IN_PROGRESS' | 'DONE' | 'ARCHIVE' | '';
 export type TaskPriority = 'MEDIUM' | 'LOW' | 'HIGH' | '';
@@ -15,6 +15,16 @@ export type Task = {
     type: TaskPriority;
     weight: number;
   };
+  // backend will be changed
+  performers: unknown[];
+};
+
+export type CreateTask = {
+  title: string;
+  description: string;
+  expiration_date: Dayjs;
+  status: TaskStatus;
+  priority: TaskPriority;
   // backend will be changed
   performers: unknown[];
 };
