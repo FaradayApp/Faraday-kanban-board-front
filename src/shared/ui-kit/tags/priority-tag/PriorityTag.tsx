@@ -1,30 +1,32 @@
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import styles from './PriorityTag.module.scss';
 import { Text } from '@/shared/ui-kit/typography';
-import { useTranslation } from 'react-i18next';
-import { useMemo } from 'react';
+import { TaskPriority } from '@/enitities/task';
 
 type PriorityTagProps = {
-  type: 'hight' | 'medium' | 'low';
+  type: TaskPriority;
 };
 
-export const PriorityTag = ({ type }: PriorityTagProps) => {
+export const PriorityTag = (props: PriorityTagProps) => {
+  const { type } = props;
   const { t } = useTranslation();
 
   const classes = clsx(styles.priorityTag, {
-    [styles.priorityTag_hight]: type === 'hight',
-    [styles.priorityTag_medium]: type === 'medium',
-    [styles.priorityTag_low]: type === 'low',
+    [styles.priorityTag_high]: type === 'HIGH',
+    [styles.priorityTag_medium]: type === 'MEDIUM',
+    [styles.priorityTag_low]: type === 'LOW',
   });
 
   const text = useMemo(() => {
     switch (type) {
-      case 'hight':
-        return t('task.priority.level.hight');
-      case 'medium':
+      case 'HIGH':
+        return t('task.priority.level.high');
+      case 'MEDIUM':
         return t('task.priority.level.medium');
-      case 'low':
+      case 'LOW':
         return t('task.priority.level.low');
     }
   }, [t, type]);
