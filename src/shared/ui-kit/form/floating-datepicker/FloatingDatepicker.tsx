@@ -3,11 +3,12 @@ import clsx from 'clsx';
 
 import styles from './FloatingDatepicker.module.scss';
 import { CalendarIcon, Text } from '@/shared/ui-kit';
+import dayjs, { type Dayjs } from 'dayjs';
 
 type FloatingDetepickerProps = {
   label: string;
-  value: string;
-  onChange: (newValue: string) => void;
+  value: Dayjs;
+  onChange: (newValue: Dayjs) => void;
   errorMessage?: string;
 };
 
@@ -23,14 +24,14 @@ export const FloatingDetepicker = forwardRef<HTMLInputElement, FloatingDetepicke
     });
 
     const onDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-      onChange(event.target.value);
+      onChange(dayjs(event.target.value));
     };
 
     return (
       <div className={containerClasses}>
         {value && (
           <Text tag='p' size='md' className={styles.date}>
-            {value}
+            {value.format('DD.MM.YYYY')}
           </Text>
         )}
 
