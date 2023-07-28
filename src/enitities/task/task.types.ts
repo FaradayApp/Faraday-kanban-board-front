@@ -19,7 +19,7 @@ export type Task = {
   performers: unknown[];
 };
 
-export type CreateTask = {
+export type NewTask = {
   title: string;
   description: string;
   expiration_date: Dayjs;
