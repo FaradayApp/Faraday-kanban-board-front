@@ -1,7 +1,7 @@
 import { type Dayjs } from 'dayjs';
 
-export type TaskStatus = 'BACKLOG' | 'TODO' | 'IN_PROGRESS' | 'DONE' | 'ARCHIVE' | '';
-export type TaskPriority = 'MEDIUM' | 'LOW' | 'HIGH' | '';
+export type TaskStatus = 'BACKLOG' | 'TODO' | 'IN_PROGRESS' | 'DONE' | 'ARCHIVE';
+export type TaskPriority = 'MEDIUM' | 'LOW' | 'HIGH';
 
 export type Task = {
   id: number;
