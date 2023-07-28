@@ -8,10 +8,12 @@ type Option = { label: string; value: TaskPriority };
 type TaskPrioritySelectProps = {
   value: TaskPriority | null;
   onChange: (option: TaskPriority) => void;
+  isInvalid?: boolean;
+  errorMessage?: string;
 };
 
 export const TaskPrioritySelect = (props: TaskPrioritySelectProps) => {
-  const { value, onChange } = props;
+  const { value, onChange, isInvalid, errorMessage } = props;
   const { t } = useTranslation();
 
   const options: Option[] = useMemo(
@@ -29,6 +31,8 @@ export const TaskPrioritySelect = (props: TaskPrioritySelectProps) => {
       options={options}
       value={value}
       onChange={onChange}
+      isInvalid={isInvalid}
+      errorMessage={errorMessage}
     />
   );
 };

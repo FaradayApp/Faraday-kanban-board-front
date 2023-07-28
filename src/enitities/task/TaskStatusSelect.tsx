@@ -8,10 +8,12 @@ type Option = { label: string; value: TaskStatus };
 type TaskStatusSelectProps = {
   value: TaskStatus | null;
   onChange: (option: TaskStatus) => void;
+  isInvalid?: boolean;
+  errorMessage?: string;
 };
 
 export const TaskStatusSelect = (props: TaskStatusSelectProps) => {
-  const { value, onChange } = props;
+  const { value, onChange, isInvalid, errorMessage } = props;
   const { t } = useTranslation();
 
   const options: Option[] = useMemo(
@@ -20,7 +22,7 @@ export const TaskStatusSelect = (props: TaskStatusSelectProps) => {
       { label: t('task.status.todo'), value: 'TODO' },
       { label: t('task.status.in_progress'), value: 'IN_PROGRESS' },
       { label: t('task.status.done'), value: 'DONE' },
-      { label: t('task.status.arhive'), value: 'ARCHIVE' },
+      { label: t('task.status.archive'), value: 'ARCHIVE' },
     ],
     [t]
   );
@@ -31,6 +33,8 @@ export const TaskStatusSelect = (props: TaskStatusSelectProps) => {
       options={options}
       value={value}
       onChange={onChange}
+      isInvalid={isInvalid}
+      errorMessage={errorMessage}
     />
   );
 };
