@@ -10,13 +10,11 @@ export type SelectOption = {
   value: string;
 };
 
-type OptionValue = SelectOption['value'];
-
-type FloatingSelectProps<T> = {
+type FloatingSelectProps<T extends SelectOption> = {
   label: string;
-  value: OptionValue | null;
+  value: T['value'] | null;
   options: T[];
-  onChange: (option: OptionValue | null) => void;
+  onChange: (option: T['value']) => void;
 };
 
 export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProps<T>) => {
