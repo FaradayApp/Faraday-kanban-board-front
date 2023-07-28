@@ -17,7 +17,7 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>((p
   const { label, controls, className, isInvalid, errorMessage, ...otherProps } = props;
 
   const containerClasses = clsx(className, styles.floatingInput, {
-    [styles.floatingInput_invalid]: isInvalid,
+    [styles.floatingInput_invalid]: isInvalid || errorMessage,
   });
 
   return (
@@ -27,7 +27,7 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>((p
         ref={ref}
         placeholder={label}
         className={styles.floatingInput__input}
-        aria-invalid={isInvalid}
+        aria-invalid={!!errorMessage || isInvalid}
         aria-errormessage={errorMessage}
         {...otherProps}
       />
