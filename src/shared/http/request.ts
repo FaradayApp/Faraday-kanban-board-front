@@ -27,7 +27,7 @@ async function tryRefreshToken() {
     throw new RefreshTokenError();
   }
 
-  sessionStore.setTokens(data);
+  sessionStore.setSession(data);
 }
 
 export const request = baseRequest.extend({
