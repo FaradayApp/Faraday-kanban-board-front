@@ -8,9 +8,9 @@ export function getTaskPriority(id: number): TaskPriority {
       return 'MEDIUM';
     case 3:
       return 'LOW';
-    default:
-      return '';
   }
+
+  throw new Error(`unreachable: unknown task priority id: ${id}`);
 }
 
 export function getTaskStatus(id: number): TaskStatus {
@@ -25,9 +25,9 @@ export function getTaskStatus(id: number): TaskStatus {
       return 'DONE';
     case 5:
       return 'ARCHIVE';
-    default:
-      return '';
   }
+
+  throw new Error(`unreachable: unknown task status id: ${id}`);
 }
 
 export function getTaskPriorityId(id: TaskPriority): number {
