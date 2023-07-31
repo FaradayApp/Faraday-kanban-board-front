@@ -1,47 +1,36 @@
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
-import { useParams } from 'react-router-dom';
 
 import styles from './TaskInfoForm.module.scss';
 import {
   AvatarIcon,
   Button,
-  FloatingSelect,
-  FloatingTextArea,
   Heading,
   PriorityTag,
   Text,
-  withSymbolsCounter,
+  TextAreaWithCounter,
 } from '@/shared/ui-kit';
-import { tasksStore } from '@/stores';
-import { UserComment, UserShortCard } from '@/enitities/user';
-import { STATUS_OPTIONS, TaskStatus } from '@/enitities/types';
+import { UserShortCard } from '@/enitities/user';
+import { TaskStatusSelect, TaskInfo } from '@/enitities/task';
 
-const TextAreaWithCounter = withSymbolsCounter(FloatingTextArea);
+type TaskInfoFormProps = {
+  task: TaskInfo;
+};
 
-export const TaskInfoForm = observer(() => {
+export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
+  const { task } = props;
   const { t } = useTranslation();
-  const { id } = useParams();
-
-  if (!id) return null;
-
-  const task = tasksStore.getById(id);
 
   return (
     <div className={styles.taskInfoForm}>
       <div className={styles.taskInfoForm__title}>
         <Heading tag='h2' size='md'>
-          {task.data.name}
+          {task.title}
         </Heading>
-        <PriorityTag type={task.data.priority} />
+        <PriorityTag type={task.priority} />
       </div>
 
-      <FloatingSelect
-        label={t('taskEdit.labels.status')}
-        options={STATUS_OPTIONS}
-        value={task.data.status}
-        onChange={(option) => task.changeStatus(option as TaskStatus)}
-      />
+      <TaskStatusSelect value={task.status} onChange={() => ({})} />
 
       <div className={styles.taskInfoForm__info}>
         <div className={styles.taskInfoForm__dates}>
@@ -50,7 +39,7 @@ export const TaskInfoForm = observer(() => {
               {t('task.dates.start')}
             </Heading>
             <Text tag='span' size='sm'>
-              {task.data.dates.start}
+              {task.staging_date.format('DD.MM.YYYY')}
             </Text>
           </div>
           <div className={styles.taskInfoForm__date}>
@@ -58,7 +47,7 @@ export const TaskInfoForm = observer(() => {
               {t('task.dates.end')}
             </Heading>
             <Text tag='span' size='sm'>
-              {task.data.dates.end}
+              {task.expiration_date.format('DD.MM.YYYY')}
             </Text>
           </div>
         </div>
@@ -67,16 +56,16 @@ export const TaskInfoForm = observer(() => {
           <Heading tag='h3' size='xsm'>
             {t('task.producer')}
           </Heading>
-          <UserShortCard userId={task.data.producer} />
+          <UserShortCard name={'name'} avatar={''} />
         </div>
 
-        {task.data.workers.length > 0 && (
+        {task.performers.length > 0 && (
           <div className={styles.taskInfoForm__users}>
             <Heading tag='h3' size='xsm'>
               {t('task.workers')}
             </Heading>
-            {task.data.workers.map((id) => (
-              <UserShortCard key={id} userId={id} />
+            {task.performers.map((id) => (
+              <UserShortCard key={id as string} name={'tst'} avatar={''} />
             ))}
           </div>
         )}
@@ -85,27 +74,16 @@ export const TaskInfoForm = observer(() => {
       <div className={styles.taskInfoForm__br} />
 
       <TextAreaWithCounter
-        value={task.data.description}
+        value={task.description}
         label={t('taskEdit.labels.description')}
         maxSymbols={1000}
-        onChange={(event) => task.changeDescription(event?.target.value)}
+        onChange={(event) => event?.target.value}
       />
 
       <div className={styles.taskInfoForm__newComment}>
         <AvatarIcon width={30} height={30} className={styles.taskInfoForm__newCommentAvatar} />
         <TextAreaWithCounter label={t('task.labels.comment')} maxSymbols={60} />
       </div>
-
-      <UserComment
-        date={'06.01.2023'}
-        name='Борис Васильев1'
-        message='Название задачи Описание По умолчанию отображается тот текущий и еще информация различная по задаче'
-      />
-      <UserComment
-        date={'06.01.2023'}
-        name='Борис Васильев2'
-        message='Название задачи Описание По умолчанию отображается '
-      />
 
       <Button>{t('task.buttons.save')}</Button>
     </div>
