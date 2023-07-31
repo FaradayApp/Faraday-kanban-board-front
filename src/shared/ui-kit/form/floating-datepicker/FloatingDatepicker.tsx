@@ -25,7 +25,9 @@ export const FloatingDetepicker = forwardRef<HTMLInputElement, FloatingDetepicke
     });
 
     const onDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-      onChange(dayjs(event.target.value));
+      if (event.target.value) {
+        onChange(dayjs(event.target.value));
+      }
     };
 
     return (
