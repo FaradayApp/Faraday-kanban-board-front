@@ -25,7 +25,7 @@ function createColumns(tasks: Task[]) {
 export class BoardStore {
   tasks = new DataCache<Task[]>({ defaultValue: [] });
   columns: BoardColumnStore[] = [];
-  boardId = '';
+  boardId = '06f77037-1d21-4603-857a-6fabed8b63d6';
 
   constructor() {
     makeAutoObservable(this);

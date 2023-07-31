@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
+import { type SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskInfoForm.module.scss';
 import {
@@ -12,17 +14,27 @@ import {
 } from '@/shared/ui-kit';
 import { UserShortCard } from '@/enitities/user';
 import { TaskStatusSelect, TaskInfo } from '@/enitities/task';
+import { TaskInfoSchema, taskInfoSchema } from './scheme';
 
 type TaskInfoFormProps = {
   task: TaskInfo;
+  editTask: (task: Partial<TaskInfo>) => void;
 };
 
 export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
-  const { task } = props;
+  const { task, editTask } = props;
   const { t } = useTranslation();
 
+  const { handleSubmit, control, formState } = useForm<TaskInfoSchema>({
+    resolver: zodResolver(taskInfoSchema),
+  });
+  const { errors, isSubmitting } = formState;
+  const { status, description } = errors;
+
+  const onSubmit: SubmitHandler<TaskInfoSchema> = (data) => editTask(data);
+
   return (
-    <div className={styles.taskInfoForm}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.taskInfoForm}>
       <div className={styles.taskInfoForm__title}>
         <Heading tag='h2' size='md'>
           {task.title}
@@ -30,7 +42,18 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
         <PriorityTag type={task.priority} />
       </div>
 
-      <TaskStatusSelect value={task.status} onChange={() => ({})} />
+      <Controller
+        name='status'
+        control={control}
+        defaultValue={task.status}
+        render={({ field }) => (
+          <TaskStatusSelect
+            value={field.value}
+            onChange={(option) => field.onChange(option)}
+            errorMessage={status?.message}
+          />
+        )}
+      />
 
       <div className={styles.taskInfoForm__info}>
         <div className={styles.taskInfoForm__dates}>
@@ -73,11 +96,19 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
 
       <div className={styles.taskInfoForm__br} />
 
-      <TextAreaWithCounter
-        value={task.description}
-        label={t('taskEdit.labels.description')}
-        maxSymbols={1000}
-        onChange={(event) => event?.target.value}
+      <Controller
+        name='description'
+        control={control}
+        defaultValue={task.description}
+        render={({ field }) => (
+          <TextAreaWithCounter
+            value={field.value}
+            onChange={field.onChange}
+            label={t('taskEdit.labels.description')}
+            errorMessage={description?.message}
+            maxSymbols={1000}
+          />
+        )}
       />
 
       <div className={styles.taskInfoForm__newComment}>
@@ -85,7 +116,7 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
         <TextAreaWithCounter label={t('task.labels.comment')} maxSymbols={60} />
       </div>
 
-      <Button>{t('task.buttons.save')}</Button>
-    </div>
+      <Button disabled={isSubmitting}>{t('task.buttons.save')}</Button>
+    </form>
   );
 });
