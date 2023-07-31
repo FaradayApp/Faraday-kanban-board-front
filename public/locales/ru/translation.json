@@ -30,7 +30,8 @@
     "addWidgetModal": {
       "message": "Создание нового виджета",
       "placeholders": {
-        "link": "Ссылка"
+        "link": "Ссылка",
+        "title": "Название"
       }
     }
   },
