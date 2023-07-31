@@ -1,54 +1,48 @@
-import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { Controller, useForm } from 'react-hook-form';
-import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskEditForm.module.scss';
-import {
-  Button,
-  FloatingDetepicker,
-  FloatingInput,
-  FloatingSelect,
-  FloatingTextArea,
-  withSymbolsCounter,
-} from '@/shared/ui-kit';
-import { tasksStore } from '@/stores';
+import { Button, FloatingDetepicker, InputWithCounter, TextAreaWithCounter } from '@/shared/ui-kit';
 import { UsersMultiselect } from '@/enitities/user';
-import { PRIORITY_OPTIONS, STATUS_OPTIONS } from '@/enitities/types';
+import { type TaskInfo, TaskPrioritySelect, TaskStatusSelect } from '@/enitities/task';
+import { type EditTaskSchema, editTaskSchema } from './scheme';
 
-const InputWithCounter = withSymbolsCounter(FloatingInput);
-const TextAreaWithCounter = withSymbolsCounter(FloatingTextArea);
+type TaskEditFormProps = {
+  task: TaskInfo;
+  editTask: (task: Partial<TaskInfo>) => void;
+};
 
-export const TaskEditForm = observer(() => {
+export const TaskEditForm = observer((props: TaskEditFormProps) => {
+  const { task, editTask } = props;
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { handleSubmit, control, register, formState } = useForm<EditTaskSchema>({
+    resolver: zodResolver(editTaskSchema),
+  });
+  const { errors, isSubmitting } = formState;
+  const { title, status, priority, description, expiration_date } = errors;
 
-  const { handleSubmit, control, register } = useForm();
-  const onSubmit = (data: unknown) => console.log(data);
-
-  if (!id) return null;
-
-  const task = tasksStore.getById(id);
+  const onSubmit: SubmitHandler<EditTaskSchema> = (data) => editTask(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <InputWithCounter
-        {...register('name', { value: task.data.name })}
+        {...register('title', { value: task.title })}
         label={t('taskEdit.labels.name')}
+        errorMessage={title?.message}
         maxSymbols={60}
       />
 
       <Controller
         name='status'
         control={control}
-        defaultValue={task.data.status}
+        defaultValue={task.status}
         render={({ field }) => (
-          <FloatingSelect
-            label={t('taskEdit.labels.status')}
-            options={STATUS_OPTIONS}
+          <TaskStatusSelect
             value={field.value}
             onChange={(option) => field.onChange(option)}
+            errorMessage={status?.message}
           />
         )}
       />
@@ -56,50 +50,53 @@ export const TaskEditForm = observer(() => {
       <Controller
         name='priority'
         control={control}
-        defaultValue={task.data.priority}
+        defaultValue={task.priority}
         render={({ field }) => (
-          <FloatingSelect
-            label={t('taskEdit.labels.priority')}
-            options={PRIORITY_OPTIONS}
+          <TaskPrioritySelect
             value={field.value}
             onChange={(option) => field.onChange(option)}
+            errorMessage={priority?.message}
           />
         )}
       />
 
       <TextAreaWithCounter
-        {...register('description', { value: task.data.description })}
+        {...register('description', { value: task.description })}
         label={t('taskEdit.labels.description')}
+        errorMessage={description?.message}
         maxSymbols={1000}
       />
 
       <Controller
-        name='endDate'
+        name='expiration_date'
         control={control}
-        defaultValue={task.data.dates.end}
+        defaultValue={task.expiration_date}
         render={({ field }) => (
           <FloatingDetepicker
             label={t('taskEdit.labels.endDate')}
             value={field.value}
-            onChange={(date) => field.onChange(dayjs(date).format('DD.MM.YYYY'))}
+            onChange={field.onChange}
+            errorMessage={expiration_date?.message}
           />
         )}
       />
 
       <Controller
-        name='workers'
+        name='performers'
         control={control}
-        defaultValue={[...task.data.workers]}
+        defaultValue={[...task.performers] as number[]}
         render={({ field }) => (
           <UsersMultiselect
             selectedUsers={field.value}
-            onSelect={(id) => field.onChange([...field.value, id])}
-            onRemove={(id) => field.onChange(field.value.filter((userId: UserId) => userId !== id))}
+            onSelect={(newId) => field.onChange([...field.value, newId])}
+            onRemove={(id) => field.onChange(field.value.filter((userId: number) => userId !== id))}
           />
         )}
       />
 
-      <Button type='submit'>{t('taskEdit.buttons.save')}</Button>
+      <Button disabled={isSubmitting} type='submit'>
+        {t('taskEdit.buttons.save')}
+      </Button>
     </form>
   );
 });
