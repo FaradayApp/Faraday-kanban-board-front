@@ -8,9 +8,9 @@ import { UserShortCard } from '@/enitities/user';
 import { SearchIcon, FloatingInput, CloseIcon } from '@/shared/ui-kit';
 
 type UsersMultiselectProps = {
-  selectedUsers: UserId[];
-  onSelect: (id: string) => void;
-  onRemove: (id: string) => void;
+  selectedUsers: number[];
+  onSelect: (id: number) => void;
+  onRemove: (id: number) => void;
 };
 
 export const UsersMultiselect = observer((props: UsersMultiselectProps) => {
@@ -26,7 +26,7 @@ export const UsersMultiselect = observer((props: UsersMultiselectProps) => {
         <div className={styles.usersMultiselect__foundUsersList}>
           {searchStore.foundedUsers.map((id) => (
             <div key={id} onClick={() => onSelect(id)}>
-              <UserShortCard userId={id} />
+              <UserShortCard name={''} avatar={''} />
             </div>
           ))}
         </div>
@@ -43,7 +43,8 @@ export const UsersMultiselect = observer((props: UsersMultiselectProps) => {
         {selectedUsers.map((id) => (
           <UserShortCard
             key={id}
-            userId={id}
+            name={''}
+            avatar={''}
             controls={<CloseIcon onClick={() => onRemove(id)} />}
           />
         ))}

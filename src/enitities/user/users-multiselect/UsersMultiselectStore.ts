@@ -1,10 +1,8 @@
-import { makeAutoObservable } from "mobx";
-
-import { usersStore } from "@/stores/Users";
+import { makeAutoObservable } from 'mobx';
 
 export class UsersMultiselectStore {
   search = '';
-  foundedUsers: UserId[] = [];
+  foundedUsers: number[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -12,6 +10,6 @@ export class UsersMultiselectStore {
 
   searchUsers(search: string) {
     this.search = search;
-    this.foundedUsers = usersStore.searchUsers(search);
+    this.foundedUsers = [];
   }
 }
