@@ -44,4 +44,8 @@ export class DataCache<T> {
       });
     }
   };
+
+  update = (newData: T) => {
+    this.data = newData;
+  };
 }
