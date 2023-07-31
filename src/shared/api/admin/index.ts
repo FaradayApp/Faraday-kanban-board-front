@@ -1,1 +1,1 @@
-export * from './boards/get-all-boards';
+export * from './boards';
