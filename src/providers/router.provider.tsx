@@ -1,4 +1,9 @@
-import { createBrowserRouter, Outlet, RouterProvider as ReactRouterProvider, ScrollRestoration } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider as ReactRouterProvider,
+  ScrollRestoration,
+} from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import { sessionStore } from '@/stores';
@@ -8,7 +13,7 @@ import {
   TaskCreatePage,
   TaskEditPage,
   TaskInfoPage,
-  WidgetsPage,
+  BoardsManagementPage,
 } from '@/pages';
 
 const AuthGuard = observer(() => {
@@ -48,8 +53,8 @@ const router = createBrowserRouter([
         element: <TaskEditPage />,
       },
       {
-        path: '/widgets',
-        element: <WidgetsPage />,
+        path: '/admin/boards',
+        element: <BoardsManagementPage />,
       },
       {
         path: '*',
