@@ -8,7 +8,9 @@ export function createBoard(boardManagementStore: BoardsManagementStore) {
   };
 
   const createNewBoard = async (data: CreateBoard) => {
-    await createBoardApi(data);
+    const createdBoard = await createBoardApi(data);
+    boardManagementStore.addBoard(createdBoard);
+    boardManagementStore.closeCreateBoardModal();
   };
 
   const closeCreateModal = () => {
