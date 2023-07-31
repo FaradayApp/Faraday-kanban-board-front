@@ -1,1 +1,0 @@
-export { WidgetNew } from './WidgetNew';
