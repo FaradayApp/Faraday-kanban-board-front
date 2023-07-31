@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/Either';
 
+import { BadResponseError } from '@/shared/errors';
 import { type Task } from '@/enitities/task';
 import { getTaskPriority, getTaskStatus } from '../utils';
 
@@ -19,7 +20,7 @@ export type TaskDto = t.TypeOf<typeof TaskDto>;
 export function validateTaskDto(data: unknown) {
   const tokens = TaskDto.decode(data);
   if (isLeft(tokens)) {
-    throw new Error();
+    throw new BadResponseError();
   } else {
     return tokens.right;
   }
