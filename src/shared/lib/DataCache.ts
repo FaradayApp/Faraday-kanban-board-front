@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 type State = 'EMPTY' | 'PENDING' | 'FULLFILLED' | 'REJECTED';
 type Options<T> = {
@@ -10,8 +10,8 @@ export class DataCache<T> {
   public data: T;
 
   constructor({ defaultValue }: Options<T>) {
-    this.data = defaultValue;
     makeAutoObservable(this);
+    this.data = defaultValue;
   }
 
   get isEmpty() {
@@ -33,10 +33,15 @@ export class DataCache<T> {
   set = async (fetcher: () => Promise<T>) => {
     try {
       this.state = 'PENDING';
-      this.data = await fetcher();
-      this.state = 'FULLFILLED';
+      const response = await fetcher();
+      runInAction(() => {
+        this.data = response;
+        this.state = 'FULLFILLED';
+      });
     } catch {
-      this.state = 'REJECTED';
+      runInAction(() => {
+        this.state = 'REJECTED';
+      });
     }
   };
 }
