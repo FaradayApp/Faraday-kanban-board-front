@@ -14,7 +14,7 @@ const CreateNewTaskDto = t.type({
 
 type CreateNewTaskDto = t.TypeOf<typeof CreateNewTaskDto>;
 
-export function toDto(newTask: NewTask): CreateNewTaskDto {
+export function toCreateNewTaskDto(newTask: NewTask): CreateNewTaskDto {
   return CreateNewTaskDto.encode({
     title: newTask.title,
     description: newTask.description,

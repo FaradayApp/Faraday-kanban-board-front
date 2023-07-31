@@ -14,7 +14,7 @@ const EditTaskInfoDto = t.partial({
 
 type EditTaskInfoDto = t.TypeOf<typeof EditTaskInfoDto>;
 
-export function toDto(taskInfo: Partial<TaskInfo>): EditTaskInfoDto {
+export function toEditTaskInfoDto(taskInfo: Partial<TaskInfo>): EditTaskInfoDto {
   return {
     title: taskInfo.title,
     description: taskInfo.description,
