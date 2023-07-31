@@ -6,3 +6,7 @@ export type Board = {
   title: string;
   created_at: Dayjs;
 };
+
+export type CreateBoard = {
+  title: string;
+};

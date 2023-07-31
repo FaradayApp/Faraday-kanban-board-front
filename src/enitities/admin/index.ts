@@ -1,1 +1,1 @@
-export { type Board } from './board.types';
+export { type Board, type CreateBoard } from './board.types';
