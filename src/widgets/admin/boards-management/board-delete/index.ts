@@ -1,0 +1,1 @@
+export { BoardDelete } from './BoardDelete';
