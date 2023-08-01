@@ -45,6 +45,11 @@ export class BoardStore {
       this.boardId = boardId;
     }
   };
+
+  addNewTask = (newTask: Task) => {
+    const column = this.columns.find((column) => column.title === newTask.title);
+    column?.addTask(newTask);
+  };
 }
 
 export const boardStore = new BoardStore();

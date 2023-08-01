@@ -24,6 +24,9 @@ export class BoardColumnStore {
 
   addTask = (task: Task) => {
     this.tasks.push(task);
+    if (this.options.sort) {
+      this.sort(this.options.sort);
+    }
   };
 
   sort = (type: SortType) => {
