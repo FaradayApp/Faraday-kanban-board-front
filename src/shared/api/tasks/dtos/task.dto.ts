@@ -18,11 +18,11 @@ const TaskDto = t.type({
 export type TaskDto = t.TypeOf<typeof TaskDto>;
 
 export function validateTaskDto(data: unknown) {
-  const tokens = TaskDto.decode(data);
-  if (isLeft(tokens)) {
+  const task = TaskDto.decode(data);
+  if (isLeft(task)) {
     throw new BadResponseError();
   } else {
-    return tokens.right;
+    return task.right;
   }
 }
 

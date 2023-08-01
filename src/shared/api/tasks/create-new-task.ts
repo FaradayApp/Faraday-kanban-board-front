@@ -6,6 +6,6 @@ import { toTask, validateTaskDto } from './dtos/task.dto';
 
 export async function createNewTask(boardId: string, newTask: NewTask) {
   const options = { body: serialize(toCreateNewTaskDto(newTask)) };
-  const response = request.post(`board/${boardId}/tasks/`, options);
+  const response = await request.post(`board/${boardId}/tasks/`, options).json();
   return toTask(validateTaskDto(response));
 }
