@@ -1,7 +1,7 @@
 import { request } from '@/shared/http';
 import { serialize } from '@/shared/lib/serialize';
 import { WrongCredentialsError } from '@/shared/errors';
-import { validateAuthResponse } from './auth.validate';
+import { validateAuthResponse } from './auth.dto';
 
 type Credentials = {
   username: string;

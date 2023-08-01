@@ -1,2 +1,3 @@
-export { validateAuthResponse } from './auth.validate';
-export { login } from './auth';
+export { validateAuthResponse } from './auth.dto';
+export { login } from './login';
+export { registration } from './registration';
