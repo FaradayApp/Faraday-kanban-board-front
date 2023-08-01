@@ -14,7 +14,7 @@ export const BoardCard = (props: BoardCardProps) => {
   const { board, onDelete } = props;
   const { uuid, title } = board;
 
-  const link = `tmp-site/${uuid}`;
+  const link = `/board/${uuid}/`;
 
   return (
     <article className={styles.boardCard}>
