@@ -7,6 +7,7 @@
     @include floatingForm();
     background: none;
     height: 54px;
+    color: var(--text-primary);
 
     &_filled {
       > .select__label {
