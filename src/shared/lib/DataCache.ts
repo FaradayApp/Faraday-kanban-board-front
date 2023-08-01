@@ -27,7 +27,7 @@ export class DataCache<T> {
   }
 
   get isRejected() {
-    return this.state === 'FULLFILLED';
+    return this.state === 'REJECTED';
   }
 
   set = async (fetcher: () => Promise<T>) => {
