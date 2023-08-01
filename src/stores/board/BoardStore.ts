@@ -54,6 +54,18 @@ export class BoardStore {
     }
     column?.addTask(newTask);
   };
+
+  updateTask = (updatedTask: Task) => {
+    const outdatedTask = this.tasks.data.find((task) => task.id === updatedTask.id);
+    const column = this.columns.find((column) => column.title === outdatedTask?.status.type);
+
+    if (outdatedTask?.status.type === updatedTask.status.type) {
+      column?.updateTask(updatedTask);
+    } else {
+      column?.removeTask(updatedTask);
+      this.addNewTask(updatedTask);
+    }
+  };
 }
 
 export const boardStore = new BoardStore();

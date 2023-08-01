@@ -18,6 +18,12 @@ export class TaskInfoStore {
       await this.taskInfo.set(() => getTaskInfo(boardId, taskId));
     }
   };
+
+  updateTaskInfo = (updatedTaskInfo: TaskInfo) => {
+    if (this.taskInfo.data?.id === updatedTaskInfo.id) {
+      this.taskInfo.update(updatedTaskInfo);
+    }
+  };
 }
 
 export const taskInfoStore = new TaskInfoStore();

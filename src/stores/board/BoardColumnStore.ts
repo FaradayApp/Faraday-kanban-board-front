@@ -29,6 +29,17 @@ export class BoardColumnStore {
     }
   };
 
+  removeTask = (taskToRemove: Task) => {
+    this.tasks = this.tasks.filter((task) => task.id !== taskToRemove.id);
+  };
+
+  updateTask = (taskToUpdate: Task) => {
+    const task = this.tasks.find((task) => task.id === taskToUpdate.id);
+    if (task?.status.type !== taskToUpdate.status.type) {
+      this.removeTask(taskToUpdate);
+    }
+  };
+
   sort = (type: SortType) => {
     this.options.sort = type;
     this.tasks = sortTasks(this.tasks, this.options.sort);

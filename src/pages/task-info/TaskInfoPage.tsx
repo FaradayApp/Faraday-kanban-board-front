@@ -24,7 +24,7 @@ export const TaskInfoPage = observer(() => {
   const editTask = useCallback(
     (data: Partial<TaskInfo>) => {
       if (id) {
-        editTaskInfo(boardStore, id)(data);
+        editTaskInfo(boardStore, taskInfoStore, id)(data);
       }
     },
     [id]
@@ -39,10 +39,7 @@ export const TaskInfoPage = observer(() => {
   return (
     <PageContainer
       header={
-        <TaskPageHeader 
-          title={t('task.title')} 
-          options={<EditIcon onClick={openEditTaskPage} />} 
-        />
+        <TaskPageHeader title={t('task.title')} options={<EditIcon onClick={openEditTaskPage} />} />
       }>
       {data && <TaskInfoForm task={data} editTask={editTask} />}
     </PageContainer>
