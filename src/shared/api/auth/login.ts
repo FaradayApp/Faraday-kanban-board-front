@@ -18,3 +18,14 @@ export async function login(credentials: Credentials) {
     return new WrongCredentialsError();
   }
 }
+
+export async function loginAdmin(credentials: Credentials) {
+  try {
+    const options = { body: serialize(credentials) };
+    const response = await request.post('admin/login/', options).json();
+
+    return validateAuthResponse(response);
+  } catch {
+    return new WrongCredentialsError();
+  }
+}

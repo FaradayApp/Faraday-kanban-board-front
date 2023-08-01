@@ -1,3 +1,3 @@
 export { validateAuthResponse } from './auth.dto';
-export { login } from './login';
+export { login, loginAdmin } from './login';
 export { registration } from './registration';
