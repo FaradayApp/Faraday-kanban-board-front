@@ -47,7 +47,11 @@ export class BoardStore {
   };
 
   addNewTask = (newTask: Task) => {
-    const column = this.columns.find((column) => column.title === newTask.title);
+    let column = this.columns.find((column) => column.title === newTask.status.type);
+    if (!column) {
+      column = new BoardColumnStore(newTask.status.type);
+      this.columns.push(column);
+    }
     column?.addTask(newTask);
   };
 }
