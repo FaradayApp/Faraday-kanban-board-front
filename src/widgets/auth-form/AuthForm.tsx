@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import styles from './AuthForm.module.scss';
-import { Heading, FloatingInput, Button, EyeIcon } from '@/shared/ui-kit';
+import { Heading, FloatingInput, Button, FloatingPasswordInput } from '@/shared/ui-kit';
 
 const schema = z.object({
   username: z.string().nonempty(),
@@ -52,12 +52,10 @@ export const AuthForm = (props: AuthFormProps) => {
           data-testid='username'
         />
 
-        <FloatingInput
+        <FloatingPasswordInput
           {...register('password')}
           autoComplete='current-password'
           label={t('authForm.labels.password')}
-          type='password'
-          controls={<EyeIcon />}
           isInvalid={!!passwordError}
           errorMessage={passwordError}
           data-testid='password'
