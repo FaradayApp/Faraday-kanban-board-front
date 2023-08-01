@@ -1,4 +1,14 @@
 .formContainer {
   margin-top: 130px;
   width: 100%;
+
+  &__bottomLink {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+    color: var(--button-text-secondary);
+    text-decoration: underline;
+  }
 }
