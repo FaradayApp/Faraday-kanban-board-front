@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './TaskPageHeader.module.scss';
 import { ArrowIcon, Heading } from '@/shared/ui-kit';
+import { ReactNode } from 'react';
 
 type TaskPageHeaderProps = {
   title?: string;
+  options?: ReactNode;
 };
 
-export const TaskPageHeader = ({ title }: TaskPageHeaderProps) => {
+export const TaskPageHeader = (props: TaskPageHeaderProps) => {
+  const { title, options } = props;
   const navigate = useNavigate();
 
   const goToBoardPage = () => {
@@ -17,6 +20,7 @@ export const TaskPageHeader = ({ title }: TaskPageHeaderProps) => {
     <div className={styles.container}>
       <ArrowIcon onClick={goToBoardPage} />
       <Heading size='lg' children={title} />
+      {options}
     </div>
   );
 };
