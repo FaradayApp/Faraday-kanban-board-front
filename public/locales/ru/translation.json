@@ -6,7 +6,8 @@
       "password": "Пароль"
     },
     "buttons": {
-      "submit": "Войти"
+      "submit": "Войти",
+      "register": "Регистрация"
     },
     "errors": {
       "wrongCredentials": "Неправильные логин или пароль"
@@ -21,7 +22,8 @@
       "lastName": "Фамилия"
     },
     "buttons": {
-      "submit": "Создать аккаунт"
+      "submit": "Создать аккаунт",
+      "login": "Войти"
     }
   },
   "widgetsManagement": {
