@@ -25,7 +25,7 @@ function createColumns(tasks: Task[]) {
 export class BoardStore {
   tasks = new DataCache<Task[]>({ defaultValue: [] });
   columns: BoardColumnStore[] = [];
-  boardId = '06f77037-1d21-4603-857a-6fabed8b63d6';
+  boardId = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -37,6 +37,12 @@ export class BoardStore {
       runInAction(() => {
         this.columns = createColumns(this.tasks.data);
       });
+    }
+  };
+
+  setBoardId = (boardId: string) => {
+    if (!this.boardId || this.boardId !== boardId) {
+      this.boardId = boardId;
     }
   };
 }

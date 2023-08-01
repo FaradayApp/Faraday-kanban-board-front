@@ -12,13 +12,13 @@ import { TaskInfoForm, TaskPageHeader } from '@/widgets/task';
 
 export const TaskInfoPage = observer(() => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id, boardId } = useParams();
 
   useEffect(() => {
-    if (id) {
-      taskInfoStore.init(id);
+    if (id && boardId) {
+      taskInfoStore.init(id, boardId);
     }
-  }, [id]);
+  }, [id, boardId]);
 
   const editTask = useCallback(
     (data: Partial<TaskInfo>) => {

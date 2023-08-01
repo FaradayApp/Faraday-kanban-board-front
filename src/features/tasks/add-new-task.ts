@@ -7,6 +7,6 @@ import { BoardStore } from '@/stores/board/BoardStore';
 export function addNewTask(boardStore: BoardStore, navigate: NavigateFunction) {
   return async function (newTask: NewTask) {
     await createNewTask(boardStore.boardId, newTask);
-    navigate('/board/');
+    navigate(`/board/${boardStore.boardId}/`);
   };
 }

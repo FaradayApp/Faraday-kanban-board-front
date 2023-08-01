@@ -24,7 +24,7 @@ export const TaskCard = observer((props: Task) => {
   const comments = 0;
 
   const openTaskInfo = () => {
-    navigate(`/task/${id}`);
+    navigate(`task/${id}`);
   };
 
   return (

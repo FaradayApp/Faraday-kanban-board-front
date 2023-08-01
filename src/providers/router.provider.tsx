@@ -15,13 +15,14 @@ import {
   TaskInfoPage,
   BoardsManagementPage,
 } from '@/pages';
+import { BoardProvider } from './board.provider';
 
 const AuthGuard = observer(() => {
   return sessionStore.isUser ? (
-    <>
+    <BoardProvider>
       <Outlet />
       <ScrollRestoration />
-    </>
+    </BoardProvider>
   ) : (
     <AuthPage />
   );
@@ -33,23 +34,19 @@ const router = createBrowserRouter([
     element: <AuthGuard />,
     children: [
       {
-        path: '/',
+        path: '/board/:boardId/',
         element: <BoardPage />,
       },
       {
-        path: '/board',
-        element: <BoardPage />,
-      },
-      {
-        path: '/task/:id',
+        path: '/board/:boardId/task/:id',
         element: <TaskInfoPage />,
       },
       {
-        path: '/task/create',
+        path: '/board/:boardId/task/create',
         element: <TaskCreatePage />,
       },
       {
-        path: '/task/:id/edit',
+        path: '/board/:boardId/task/:id/edit',
         element: <TaskEditPage />,
       },
       {

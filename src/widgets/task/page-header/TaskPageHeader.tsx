@@ -10,7 +10,7 @@ export const TaskPageHeader = ({ title }: TaskPageHeaderProps) => {
   const navigate = useNavigate();
 
   const goToBoardPage = () => {
-    navigate('/board');
+    navigate(-1);
   };
 
   return (

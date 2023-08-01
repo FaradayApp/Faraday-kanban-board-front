@@ -11,7 +11,7 @@ export const BoardPageHeader = () => {
   return (
     <div className={styles.container}>
       <Heading size='lg'>{t('board.title')}</Heading>
-      <AddTaskIcon onClick={() => navigate('/task/create')} />
+      <AddTaskIcon onClick={() => navigate('task/create')} />
     </div>
   );
 };
