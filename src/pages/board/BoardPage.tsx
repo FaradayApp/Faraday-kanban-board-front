@@ -5,8 +5,11 @@ import styles from './BoardPage.module.scss';
 import { PageContainer } from '@/shared/ui-kit';
 import { boardStore } from '@/stores/board/BoardStore';
 import { BoardPageHeader, TaskCard, TasksContainer, TasksSort } from '@/widgets/board';
+import { useTranslation } from 'react-i18next';
 
 export const BoardPage = observer(() => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     boardStore.init();
   }, []);
@@ -28,6 +31,9 @@ export const BoardPage = observer(() => {
                 ))}
               </TasksContainer>
             )
+        )}
+        {boardStore.tasks.isRejected && (
+          <div className={styles.boardPage__error}>{t('board.errors.load')}</div>
         )}
       </div>
     </PageContainer>
