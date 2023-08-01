@@ -12,6 +12,18 @@
       "wrongCredentials": "Неправильные логин или пароль"
     }
   },
+  "registrationForm": {
+    "title": "Регистрация",
+    "labels": {
+      "login": "Логин",
+      "password": "Пароль",
+      "firstName": "Имя",
+      "lastName": "Фамилия"
+    },
+    "buttons": {
+      "submit": "Создать аккаунт"
+    }
+  },
   "widgetsManagement": {
     "title": "Управление виджетами",
     "placeholders": {
