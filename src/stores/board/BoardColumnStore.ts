@@ -37,6 +37,8 @@ export class BoardColumnStore {
     const task = this.tasks.find((task) => task.id === taskToUpdate.id);
     if (task?.status.type !== taskToUpdate.status.type) {
       this.removeTask(taskToUpdate);
+    } else {
+      Object.assign(task, taskToUpdate);
     }
   };
 
