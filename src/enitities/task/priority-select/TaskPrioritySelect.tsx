@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FloatingSelect } from '@/shared/ui-kit';
-import { TaskPriority } from './task.types';
+import { TaskPriority } from '../task.types';
 
 type Option = { label: string; value: TaskPriority };
 type TaskPrioritySelectProps = {

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { FloatingSelect } from '@/shared/ui-kit';
-import { TaskStatus } from './task.types';
+import { TaskStatus } from '../task.types';
 
 type Option = { label: string; value: TaskStatus };
 type TaskStatusSelectProps = {

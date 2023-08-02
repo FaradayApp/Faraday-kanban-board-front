@@ -5,5 +5,5 @@ export {
   type NewTask,
   type TaskInfo,
 } from './task.types';
-export { TaskStatusSelect } from './TaskStatusSelect';
-export { TaskPrioritySelect } from './TaskPrioritySelect';
+export { TaskStatusSelect } from './status-select';
+export { TaskPrioritySelect } from './priority-select';
