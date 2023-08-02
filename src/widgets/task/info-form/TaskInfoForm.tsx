@@ -79,7 +79,7 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
           <Heading tag='h3' size='xsm'>
             {t('task.producer')}
           </Heading>
-          <UserShortCard name={'name'} avatar={''} />
+          <UserShortCard user={task.producer} />
         </div>
 
         {task.performers.length > 0 && (
@@ -87,8 +87,8 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
             <Heading tag='h3' size='xsm'>
               {t('task.workers')}
             </Heading>
-            {task.performers.map((id) => (
-              <UserShortCard key={id as string} name={'tst'} avatar={''} />
+            {task.performers.map((user) => (
+              <UserShortCard key={user.id} user={user} />
             ))}
           </div>
         )}
