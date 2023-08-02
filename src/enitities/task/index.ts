@@ -7,3 +7,4 @@ export {
 } from './task.types';
 export { TaskStatusSelect } from './status-select';
 export { TaskPrioritySelect } from './priority-select';
+export { PerformersSelect } from './performers-select';
