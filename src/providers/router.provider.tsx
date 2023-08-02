@@ -1,5 +1,6 @@
 import {
   createBrowserRouter,
+  Navigate,
   Outlet,
   RouterProvider as ReactRouterProvider,
   ScrollRestoration,
@@ -46,8 +47,12 @@ const router = createBrowserRouter([
     element: <AuthAdminGuard />,
     children: [
       {
-        path: 'boards/',
+        path: 'boards',
         element: <BoardsManagementPage />,
+      },
+      {
+        path: '*',
+        element: <Navigate to='/admin/boards' />,
       },
     ],
   },
@@ -73,7 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <BoardPage />,
+        element: <Navigate to='/board/empty' />,
       },
     ],
   },
