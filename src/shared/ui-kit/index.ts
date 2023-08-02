@@ -7,3 +7,4 @@ export * from './modal';
 export * from './tags';
 export * from './typography';
 export * from './avatar';
+export * from './loader';
