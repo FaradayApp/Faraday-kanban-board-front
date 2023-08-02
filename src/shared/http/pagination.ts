@@ -14,15 +14,16 @@ export type PaginationOptions = {
 
 type Options = {
   endpoint: string;
+  searchParams?: Record<string, unknown>;
 };
 
 export async function getAllPages<T>(options: PaginationOptions & Options) {
-  const { page, page_size, endpoint } = options;
+  const { page, page_size, endpoint, searchParams } = options;
   const paginationOptions = {
     page: page || 1,
     page_size: page_size || 100,
   };
-  const params = { searchParams: paginationOptions };
+  const params = { searchParams: { ...paginationOptions, ...searchParams } };
 
   const results: T[] = [];
 
