@@ -7,7 +7,7 @@ function byTitle(taskA: Task, taskB: Task) {
 }
 
 function byPriority(taskA: Task, taskB: Task) {
-  return taskB.priority.weight - taskA.priority.weight;
+  return taskA.priority.weight - taskB.priority.weight;
 }
 
 function byDate(taskA: Task, taskB: Task) {
