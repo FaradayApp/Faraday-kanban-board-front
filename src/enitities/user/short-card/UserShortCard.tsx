@@ -2,21 +2,21 @@ import { ReactNode } from 'react';
 
 import styles from './UserShortCard.module.scss';
 import { Avatar, Text } from '@/shared/ui-kit';
+import { User } from '../user.types';
 
 type UserShortCardProps = {
-  name: string;
-  avatar: string;
+  user: User;
   controls?: ReactNode;
 };
 
 export const UserShortCard = (props: UserShortCardProps) => {
-  const { name, avatar, controls } = props;
+  const { user, controls } = props;
 
   return (
     <div className={styles.userShortCard}>
-      <Avatar size={30} src={avatar} />
+      <Avatar size={30} src={user.avatar} />
       <Text tag='span' size='sm'>
-        {name}
+        {user.first_name}
       </Text>
       {controls && <div className={styles.userShortCard__controls}>{controls}</div>}
     </div>
