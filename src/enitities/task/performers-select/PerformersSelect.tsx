@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import styles from './PerformersSelect.module.scss';
 import { PerformersSelectStore } from './PerformersSelectStore';
 import { User, UserShortCard } from '@/enitities/user';
-import { SearchIcon, FloatingInput, CloseIcon } from '@/shared/ui-kit';
+import { SearchIcon, FloatingInput, CloseIcon, Text } from '@/shared/ui-kit';
 
 type PerformersSelectProps = {
   selectedUsers: User[];
@@ -19,16 +19,20 @@ export const PerformersSelect = observer((props: PerformersSelectProps) => {
   const { selectedUsers, onSelect, onRemove } = props;
 
   const showFoundedUsers = searchStore.foundedUsers.length > 0 && searchStore.search;
+  const usersToShow = searchStore.foundedUsers.filter(
+    (user) => !selectedUsers.find((selectedUser) => selectedUser.id === user.id)
+  );
 
   return (
     <div className={styles.performersSelect}>
       {showFoundedUsers && (
         <div className={styles.performersSelect__foundUsersList}>
-          {searchStore.foundedUsers.map((user) => (
+          {usersToShow.map((user) => (
             <div key={user.id} onClick={() => onSelect(user)}>
               <UserShortCard user={user} />
             </div>
           ))}
+          {usersToShow.length === 0 && <Text tag='p'>{t('task.performers.notFound')}</Text>}
         </div>
       )}
 
