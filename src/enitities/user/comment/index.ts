@@ -1,1 +1,0 @@
-export { UserComment } from './UserComment';
