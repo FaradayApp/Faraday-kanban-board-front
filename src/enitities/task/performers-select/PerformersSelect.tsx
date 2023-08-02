@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 
-import styles from './UsersMultiselect.module.scss';
+import styles from './PerformersSelect.module.scss';
 import { PerformersSelectStore } from './PerformersSelectStore';
 import { User, UserShortCard } from '@/enitities/user';
 import { SearchIcon, FloatingInput, CloseIcon } from '@/shared/ui-kit';
