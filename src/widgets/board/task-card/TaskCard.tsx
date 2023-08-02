@@ -15,13 +15,12 @@ import {
 import { Task } from '@/enitities/task';
 
 export const TaskCard = observer((props: Task) => {
-  const { id, title, priority, performers, expiration_date } = props;
+  const { id, title, priority, performers, expiration_date, comments_count } = props;
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const users = performers?.slice(0, 3) ?? [];
   const formattedDate = expiration_date.format('DD MMM');
-  const comments = 0;
 
   const openTaskInfo = () => {
     navigate(`task/${id}`);
@@ -43,18 +42,18 @@ export const TaskCard = observer((props: Task) => {
       </div>
       <footer className={styles.taskCard__footer}>
         <div className={styles.taskCard__workers}>
-          {users.map((id, i) => (
-            <div key={id as string} style={{ position: 'absolute', left: `${14 * i}px` }}>
-              <Avatar size={20} src={''} />
+          {users.map((user, i) => (
+            <div key={user.id} style={{ position: 'absolute', left: `${14 * i}px` }}>
+              <Avatar size={20} src={user.avatar} />
             </div>
           ))}
         </div>
-        {!!comments && (
+        {!!comments_count && (
           <div className={styles.taskCard__controls}>
             <MenuIcon />
             <div className={styles.taskCard__controlsComments}>
               <Text tag='span' size='xsm'>
-                {comments}
+                {comments_count}
               </Text>
               <CommentIcon />
             </div>
