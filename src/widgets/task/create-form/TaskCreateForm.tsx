@@ -6,8 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskCreateForm.module.scss';
 import { Button, FloatingDetepicker, InputWithCounter, TextAreaWithCounter } from '@/shared/ui-kit';
-import { UsersMultiselect } from '@/enitities/user';
-import { type NewTask, TaskPrioritySelect, TaskStatusSelect } from '@/enitities/task';
+import { type NewTask, TaskPrioritySelect, TaskStatusSelect, PerformersSelect } from '@/enitities/task';
 import { type NewTaskSchema, newTaskSchema } from './schema';
 
 type TaskCreateFormProps = {
@@ -91,10 +90,12 @@ export const TaskCreateForm = observer((props: TaskCreateFormProps) => {
         control={control}
         defaultValue={[]}
         render={({ field }) => (
-          <UsersMultiselect
+          <PerformersSelect
             selectedUsers={field.value}
             onSelect={(newId) => field.onChange([...field.value, newId])}
-            onRemove={(newId) => field.onChange(field.value.filter((id: number) => id !== newId))}
+            onRemove={(userForRemove) =>
+              field.onChange(field.value.filter((user) => user.id !== userForRemove.id))
+            }
           />
         )}
       />

@@ -5,8 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskEditForm.module.scss';
 import { Button, FloatingDetepicker, InputWithCounter, TextAreaWithCounter } from '@/shared/ui-kit';
-import { UsersMultiselect } from '@/enitities/user';
-import { type TaskInfo, TaskPrioritySelect, TaskStatusSelect } from '@/enitities/task';
+import { type TaskInfo, TaskPrioritySelect, TaskStatusSelect, PerformersSelect } from '@/enitities/task';
 import { type EditTaskSchema, editTaskSchema } from './scheme';
 
 type TaskEditFormProps = {
@@ -84,12 +83,14 @@ export const TaskEditForm = observer((props: TaskEditFormProps) => {
       <Controller
         name='performers'
         control={control}
-        defaultValue={[...task.performers] as number[]}
+        defaultValue={[...task.performers]}
         render={({ field }) => (
-          <UsersMultiselect
+          <PerformersSelect
             selectedUsers={field.value}
             onSelect={(newId) => field.onChange([...field.value, newId])}
-            onRemove={(id) => field.onChange(field.value.filter((userId: number) => userId !== id))}
+            onRemove={(userForRemove) =>
+              field.onChange(field.value.filter((user) => user.id !== userForRemove.id))
+            }
           />
         )}
       />
