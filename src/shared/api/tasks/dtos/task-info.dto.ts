@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { TaskInfo } from '@/enitities/task';
 import { BadResponseError } from '@/shared/errors';
 import { getTaskPriority, getTaskStatus } from '../utils';
+import { UserDto } from '../../users';
 
 const TaskInfoDto = t.type({
   id: t.number,
@@ -13,8 +14,8 @@ const TaskInfoDto = t.type({
   expiration_date: t.string,
   status: t.number,
   priority: t.number,
-  producer: t.unknown,
-  performers: t.UnknownArray,
+  producer: UserDto,
+  performers: t.array(UserDto),
   description: t.string,
 });
 

@@ -5,6 +5,7 @@ import { isLeft } from 'fp-ts/Either';
 import { BadResponseError } from '@/shared/errors';
 import { type Task } from '@/enitities/task';
 import { getTaskPriority, getTaskStatus } from '../utils';
+import { UserDto } from '../../users';
 
 const TaskDto = t.type({
   id: t.number,
@@ -12,7 +13,7 @@ const TaskDto = t.type({
   expiration_date: t.string,
   status: t.number,
   priority: t.number,
-  performers: t.UnknownArray,
+  performers: t.array(UserDto),
 });
 
 export type TaskDto = t.TypeOf<typeof TaskDto>;

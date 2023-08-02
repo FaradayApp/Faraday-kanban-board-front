@@ -7,7 +7,7 @@ const CreateNewTaskDto = t.type({
   title: t.string,
   description: t.string,
   expiration_date: t.string,
-  performers: t.UnknownArray,
+  performers: t.array(t.number),
   status: t.number,
   priority: t.number,
 });
@@ -19,7 +19,7 @@ export function toCreateNewTaskDto(newTask: NewTask): CreateNewTaskDto {
     title: newTask.title,
     description: newTask.description,
     expiration_date: newTask.expiration_date.format('YYYY-MM-DD'),
-    performers: newTask.performers,
+    performers: newTask.performers.map((user) => user.id),
     status: getTaskStatusId(newTask.status),
     priority: getTaskPriorityId(newTask.priority),
   });

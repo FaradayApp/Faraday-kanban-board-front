@@ -7,7 +7,7 @@ const EditTaskInfoDto = t.partial({
   title: t.string,
   description: t.string,
   expiration_date: t.string,
-  performers: t.UnknownArray,
+  performers: t.array(t.number),
   status: t.number,
   priority: t.number,
 });
@@ -19,7 +19,7 @@ export function toEditTaskInfoDto(taskInfo: Partial<TaskInfo>): EditTaskInfoDto 
     title: taskInfo.title,
     description: taskInfo.description,
     expiration_date: taskInfo.expiration_date?.format('YYYY-MM-DD') || undefined,
-    performers: taskInfo.performers,
+    performers: taskInfo.performers?.map((user) => user.id),
     status: taskInfo.status ? getTaskStatusId(taskInfo.status) : undefined,
     priority: taskInfo.priority ? getTaskPriorityId(taskInfo.priority) : undefined,
   };
