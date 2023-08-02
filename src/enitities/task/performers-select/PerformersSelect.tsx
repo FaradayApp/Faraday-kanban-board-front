@@ -26,7 +26,7 @@ export const PerformersSelect = observer((props: PerformersSelectProps) => {
         <div className={styles.performersSelect__foundUsersList}>
           {searchStore.foundedUsers.map((user) => (
             <div key={user.id} onClick={() => onSelect(user)}>
-              <UserShortCard name={''} avatar={''} />
+              <UserShortCard user={user} />
             </div>
           ))}
         </div>
@@ -43,8 +43,7 @@ export const PerformersSelect = observer((props: PerformersSelectProps) => {
         {selectedUsers.map((user) => (
           <UserShortCard
             key={user.id}
-            name={''}
-            avatar={''}
+            user={user}
             controls={<CloseIcon onClick={() => onRemove(user)} />}
           />
         ))}
