@@ -14,6 +14,7 @@ const TaskDto = t.type({
   status: t.number,
   priority: t.number,
   performers: t.array(UserDto),
+  comments_count: t.number,
 });
 
 export type TaskDto = t.TypeOf<typeof TaskDto>;
@@ -27,13 +28,14 @@ export function validateTaskDto(data: unknown) {
   }
 }
 
-export function toTask(task: TaskDto): Task {
+export function toTask(taskDto: TaskDto): Task {
   return {
-    id: task.id,
-    title: task.title,
-    expiration_date: dayjs(task.expiration_date),
-    status: { type: getTaskStatus(task.status), weight: task.status },
-    priority: { type: getTaskPriority(task.priority), weight: task.priority },
-    performers: task.performers,
+    id: taskDto.id,
+    title: taskDto.title,
+    expiration_date: dayjs(taskDto.expiration_date),
+    status: { type: getTaskStatus(taskDto.status), weight: taskDto.status },
+    priority: { type: getTaskPriority(taskDto.priority), weight: taskDto.priority },
+    performers: taskDto.performers,
+    comments_count: taskDto.comments_count,
   };
 }

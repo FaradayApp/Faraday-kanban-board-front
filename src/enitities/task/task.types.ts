@@ -8,6 +8,7 @@ export type Task = {
   id: number;
   title: string;
   expiration_date: Dayjs;
+  comments_count: number;
   status: {
     type: TaskStatus;
     weight: number;
