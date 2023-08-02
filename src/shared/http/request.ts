@@ -36,7 +36,6 @@ export const request = baseRequest.extend({
     afterResponse: [
       async (request, _, response) => {
         if (response.status === 401) {
-          console.log(response);
           await tryRefreshToken();
           return ky(setAccessHeader(request));
         }
