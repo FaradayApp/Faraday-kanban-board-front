@@ -20,10 +20,10 @@ import { BoardProvider } from './board.provider';
 
 const AuthAdminGuard = observer(() => {
   return sessionStore.isUser ? (
-    <BoardProvider>
+    <>
       <Outlet />
       <ScrollRestoration />
-    </BoardProvider>
+    </>
   ) : (
     <AuthAdminPage />
   );

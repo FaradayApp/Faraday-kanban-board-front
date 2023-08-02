@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import styles from './BoardPage.module.scss';
@@ -9,11 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 export const BoardPage = observer(() => {
   const { t } = useTranslation();
-
-  useEffect(() => {
-    boardStore.init();
-  }, []);
-
+  
   return (
     <PageContainer header={<BoardPageHeader />}>
       <div className={styles.boardPage__taskContainers}>

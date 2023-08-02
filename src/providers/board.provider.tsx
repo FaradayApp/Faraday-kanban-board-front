@@ -1,6 +1,7 @@
-import { boardStore } from '@/stores/board';
 import { PropsWithChildren, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { boardStore } from '@/stores/board';
 
 export const BoardProvider = (props: PropsWithChildren) => {
   const { boardId } = useParams();
@@ -8,6 +9,7 @@ export const BoardProvider = (props: PropsWithChildren) => {
   useEffect(() => {
     if (boardId) {
       boardStore.setBoardId(boardId);
+      boardStore.init();
     }
   }, [boardId]);
 
