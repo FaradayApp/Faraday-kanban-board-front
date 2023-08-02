@@ -18,6 +18,7 @@ import {
   AuthAdminPage,
 } from '@/pages';
 import { BoardProvider } from './board.provider';
+import { TaskInfoProvider } from '.';
 
 const AuthAdminGuard = observer(() => {
   return sessionStore.isUser ? (
@@ -66,7 +67,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/board/:boardId/task/:id',
-        element: <TaskInfoPage />,
+        element: (
+          <TaskInfoProvider>
+            <TaskInfoPage />
+          </TaskInfoProvider>
+        ),
       },
       {
         path: '/board/:boardId/task/create',
@@ -74,7 +79,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/board/:boardId/task/:id/edit',
-        element: <TaskEditPage />,
+        element: (
+          <TaskInfoProvider>
+            <TaskEditPage />
+          </TaskInfoProvider>
+        ),
       },
       {
         path: '*',

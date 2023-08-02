@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -12,15 +12,9 @@ import { TaskInfoForm, TaskPageHeader } from '@/widgets/task';
 
 export const TaskInfoPage = observer(() => {
   const { t } = useTranslation();
-  const { id, boardId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (id && boardId) {
-      taskInfoStore.init(id, boardId);
-    }
-  }, [id, boardId]);
-
+  
   const editTask = useCallback(
     (data: Partial<TaskInfo>) => {
       if (id) {
