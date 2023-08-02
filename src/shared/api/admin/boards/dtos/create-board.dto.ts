@@ -8,7 +8,7 @@ const CreateBoardDto = t.type({
 
 type CreateBoardDto = t.TypeOf<typeof CreateBoardDto>;
 
-export function toDto(data: CreateBoard): CreateBoardDto {
+export function toCreateBoardDto(data: CreateBoard): CreateBoardDto {
   return {
     title: data.title,
   };

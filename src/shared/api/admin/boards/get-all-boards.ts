@@ -1,6 +1,6 @@
 import { getAllPages } from '@/shared/http';
 import { Board } from '@/enitities/admin';
-import { toBoard, validateBoardDto } from './board.dto';
+import { toBoard, validateBoardDto } from './dtos';
 
 export async function getAllBoards() {
   const tasks = await getAllPages<Board>({ endpoint: `board/` });
