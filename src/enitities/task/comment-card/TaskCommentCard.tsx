@@ -3,6 +3,7 @@ import { type ReactNode } from 'react';
 import styles from './TaskCommentCard.module.scss';
 import { Avatar, Text } from '@/shared/ui-kit';
 import { TaskComment } from '../task.types';
+import { getUserName } from '@/features/user';
 
 type TaskCommentCardProps = {
   comment: TaskComment;
@@ -18,7 +19,7 @@ export const TaskCommentCard = (props: TaskCommentCardProps) => {
       <header className={styles.commentCard__title}>
         <Avatar src={user.avatar} size={16} />
         <Text tag='span' size='xsm'>
-          {user.first_name}
+          {getUserName(user)}
         </Text>
       </header>
 

@@ -7,9 +7,9 @@ import { User } from '@/enitities/user';
 export const UserDto = t.type({
   id: t.number,
   username: t.string,
-  first_name: t.string,
-  last_name: t.string,
-  avatar: t.string,
+  first_name: t.union([t.string, t.null]),
+  last_name: t.union([t.string, t.null]),
+  avatar: t.union([t.string, t.null]),
 });
 
 export type UserDto = t.TypeOf<typeof UserDto>;
@@ -17,7 +17,7 @@ export type UserDto = t.TypeOf<typeof UserDto>;
 export function validateUserDto(data: unknown) {
   const userDto = UserDto.decode(data);
 
-  if(isLeft(userDto)) {
+  if (isLeft(userDto)) {
     throw new BadResponseError();
   }
 
@@ -28,9 +28,9 @@ export function toUser(userDto: UserDto): User {
   return {
     id: userDto.id,
     username: userDto.username,
-    first_name: userDto.first_name,
-    last_name: userDto.last_name,
-    avatar: userDto.avatar,
+    first_name: userDto.first_name || '',
+    last_name: userDto.last_name || '',
+    avatar: userDto.avatar || '',
   };
 }
 
