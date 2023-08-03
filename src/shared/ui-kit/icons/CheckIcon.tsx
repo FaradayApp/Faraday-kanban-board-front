@@ -8,6 +8,7 @@ export const CheckIcon = (props: IconProps) => {
       viewBox='0 0 24 24'
       strokeWidth={2.5}
       stroke='currentColor'
+      cursor='pointer'
       width={18}
       height={18}
       {...props}>
