@@ -9,7 +9,7 @@ export type EditTaskInfo = Partial<TaskInfo & { comment?: string }>;
 export function editTaskInfo(
   boardStore: BoardStore,
   taskInfoStore: TaskInfoStore,
-  taskId: string
+  taskId: TaskId
 ) {
   return async function (task: EditTaskInfo) {
     if(task.comment) {

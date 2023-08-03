@@ -2,7 +2,7 @@ import { deleteTaskComment as deleteTaskCommentApi, getTaskInfo } from '@/shared
 import { TaskInfoStore, BoardStore } from '@/stores';
 
 export function deleteTaskComment(boardStore: BoardStore, taskInfoStore: TaskInfoStore) {
-  return async function (commentId: number) {
+  return async function (commentId: CommentId) {
     if (boardStore.boardId && taskInfoStore.taskId && commentId) {
       await deleteTaskCommentApi(boardStore.boardId, taskInfoStore.taskId, commentId);
 

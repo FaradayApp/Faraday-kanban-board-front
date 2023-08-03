@@ -1,8 +1,9 @@
 import { type Dayjs } from 'dayjs';
 
 export type Board = {
-  id: number;
-  uuid: string;
+  id: BoardId;
+  uuid: BoardUuid;
+
   title: string;
   created_at: Dayjs;
 };

@@ -10,8 +10,8 @@ import { TaskCommentSchema, taskCommentSchema } from './scheme';
 type TaskEditableCommentProps = {
   comment: TaskComment;
   withControls?: boolean;
-  deleteComment: (commentId: number) => Promise<unknown>;
-  editComment: (commentId: number, message: string) => Promise<unknown>;
+  deleteComment: (commentId: CommentId) => Promise<unknown>;
+  editComment: (commentId: CommentId, message: string) => Promise<unknown>;
 };
 
 export const TaskEditableComment = (props: TaskEditableCommentProps) => {

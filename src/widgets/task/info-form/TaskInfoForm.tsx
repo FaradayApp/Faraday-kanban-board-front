@@ -20,8 +20,8 @@ import { TaskEditableComment } from '../comment/TaskEditableComment';
 type TaskInfoFormProps = {
   task: TaskInfo;
   editTask: (task: Partial<TaskInfo>) => Promise<unknown>;
-  deleteComment: (commentId: number) => Promise<unknown>;
-  editComment: (commentId: number, message: string) => Promise<unknown>;
+  deleteComment: (commentId: CommentId) => Promise<unknown>;
+  editComment: (commentId: CommentId, message: string) => Promise<unknown>;
 };
 
 export const TaskInfoForm = observer((props: TaskInfoFormProps) => {

@@ -17,7 +17,8 @@ export const TaskEditPage = observer(() => {
   const editTask = useCallback(
     (data: Partial<TaskInfo>) => {
       if (id) {
-        editTaskInfo(boardStore, taskInfoStore, id)(data);
+        const taskId = Number.parseInt(id);
+        editTaskInfo(boardStore, taskInfoStore, taskId)(data);
       }
     },
     [id]

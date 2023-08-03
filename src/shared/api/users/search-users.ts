@@ -5,7 +5,7 @@ type Options = {
   search: string;
 }
 
-export async function searchUsers(boardId: string, options: Options) {
+export async function searchUsers(boardId: BoardUuid, options: Options) {
   const { search } = options;
 
   const users = await getAllPages<UserDto[]>({

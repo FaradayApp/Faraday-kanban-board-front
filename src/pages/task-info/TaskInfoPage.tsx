@@ -22,18 +22,19 @@ export const TaskInfoPage = observer(() => {
   const editTask = useCallback(
     async (data: EditTaskInfo) => {
       if (id) {
+        const taskId = Number.parseInt(id);
         const newData = { ...taskInfoStore.taskInfo.data, ...data };
-        await editTaskInfo(boardStore, taskInfoStore, id)(newData);
+        await editTaskInfo(boardStore, taskInfoStore, taskId)(newData);
       }
     },
     [id]
   );
 
-  const deleteComment = useCallback(async (commentId: number) => {
+  const deleteComment = useCallback(async (commentId: CommentId) => {
     return deleteTaskComment(boardStore, taskInfoStore)(commentId);
   }, []);
 
-  const editComment = useCallback(async (commentId: number, message: string) => {
+  const editComment = useCallback(async (commentId: CommentId, message: string) => {
     return editTaskComment(boardStore, taskInfoStore)(commentId, message);
   }, []);
 
