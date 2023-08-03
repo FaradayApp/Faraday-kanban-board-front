@@ -11,13 +11,14 @@ type TaskCommentEditCardProps = {
   maxLength: number;
   onChange: (value: string) => void;
   controls?: ReactNode;
+  errorMessage?: string;
 };
 
 export const TaskCommentEditCard = (props: TaskCommentEditCardProps) => {
-  const { user, message, maxLength, controls, onChange } = props;
+  const { user, message, maxLength, controls, errorMessage, onChange } = props;
 
   const cardClasses = clsx(styles.commentCard, {
-    [styles.commentCard_error]: message.length > maxLength,
+    [styles.commentCard_error]: message.length > maxLength || !!errorMessage,
   });
 
   return (

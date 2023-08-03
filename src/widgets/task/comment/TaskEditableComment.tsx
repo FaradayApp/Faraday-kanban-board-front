@@ -18,9 +18,10 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
   const { comment, deleteComment, editComment } = props;
   const [mode, setMode] = useState<'preview' | 'edit'>('preview');
 
-  const { handleSubmit, control } = useForm<TaskCommentSchema>({
+  const { handleSubmit, control, formState } = useForm<TaskCommentSchema>({
     resolver: zodResolver(taskCommentSchema),
   });
+  const { errors } = formState;
 
   const onSubmit: SubmitHandler<TaskCommentSchema> = async (data) => {
     await editComment(comment.id, data.message);
@@ -49,6 +50,7 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
           message={field.value}
           maxLength={600}
           onChange={field.onChange}
+          errorMessage={errors.message?.message}
           controls={
             <>
               <CheckIcon
