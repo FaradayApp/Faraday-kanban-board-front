@@ -15,7 +15,7 @@ export class TaskInfoStore {
   init = async (taskId: string, boardId: string) => {
     if ((this.taskInfo.isEmpty || this.taskId !== taskId) && boardId) {
       this.taskId = taskId;
-      await this.taskInfo.set(() => getTaskInfo(boardId, taskId));
+      await this.taskInfo.set(() => getTaskInfo(boardId, taskId).then(({ taskInfo }) => taskInfo));
     }
   };
 
