@@ -65,6 +65,10 @@ export class BoardStore {
       column?.removeTask(updatedTask);
       this.addNewTask(updatedTask);
     }
+
+    if (outdatedTask) {
+      Object.assign(outdatedTask, updatedTask);
+    }
   };
 }
 
