@@ -6,7 +6,7 @@ import { UserDto } from '../../users';
 import { TaskComment } from '@/enitities/task';
 import dayjs from 'dayjs';
 
-const TaskCommentDto = t.type({
+export const TaskCommentDto = t.type({
   id: t.number,
   text: t.string,
   created_at: t.string,

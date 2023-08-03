@@ -2,8 +2,9 @@ import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/Either';
 import dayjs from 'dayjs';
 
-import { TaskInfo } from '@/enitities/task';
+import { Task, TaskInfo } from '@/enitities/task';
 import { BadResponseError } from '@/shared/errors';
+import { TaskCommentDto, toTaskComment } from './comment.dto';
 import { getTaskPriority, getTaskStatus } from '../utils';
 import { UserDto } from '../../users';
 
@@ -17,6 +18,7 @@ const TaskInfoDto = t.type({
   producer: UserDto,
   performers: t.array(UserDto),
   description: t.string,
+  comments: t.array(TaskCommentDto),
 });
 
 type TaskInfoDto = t.TypeOf<typeof TaskInfoDto>;
@@ -40,5 +42,18 @@ export function toTaskInfo(taskInfoDto: TaskInfoDto): TaskInfo {
     description: taskInfoDto.description,
     producer: taskInfoDto.producer,
     performers: taskInfoDto.performers,
+    comments: taskInfoDto.comments.map(toTaskComment),
+  };
+}
+
+export function taskInfoDtoToTask(taskInfoDto: TaskInfoDto): Task {
+  return {
+    id: taskInfoDto.id,
+    title: taskInfoDto.title,
+    expiration_date: dayjs(taskInfoDto.expiration_date),
+    status: { type: getTaskStatus(taskInfoDto.status), weight: taskInfoDto.status },
+    priority: { type: getTaskPriority(taskInfoDto.priority), weight: taskInfoDto.priority },
+    performers: taskInfoDto.performers,
+    comments_count: taskInfoDto.comments.length || 0,
   };
 }
