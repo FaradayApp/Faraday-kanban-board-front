@@ -1,8 +1,7 @@
 import { type NewTask } from '@/enitities/task';
 import { request } from '@/shared/http';
 import { serialize } from '@/shared/lib/serialize';
-import { toCreateNewTaskDto } from './dtos/create-new-task.dto';
-import { toTask, validateTaskDto } from './dtos/task.dto';
+import { toCreateNewTaskDto, toTask, validateTaskDto } from './dtos';
 
 export async function createNewTask(boardId: string, newTask: NewTask) {
   const options = { body: serialize(toCreateNewTaskDto(newTask)) };

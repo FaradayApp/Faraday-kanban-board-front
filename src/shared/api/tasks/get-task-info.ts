@@ -1,5 +1,5 @@
 import { request } from '@/shared/http';
-import { taskInfoDtoToTask, toTaskInfo, validateTaskInfoDto } from './dtos/task-info.dto';
+import { taskInfoDtoToTask, toTaskInfo, validateTaskInfoDto } from './dtos';
 
 export async function getTaskInfo(boardId: string, taskId: string) {
   const response = await request.get(`board/${boardId}/tasks/${taskId}/`).json();

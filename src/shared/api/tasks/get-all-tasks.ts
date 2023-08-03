@@ -1,5 +1,5 @@
 import { getAllPages } from '@/shared/http';
-import { validateTaskDto, toTask, TaskDto } from './dtos/task.dto';
+import { validateTaskDto, toTask, TaskDto } from './dtos';
 
 export async function getAllTasks(boardId: string) {
   const tasks = await getAllPages<TaskDto>({ endpoint: `board/${boardId}/tasks/` });
