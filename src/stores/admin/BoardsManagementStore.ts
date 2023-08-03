@@ -20,7 +20,7 @@ export class BoardsManagementStore {
     }
   };
 
-  removeBoard = (boardId: number) => {
+  removeBoard = (boardId: BoardId) => {
     this.boards.update(this.boards.data.filter((board) => board.id !== boardId));
   };
 

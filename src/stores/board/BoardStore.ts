@@ -25,24 +25,24 @@ function createColumns(tasks: Task[]) {
 export class BoardStore {
   tasks = new DataCache<Task[]>({ defaultValue: [] });
   columns: BoardColumnStore[] = [];
-  boardId = '';
+  boardUuid = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
   init = async () => {
-    if (this.tasks.isEmpty && this.boardId) {
-      await this.tasks.set(() => getAllTasks(this.boardId));
+    if (this.tasks.isEmpty && this.boardUuid) {
+      await this.tasks.set(() => getAllTasks(this.boardUuid));
       runInAction(() => {
         this.columns = createColumns(this.tasks.data);
       });
     }
   };
 
-  setBoardId = (boardId: string) => {
-    if (!this.boardId || this.boardId !== boardId) {
-      this.boardId = boardId;
+  setBoardUuid = (boardUuid: string) => {
+    if (!this.boardUuid || this.boardUuid !== boardUuid) {
+      this.boardUuid = boardUuid;
     }
   };
 

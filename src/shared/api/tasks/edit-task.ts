@@ -3,9 +3,9 @@ import { request } from '@/shared/http';
 import { serialize } from '@/shared/lib/serialize';
 import { toTaskInfo, validateTaskInfoDto, taskInfoDtoToTask, toEditTaskInfoDto } from './dtos';
 
-export async function editTask(boardId: BoardUuid, taskId: TaskId, taskInfo: Partial<TaskInfo>) {
+export async function editTask(boardUuid: BoardUuid, taskId: TaskId, taskInfo: Partial<TaskInfo>) {
   const options = { body: serialize(toEditTaskInfoDto(taskInfo)) };
-  const response = await request.put(`board/${boardId}/tasks/${taskId}/`, options).json();
+  const response = await request.put(`board/${boardUuid}/tasks/${taskId}/`, options).json();
 
   const updatedTaskInfo = toTaskInfo(validateTaskInfoDto(response));
   const updatedTask = taskInfoDtoToTask(validateTaskInfoDto(response));

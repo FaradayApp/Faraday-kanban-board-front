@@ -13,9 +13,9 @@ export function editTaskInfo(
 ) {
   return async function (task: EditTaskInfo) {
     if(task.comment) {
-      await createNewTaskComment(boardStore.boardId, taskId, task.comment);
+      await createNewTaskComment(boardStore.boardUuid, taskId, task.comment);
     }
-    const { updatedTask, updatedTaskInfo } = await editTask(boardStore.boardId, taskId, task);
+    const { updatedTask, updatedTaskInfo } = await editTask(boardStore.boardUuid, taskId, task);
     boardStore.updateTask(updatedTask);
     taskInfoStore.updateTaskInfo(updatedTaskInfo);
   };

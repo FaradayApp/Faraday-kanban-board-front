@@ -12,10 +12,12 @@ export class TaskInfoStore {
     makeAutoObservable(this);
   }
 
-  init = async (taskId: TaskId, boardId: BoardUuid) => {
-    if ((this.taskInfo.isEmpty || this.taskId !== taskId) && boardId) {
+  init = async (taskId: TaskId, boardUuid: BoardUuid) => {
+    if ((this.taskInfo.isEmpty || this.taskId !== taskId) && boardUuid) {
       this.taskId = taskId;
-      await this.taskInfo.set(() => getTaskInfo(boardId, taskId).then(({ taskInfo }) => taskInfo));
+      await this.taskInfo.set(() =>
+        getTaskInfo(boardUuid, taskId).then(({ taskInfo }) => taskInfo)
+      );
     }
   };
 

@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom';
 import { boardStore } from '@/stores/board';
 
 export const BoardProvider = (props: PropsWithChildren) => {
-  const { boardId } = useParams();
+  const { boardUuid } = useParams();
 
   useEffect(() => {
-    if (boardId) {
-      boardStore.setBoardId(boardId);
+    if (boardUuid) {
+      boardStore.setBoardUuid(boardUuid);
       boardStore.init();
     }
-  }, [boardId]);
+  }, [boardUuid]);
 
   return props.children;
 };

@@ -1,8 +1,8 @@
 import { request } from '@/shared/http';
 import { taskInfoDtoToTask, toTaskInfo, validateTaskInfoDto } from './dtos';
 
-export async function getTaskInfo(boardId: BoardUuid, taskId: TaskId) {
-  const response = await request.get(`board/${boardId}/tasks/${taskId}/`).json();
+export async function getTaskInfo(boardUuid: BoardUuid, taskId: TaskId) {
+  const response = await request.get(`board/${boardUuid}/tasks/${taskId}/`).json();
 
   const taskInfo = toTaskInfo(validateTaskInfoDto(response));
   const task = taskInfoDtoToTask(validateTaskInfoDto(response));

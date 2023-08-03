@@ -14,7 +14,7 @@ export class PerformersSelectStore {
   }
 
   debouncedSearch = debounce(async (search: string) => {
-    const users = await searchUsers(boardStore.boardId, { search });
+    const users = await searchUsers(boardStore.boardUuid, { search });
     this.foundedUsers = users || [];
   });
 

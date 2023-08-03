@@ -62,11 +62,11 @@ const router = createBrowserRouter([
     element: <AuthGuard />,
     children: [
       {
-        path: '/board/:boardId/',
+        path: '/board/:boardUuid/',
         element: <BoardPage />,
       },
       {
-        path: '/board/:boardId/task/:id',
+        path: '/board/:boardUuid/task/:id',
         element: (
           <TaskInfoProvider>
             <TaskInfoPage />
@@ -74,11 +74,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/board/:boardId/task/create',
+        path: '/board/:boardUuid/task/create',
         element: <TaskCreatePage />,
       },
       {
-        path: '/board/:boardId/task/:id/edit',
+        path: '/board/:boardUuid/task/:id/edit',
         element: (
           <TaskInfoProvider>
             <TaskEditPage />

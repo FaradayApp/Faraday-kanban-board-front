@@ -1,5 +1,5 @@
 import { request } from '@/shared/http';
 
-export async function deleteTaskComment(boardId: BoardUuid, taskId: TaskId, commentId: CommentId) {
-  return request.delete(`board/${boardId}/tasks/${taskId}/comments/${commentId}/`);
+export async function deleteTaskComment(boardUuid: BoardUuid, taskId: TaskId, commentId: CommentId) {
+  return request.delete(`board/${boardUuid}/tasks/${taskId}/comments/${commentId}/`);
 }
