@@ -46,11 +46,5 @@ export type TaskComment = {
   id: number;
   created_at: Dayjs;
   text: string;
-  user: {
-    id: number;
-    username: string;
-    first_name: string;
-    last_name: string;
-    avatar: string;
-  };
+  user: User;
 };
