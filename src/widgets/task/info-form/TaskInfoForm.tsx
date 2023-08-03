@@ -113,7 +113,19 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
 
       <div className={styles.taskInfoForm__newComment}>
         <AvatarIcon width={30} height={30} className={styles.taskInfoForm__newCommentAvatar} />
-        <TextAreaWithCounter label={t('task.labels.comment')} maxSymbols={60} />
+        <Controller
+          name='comment'
+          control={control}
+          defaultValue={''}
+          render={({ field }) => (
+            <TextAreaWithCounter
+              value={field.value}
+              onChange={field.onChange}
+              label={t('task.labels.comment')}
+              maxSymbols={1000}
+            />
+          )}
+        />
       </div>
 
       <Button disabled={isSubmitting}>{t('task.buttons.save')}</Button>
