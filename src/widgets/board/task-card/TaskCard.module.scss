@@ -7,6 +7,8 @@
   background: var(--layer-0);
   box-shadow: (--shadow-0);
 
+  user-select: none;
+
   &__title {
     margin-bottom: 14px;
   }
