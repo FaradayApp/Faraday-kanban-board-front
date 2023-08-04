@@ -1,0 +1,27 @@
+variables:
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/frontend
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  only:
+    - dev
+  tags:
+    - schildichat_kanban_frontend_runner_tag
+  script:
+    - cp ../.env .env
+    - docker-compose -p shildichat_kanban_frontend build
+
+deploy:
+  stage: deploy
+  only:
+    - dev
+  tags:
+    - schildichat_kanban_frontend_runner_tag
+  script:
+    - cp ../.env .env
+    - docker-compose -p shildichat_backend down
+    - docker-compose -p shildichat_backend up -d
