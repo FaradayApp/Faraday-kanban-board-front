@@ -17,15 +17,14 @@ import {
   BoardsManagementPage,
   AuthAdminPage,
 } from '@/pages';
-import { BoardProvider } from './board.provider';
-import { TaskInfoProvider } from '.';
+import { BoardProvider, ProfileProvider, TaskInfoProvider } from '@/providers/data';
 
 const AuthAdminGuard = observer(() => {
   return sessionStore.isUser ? (
-    <>
+    <ProfileProvider>
       <Outlet />
       <ScrollRestoration />
-    </>
+    </ProfileProvider>
   ) : (
     <AuthAdminPage />
   );
@@ -33,10 +32,12 @@ const AuthAdminGuard = observer(() => {
 
 const AuthGuard = observer(() => {
   return sessionStore.isUser ? (
-    <BoardProvider>
-      <Outlet />
-      <ScrollRestoration />
-    </BoardProvider>
+    <ProfileProvider>
+      <BoardProvider>
+        <Outlet />
+        <ScrollRestoration />
+      </BoardProvider>
+    </ProfileProvider>
   ) : (
     <AuthPage />
   );
