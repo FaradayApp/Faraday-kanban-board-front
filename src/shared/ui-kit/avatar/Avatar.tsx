@@ -15,12 +15,14 @@ export const Avatar = (props: AvatarProps) => {
   useEffect(() => {
     if (src) {
       const downloadingImage = new Image();
-      
+
       downloadingImage.onload = function () {
         setLoadedAvatar(src);
       };
 
       downloadingImage.src = src;
+    } else {
+      setLoadedAvatar('');
     }
   }, [src]);
 

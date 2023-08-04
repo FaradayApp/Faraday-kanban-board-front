@@ -15,3 +15,4 @@ export { SearchIcon } from './SearchIcon';
 export { SelectArrow } from './SelectArrow';
 export { TrashIcon } from './TrashIcon';
 export { CheckIcon } from './CheckIcon';
+export { ProfileIcon } from './ProfileIcon';

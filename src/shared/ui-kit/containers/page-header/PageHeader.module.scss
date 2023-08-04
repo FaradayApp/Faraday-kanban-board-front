@@ -1,12 +1,14 @@
-.container {
+.pageHeader {
   display: flex;
   width: 100%;
+  gap: 16px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   &__controls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    margin-left: auto;
   }
 }
