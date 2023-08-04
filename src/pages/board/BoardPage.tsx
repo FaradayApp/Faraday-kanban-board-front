@@ -11,18 +11,26 @@ import styles from './BoardPage.module.scss';
 import { PageContainer } from '@/shared/ui-kit';
 import { boardStore } from '@/stores/board/BoardStore';
 import { BoardPageHeader, TaskCard, TasksContainer, TasksSort } from '@/widgets/board';
+import { TaskStatus } from '@/enitities/task';
 
 export const BoardPage = observer(() => {
   const { t } = useTranslation();
 
-  const onTaskMove: OnDragEndResponder = (result, provided) => {
-    const { source, destination } = result;
+  const onTaskMove: OnDragEndResponder = (result) => {
+    const { source, destination, draggableId } = result;
 
     if (!destination) {
       return;
     }
 
-    console.log(result);
+    const taskId = Number.parseInt(draggableId);
+
+    boardStore.moveTask({
+      from: source.droppableId as TaskStatus,
+      to: destination.droppableId as TaskStatus,
+      at: destination.index,
+      id: taskId,
+    });
   };
 
   return (
