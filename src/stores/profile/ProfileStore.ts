@@ -16,6 +16,10 @@ export class ProfileStore {
       await this.profile.set(getMe);
     }
   };
+
+  update = (updatedProfile: User) => {
+    this.profile.update(updatedProfile);
+  };
 }
 
 export const profileStore = new ProfileStore();
