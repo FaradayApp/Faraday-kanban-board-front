@@ -16,6 +16,7 @@ import {
   TaskInfoPage,
   BoardsManagementPage,
   AuthAdminPage,
+  EditProfilePage,
 } from '@/pages';
 import { BoardProvider, ProfileProvider, TaskInfoProvider } from '@/providers/data';
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
             <TaskEditPage />
           </TaskInfoProvider>
         ),
+      },
+      {
+        path: '/board/:boardUuid/profile',
+        element: <EditProfilePage />,
       },
       {
         path: '*',
