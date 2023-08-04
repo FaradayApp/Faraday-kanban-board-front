@@ -6,3 +6,4 @@ export { FloatingSelect, type SelectOption } from './floating-select';
 export { FloatingDetepicker } from './floating-datepicker';
 export { InputWithCounter, TextAreaWithCounter } from './WithCounter';
 export { FloatingPasswordInput } from './floating-password-input';
+export { AvatarLoader } from './avatar-loader';
