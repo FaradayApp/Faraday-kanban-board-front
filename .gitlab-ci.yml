@@ -23,5 +23,5 @@ deploy:
     - schildichat_kanban_frontend_runner_tag
   script:
     - cp ../.env .env
-    - docker-compose -p shildichat_backend down
-    - docker-compose -p shildichat_backend up -d
+    - docker-compose -p shildichat_kanban_frontend down
+    - docker-compose -p shildichat_kanban_frontend up -d
