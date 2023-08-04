@@ -5,6 +5,13 @@ import { DataCache } from '@/shared/lib/DataCache';
 import { type TaskStatus, type Task } from '@/enitities/task';
 import { BoardColumnStore } from './BoardColumnStore';
 
+type MoveTask = {
+  from: TaskStatus;
+  to: TaskStatus;
+  id: TaskId;
+  at: number;
+};
+
 function createEmptyColumns(tasks: Task[]) {
   const columns: Partial<Record<TaskStatus, BoardColumnStore>> = {};
   tasks.forEach(({ status }) => {
@@ -24,7 +31,7 @@ function createColumns(tasks: Task[]) {
 
 export class BoardStore {
   boardUuid = '';
-  
+
   tasks = new DataCache<Task[]>({ defaultValue: [] });
   columns: BoardColumnStore[] = [];
 
@@ -63,6 +70,17 @@ export class BoardStore {
       this.columns.push(column);
     }
     column.addTask(newTask);
+  };
+
+  moveTask = ({ from, to, id, at }: MoveTask) => {
+    const fromColumn = this.findColumnByStatus(from);
+    const toColumn = this.findColumnByStatus(to);
+    const task = this.findTaskById(id);
+
+    if (task) {
+      fromColumn?.removeTask(task);
+      toColumn?.addTaskAtPlace(task, at);
+    }
   };
 
   updateTask = (updatedTask: Task) => {

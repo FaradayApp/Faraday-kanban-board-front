@@ -29,6 +29,10 @@ export class BoardColumnStore {
     }
   };
 
+  addTaskAtPlace = (task: Task, ind: number) => {
+    this.tasks.splice(ind, 0, task);
+  };
+
   removeTask = (taskToRemove: Task) => {
     this.tasks = this.tasks.filter((task) => task.id !== taskToRemove.id);
   };
