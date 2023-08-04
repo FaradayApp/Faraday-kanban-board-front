@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { EditIcon, PageContainer } from '@/shared/ui-kit';
+import { EditIcon, PageContainer, PageHeader } from '@/shared/ui-kit';
 import { profileStore, boardStore, taskInfoStore } from '@/stores';
 import {
   type EditTaskInfo,
@@ -11,12 +11,14 @@ import {
   deleteTaskComment,
   editTaskComment,
 } from '@/features/tasks';
-import { TaskInfoForm, TaskPageHeader } from '@/widgets/task';
+import { TaskInfoForm } from '@/widgets/task';
+import { useOpenBoardPage } from '@/features/navigation';
 
 export const TaskInfoPage = observer(() => {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
+  const { openBoardPage } = useOpenBoardPage();
 
   const editTask = useCallback(
     async (data: EditTaskInfo) => {
@@ -46,7 +48,11 @@ export const TaskInfoPage = observer(() => {
   return (
     <PageContainer
       header={
-        <TaskPageHeader title={t('task.title')} options={<EditIcon onClick={openEditTaskPage} />} />
+        <PageHeader
+          title={t('task.title')}
+          options={<EditIcon onClick={openEditTaskPage} />}
+          navigationFn={openBoardPage}
+        />
       }>
       {data && (
         <TaskInfoForm
