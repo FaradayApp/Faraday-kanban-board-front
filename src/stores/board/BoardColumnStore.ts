@@ -14,7 +14,7 @@ export class BoardColumnStore {
     sort: undefined,
   };
 
-  constructor(public title: TaskStatus) {
+  constructor(public type: TaskStatus) {
     makeAutoObservable(this);
   }
 
