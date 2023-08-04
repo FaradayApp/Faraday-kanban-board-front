@@ -2,7 +2,7 @@ import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/Either';
 
 import { BadResponseError } from '@/shared/errors';
-import { UserDto } from '../../users';
+import { UserDto, toUser } from '../../users';
 import { TaskComment } from '@/enitities/task';
 import dayjs from 'dayjs';
 
@@ -30,6 +30,6 @@ export function toTaskComment(taskDto: TaskCommentDto): TaskComment {
     id: taskDto.id,
     text: taskDto.text,
     created_at: dayjs(taskDto.created_at),
-    user: taskDto.user,
+    user: toUser(taskDto.user),
   };
 }

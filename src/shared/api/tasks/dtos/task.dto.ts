@@ -5,7 +5,7 @@ import { isLeft } from 'fp-ts/Either';
 import { BadResponseError } from '@/shared/errors';
 import { type Task } from '@/enitities/task';
 import { getTaskPriority, getTaskStatus } from '../utils';
-import { UserDto } from '../../users';
+import { UserDto, toUser } from '../../users';
 
 const TaskDto = t.type({
   id: t.number,
@@ -35,7 +35,7 @@ export function toTask(taskDto: TaskDto): Task {
     expiration_date: dayjs(taskDto.expiration_date),
     status: { type: getTaskStatus(taskDto.status), weight: taskDto.status },
     priority: { type: getTaskPriority(taskDto.priority), weight: taskDto.priority },
-    performers: taskDto.performers,
+    performers: taskDto.performers.map(toUser),
     comments_count: taskDto.comments_count,
   };
 }
