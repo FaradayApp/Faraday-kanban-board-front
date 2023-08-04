@@ -12,12 +12,13 @@ import {
   Text,
   TextAreaWithCounter,
 } from '@/shared/ui-kit';
-import { UserShortCard } from '@/enitities/user';
+import { User, UserShortCard } from '@/enitities/user';
 import { TaskStatusSelect, TaskInfo } from '@/enitities/task';
 import { TaskInfoSchema, taskInfoSchema } from './scheme';
 import { TaskEditableComment } from '../comment/TaskEditableComment';
 
 type TaskInfoFormProps = {
+  me: User | null;
   task: TaskInfo;
   editTask: (task: Partial<TaskInfo>) => Promise<unknown>;
   deleteComment: (commentId: CommentId) => Promise<unknown>;
@@ -25,7 +26,7 @@ type TaskInfoFormProps = {
 };
 
 export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
-  const { task, editTask, deleteComment, editComment } = props;
+  const { me, task, editTask, deleteComment, editComment } = props;
   const { t } = useTranslation();
 
   const { handleSubmit, control, formState, resetField } = useForm<TaskInfoSchema>({
@@ -38,7 +39,7 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
     await editTask(data);
     resetField('comment');
   };
-
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.taskInfoForm}>
       <div className={styles.taskInfoForm__title}>
@@ -122,6 +123,7 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
           <TaskEditableComment
             key={comment.id}
             comment={comment}
+            withControls={me?.id === comment.user.id}
             deleteComment={deleteComment}
             editComment={editComment}
           />

@@ -4,8 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { EditIcon, PageContainer } from '@/shared/ui-kit';
-import { boardStore } from '@/stores/board';
-import { taskInfoStore } from '@/stores/task-info';
+import { profileStore, boardStore, taskInfoStore } from '@/stores';
 import {
   type EditTaskInfo,
   editTaskInfo,
@@ -51,6 +50,7 @@ export const TaskInfoPage = observer(() => {
       }>
       {data && (
         <TaskInfoForm
+          me={profileStore.profile.data}
           task={data}
           editTask={editTask}
           deleteComment={deleteComment}

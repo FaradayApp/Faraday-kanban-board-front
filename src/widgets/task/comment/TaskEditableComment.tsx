@@ -15,7 +15,7 @@ type TaskEditableCommentProps = {
 };
 
 export const TaskEditableComment = (props: TaskEditableCommentProps) => {
-  const { comment, deleteComment, editComment } = props;
+  const { comment, withControls, deleteComment, editComment } = props;
   const [mode, setMode] = useState<'preview' | 'edit'>('preview');
 
   const { handleSubmit, control, formState } = useForm<TaskCommentSchema>({
@@ -32,10 +32,12 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
     <TaskCommentCard
       comment={comment}
       controls={
-        <>
-          <EditIcon onClick={() => setMode('edit')} />
-          <TrashIcon onClick={() => deleteComment(comment.id)} />
-        </>
+        withControls && (
+          <>
+            <EditIcon onClick={() => setMode('edit')} />
+            <TrashIcon onClick={() => deleteComment(comment.id)} />
+          </>
+        )
       }
     />
   ) : (
@@ -52,13 +54,15 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
           onChange={field.onChange}
           errorMessage={errors.message?.message}
           controls={
-            <>
-              <CheckIcon
-                onClick={() => handleSubmit(onSubmit)()}
-                className={styles.taskEditableComment__saveButton}
-              />
-              <CloseIcon onClick={() => setMode('preview')} />
-            </>
+            withControls && (
+              <>
+                <CheckIcon
+                  onClick={() => handleSubmit(onSubmit)()}
+                  className={styles.taskEditableComment__saveButton}
+                />
+                <CloseIcon onClick={() => setMode('preview')} />
+              </>
+            )
           }
         />
       )}
