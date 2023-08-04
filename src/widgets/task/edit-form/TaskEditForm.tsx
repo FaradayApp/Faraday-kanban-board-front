@@ -87,7 +87,7 @@ export const TaskEditForm = observer((props: TaskEditFormProps) => {
         render={({ field }) => (
           <PerformersSelect
             selectedUsers={field.value}
-            onSelect={(newId) => field.onChange([...field.value, newId])}
+            onSelect={(user) => field.onChange([...field.value, user])}
             onRemove={(userForRemove) =>
               field.onChange(field.value.filter((user) => user.id !== userForRemove.id))
             }

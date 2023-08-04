@@ -42,6 +42,12 @@
     border-bottom: 1px solid var(--input-border);
   }
 
+  &__comments {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
   &__newComment {
     display: flex;
     width: 100%;

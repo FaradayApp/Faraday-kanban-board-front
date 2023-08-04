@@ -15,23 +15,29 @@ import {
 import { UserShortCard } from '@/enitities/user';
 import { TaskStatusSelect, TaskInfo } from '@/enitities/task';
 import { TaskInfoSchema, taskInfoSchema } from './scheme';
+import { TaskEditableComment } from '../comment/TaskEditableComment';
 
 type TaskInfoFormProps = {
   task: TaskInfo;
-  editTask: (task: Partial<TaskInfo>) => void;
+  editTask: (task: Partial<TaskInfo>) => Promise<unknown>;
+  deleteComment: (commentId: CommentId) => Promise<unknown>;
+  editComment: (commentId: CommentId, message: string) => Promise<unknown>;
 };
 
 export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
-  const { task, editTask } = props;
+  const { task, editTask, deleteComment, editComment } = props;
   const { t } = useTranslation();
 
-  const { handleSubmit, control, formState } = useForm<TaskInfoSchema>({
+  const { handleSubmit, control, formState, resetField } = useForm<TaskInfoSchema>({
     resolver: zodResolver(taskInfoSchema),
   });
   const { errors, isSubmitting } = formState;
   const { status, description } = errors;
 
-  const onSubmit: SubmitHandler<TaskInfoSchema> = (data) => editTask(data);
+  const onSubmit: SubmitHandler<TaskInfoSchema> = async (data) => {
+    await editTask(data);
+    resetField('comment');
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.taskInfoForm}>
@@ -111,9 +117,32 @@ export const TaskInfoForm = observer((props: TaskInfoFormProps) => {
         )}
       />
 
+      <div className={styles.taskInfoForm__comments}>
+        {task.comments.map((comment) => (
+          <TaskEditableComment
+            key={comment.id}
+            comment={comment}
+            deleteComment={deleteComment}
+            editComment={editComment}
+          />
+        ))}
+      </div>
+
       <div className={styles.taskInfoForm__newComment}>
         <AvatarIcon width={30} height={30} className={styles.taskInfoForm__newCommentAvatar} />
-        <TextAreaWithCounter label={t('task.labels.comment')} maxSymbols={60} />
+        <Controller
+          name='comment'
+          control={control}
+          defaultValue={''}
+          render={({ field }) => (
+            <TextAreaWithCounter
+              value={field.value}
+              onChange={field.onChange}
+              label={t('task.labels.comment')}
+              maxSymbols={600}
+            />
+          )}
+        />
       </div>
 
       <Button disabled={isSubmitting}>{t('task.buttons.save')}</Button>

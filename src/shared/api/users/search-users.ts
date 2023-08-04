@@ -5,11 +5,11 @@ type Options = {
   search: string;
 }
 
-export async function searchUsers(boardId: string, options: Options) {
+export async function searchUsers(boardUuid: BoardUuid, options: Options) {
   const { search } = options;
 
   const users = await getAllPages<UserDto[]>({
-    endpoint: `board/${boardId}/users/`,
+    endpoint: `board/${boardUuid}/users/`,
     searchParams: { search },
   });
   return users.map(validateUserDto).map(toUser);

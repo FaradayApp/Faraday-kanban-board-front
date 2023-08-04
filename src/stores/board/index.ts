@@ -1,2 +1,2 @@
 export { BoardColumnStore } from './BoardColumnStore';
-export { boardStore } from './BoardStore';
+export { boardStore, BoardStore } from './BoardStore';

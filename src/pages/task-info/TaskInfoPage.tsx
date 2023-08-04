@@ -4,25 +4,39 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { EditIcon, PageContainer } from '@/shared/ui-kit';
-import { type TaskInfo } from '@/enitities/task';
 import { boardStore } from '@/stores/board';
 import { taskInfoStore } from '@/stores/task-info';
-import { editTaskInfo } from '@/features/tasks';
+import {
+  type EditTaskInfo,
+  editTaskInfo,
+  deleteTaskComment,
+  editTaskComment,
+} from '@/features/tasks';
 import { TaskInfoForm, TaskPageHeader } from '@/widgets/task';
 
 export const TaskInfoPage = observer(() => {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const editTask = useCallback(
-    (data: Partial<TaskInfo>) => {
+    async (data: EditTaskInfo) => {
       if (id) {
-        editTaskInfo(boardStore, taskInfoStore, id)(data);
+        const taskId = Number.parseInt(id);
+        const newData = { ...taskInfoStore.taskInfo.data, ...data };
+        await editTaskInfo(boardStore, taskInfoStore, taskId)(newData);
       }
     },
     [id]
   );
+
+  const deleteComment = useCallback(async (commentId: CommentId) => {
+    return deleteTaskComment(boardStore, taskInfoStore)(commentId);
+  }, []);
+
+  const editComment = useCallback(async (commentId: CommentId, message: string) => {
+    return editTaskComment(boardStore, taskInfoStore)(commentId, message);
+  }, []);
 
   const openEditTaskPage = () => {
     navigate('edit');
@@ -35,7 +49,14 @@ export const TaskInfoPage = observer(() => {
       header={
         <TaskPageHeader title={t('task.title')} options={<EditIcon onClick={openEditTaskPage} />} />
       }>
-      {data && <TaskInfoForm task={data} editTask={editTask} />}
+      {data && (
+        <TaskInfoForm
+          task={data}
+          editTask={editTask}
+          deleteComment={deleteComment}
+          editComment={editComment}
+        />
+      )}
     </PageContainer>
   );
 });

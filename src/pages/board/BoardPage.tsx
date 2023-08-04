@@ -16,8 +16,8 @@ export const BoardPage = observer(() => {
           (columnStore) =>
             !columnStore.isEmpty && (
               <TasksContainer
-                key={columnStore.title}
-                title={columnStore.title}
+                key={columnStore.type}
+                title={columnStore.type}
                 control={
                   <TasksSort onSort={columnStore.sort} selected={columnStore.options.sort} />
                 }>

@@ -23,48 +23,66 @@ function createColumns(tasks: Task[]) {
 }
 
 export class BoardStore {
+  boardUuid = '';
+  
   tasks = new DataCache<Task[]>({ defaultValue: [] });
   columns: BoardColumnStore[] = [];
-  boardId = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
   init = async () => {
-    if (this.tasks.isEmpty && this.boardId) {
-      await this.tasks.set(() => getAllTasks(this.boardId));
+    if (this.tasks.isEmpty && this.boardUuid) {
+      await this.tasks.set(() => getAllTasks(this.boardUuid));
       runInAction(() => {
         this.columns = createColumns(this.tasks.data);
       });
     }
   };
 
-  setBoardId = (boardId: string) => {
-    if (!this.boardId || this.boardId !== boardId) {
-      this.boardId = boardId;
+  setBoardUuid = (boardUuid: string) => {
+    if (!this.boardUuid || this.boardUuid !== boardUuid) {
+      this.boardUuid = boardUuid;
     }
   };
 
+  findColumnByStatus = (status: TaskStatus) => {
+    return this.columns.find((column) => column.type === status);
+  };
+
+  findTaskById = (id: TaskId) => {
+    return this.tasks.data.find((task) => task.id === id);
+  };
+
   addNewTask = (newTask: Task) => {
-    let column = this.columns.find((column) => column.title === newTask.status.type);
+    let column = this.findColumnByStatus(newTask.status.type);
+
     if (!column) {
       column = new BoardColumnStore(newTask.status.type);
       this.columns.push(column);
     }
-    column?.addTask(newTask);
+    column.addTask(newTask);
   };
 
   updateTask = (updatedTask: Task) => {
-    const outdatedTask = this.tasks.data.find((task) => task.id === updatedTask.id);
-    const column = this.columns.find((column) => column.title === outdatedTask?.status.type);
+    const outdatedTask = this.findTaskById(updatedTask.id);
 
-    if (outdatedTask?.status.type === updatedTask.status.type) {
+    if (!outdatedTask) {
+      return;
+    }
+
+    const column = this.findColumnByStatus(outdatedTask?.status.type);
+    const isSameColumn = outdatedTask?.status.type === updatedTask.status.type;
+
+    if (isSameColumn) {
       column?.updateTask(updatedTask);
     } else {
       column?.removeTask(updatedTask);
       this.addNewTask(updatedTask);
     }
+
+    Object.assign(outdatedTask, updatedTask);
   };
 }
 

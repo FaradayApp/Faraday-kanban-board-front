@@ -5,17 +5,19 @@ import { DataCache } from '@/shared/lib/DataCache';
 import { TaskInfo } from '@/enitities/task';
 
 export class TaskInfoStore {
-  taskId?: string;
+  taskId?: TaskId;
   taskInfo = new DataCache<TaskInfo | null>({ defaultValue: null });
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  init = async (taskId: string, boardId: string) => {
-    if ((this.taskInfo.isEmpty || this.taskId !== taskId) && boardId) {
+  init = async (taskId: TaskId, boardUuid: BoardUuid) => {
+    if ((this.taskInfo.isEmpty || this.taskId !== taskId) && boardUuid) {
       this.taskId = taskId;
-      await this.taskInfo.set(() => getTaskInfo(boardId, taskId));
+      await this.taskInfo.set(() =>
+        getTaskInfo(boardUuid, taskId).then(({ taskInfo }) => taskInfo)
+      );
     }
   };
 

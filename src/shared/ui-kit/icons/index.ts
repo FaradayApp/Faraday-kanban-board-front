@@ -14,3 +14,4 @@ export { OptionsIcon } from './OptionsIcon';
 export { SearchIcon } from './SearchIcon';
 export { SelectArrow } from './SelectArrow';
 export { TrashIcon } from './TrashIcon';
+export { CheckIcon } from './CheckIcon';
