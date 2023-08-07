@@ -16,6 +16,6 @@ export async function editMe(data: ProfileData) {
       avatar: data.avatar,
     }),
   };
-  const response = await request.post('user/', options).json();
+  const response = await request.put('user/', options).json();
   return toUser(validateUserDto(response));
 }
