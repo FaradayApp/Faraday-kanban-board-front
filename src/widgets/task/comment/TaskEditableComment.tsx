@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskEditableComment.module.scss';
 import { type TaskComment, TaskCommentCard, TaskCommentEditCard } from '@/enitities/task';
-import { CheckIcon, CloseIcon, EditIcon, TrashIcon } from '@/shared/ui-kit';
+import { CheckIcon, CloseIcon, EditIcon, Loader2, TrashIcon } from '@/shared/ui-kit';
 import { TaskCommentSchema, taskCommentSchema } from './scheme';
 
 type TaskEditableCommentProps = {
@@ -21,7 +21,7 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
   const { handleSubmit, control, formState } = useForm<TaskCommentSchema>({
     resolver: zodResolver(taskCommentSchema),
   });
-  const { errors } = formState;
+  const { errors, isSubmitting } = formState;
 
   const onSubmit: SubmitHandler<TaskCommentSchema> = async (data) => {
     await editComment(comment.id, data.message);
@@ -54,7 +54,8 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
           onChange={field.onChange}
           errorMessage={errors.message?.message}
           controls={
-            withControls && (
+            withControls &&
+            (isSubmitting ? <Loader2 /> : (
               <>
                 <CheckIcon
                   onClick={() => handleSubmit(onSubmit)()}
@@ -62,7 +63,7 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
                 />
                 <CloseIcon onClick={() => setMode('preview')} />
               </>
-            )
+            ))
           }
         />
       )}
