@@ -28,7 +28,7 @@ export class TaskInfoStore {
   };
 
   clear = () => {
-    this.taskInfo.update(null);
+    this.taskInfo.clear();
   };
 }
 

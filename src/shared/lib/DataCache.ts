@@ -7,11 +7,13 @@ type Options<T> = {
 
 export class DataCache<T> {
   private state: State = 'EMPTY';
+  private defaultValue: T;
   public data: T;
 
   constructor({ defaultValue }: Options<T>) {
     makeAutoObservable(this);
     this.data = defaultValue;
+    this.defaultValue = defaultValue;
   }
 
   get isEmpty() {
@@ -47,5 +49,10 @@ export class DataCache<T> {
 
   update = (newData: T) => {
     this.data = newData;
+  };
+
+  clear = () => {
+    this.state = 'EMPTY';
+    this.data = this.defaultValue;
   };
 }
