@@ -14,7 +14,7 @@ export const BoardCard = (props: BoardCardProps) => {
   const { board, onDelete } = props;
   const { uuid, title } = board;
 
-  const link = `/board/${uuid}/`;
+  const link = `${import.meta.env.VITE_SITE_URL}/board/${uuid}/`;
 
   return (
     <article className={styles.boardCard}>
