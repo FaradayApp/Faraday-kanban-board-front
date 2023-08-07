@@ -12,19 +12,18 @@ type MoveTask = {
   at: number;
 };
 
-function createEmptyColumns(tasks: Task[]) {
+function createEmptyColumns() {
   const columns: Partial<Record<TaskStatus, BoardColumnStore>> = {};
-  tasks.forEach(({ status }) => {
-    const { type } = status;
-    if (!columns[type]) {
-      columns[type] = new BoardColumnStore(type);
-    }
+  const types: TaskStatus[] = ['BACKLOG', 'TODO', 'IN_PROGRESS', 'DONE', 'ARCHIVE'];
+  
+  types.forEach((type) => {
+    columns[type] = new BoardColumnStore(type);
   });
   return columns;
 }
 
 function createColumns(tasks: Task[]) {
-  const columns = createEmptyColumns(tasks);
+  const columns = createEmptyColumns();
   tasks.forEach((task) => columns[task.status.type]?.addTask(task));
   return Object.values(columns);
 }
