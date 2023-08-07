@@ -12,6 +12,7 @@ import { PageContainer } from '@/shared/ui-kit';
 import { boardStore } from '@/stores/board/BoardStore';
 import { BoardPageHeader, TaskCard, TasksContainer, TasksSort } from '@/widgets/board';
 import { TaskStatus } from '@/enitities/task';
+import clsx from 'clsx';
 
 export const BoardPage = observer(() => {
   const { t } = useTranslation();
@@ -30,6 +31,12 @@ export const BoardPage = observer(() => {
       to: destination.droppableId as TaskStatus,
       at: destination.index,
       id: taskId,
+    });
+  };
+
+  const getDraggedCardStyle = (isDragging: boolean) => {
+    return clsx({
+      [styles.boardPage__draggedCard]: isDragging,
     });
   };
 
@@ -53,10 +60,11 @@ export const BoardPage = observer(() => {
                         }>
                         {columnStore.tasks.map((task, ind) => (
                           <Draggable key={task.id} draggableId={task.id.toString()} index={ind}>
-                            {(provided) => (
+                            {(provided, snapshot) => (
                               <div
                                 key={task.id}
                                 ref={provided.innerRef}
+                                className={getDraggedCardStyle(snapshot.isDragging)}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}>
                                 <TaskCard {...task} />

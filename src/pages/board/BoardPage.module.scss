@@ -16,4 +16,11 @@
     margin: 0 auto;
     color: var(--text-warning);
   }
+
+  &__draggedCard {
+    border-radius: 4px;
+    border: 2px solid var(--green-0);
+    overflow: hidden;
+    opacity: 0.5;
+  }
 }
