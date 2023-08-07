@@ -6,13 +6,14 @@ import {
   Draggable,
   type OnDragEndResponder,
 } from 'react-beautiful-dnd';
+import clsx from 'clsx';
 
 import styles from './BoardPage.module.scss';
 import { PageContainer } from '@/shared/ui-kit';
-import { boardStore } from '@/stores/board/BoardStore';
+import { type TaskStatus } from '@/enitities/task';
+import { boardStore, taskInfoStore } from '@/stores';
+import { moveTask } from '@/features/tasks';
 import { BoardPageHeader, TaskCard, TasksContainer, TasksSort } from '@/widgets/board';
-import { TaskStatus } from '@/enitities/task';
-import clsx from 'clsx';
 
 export const BoardPage = observer(() => {
   const { t } = useTranslation();
@@ -26,7 +27,11 @@ export const BoardPage = observer(() => {
 
     const taskId = Number.parseInt(draggableId);
 
-    boardStore.moveTask({
+    moveTask(
+      boardStore,
+      taskInfoStore,
+      taskId
+    )({
       from: source.droppableId as TaskStatus,
       to: destination.droppableId as TaskStatus,
       at: destination.index,
@@ -44,40 +49,36 @@ export const BoardPage = observer(() => {
     <PageContainer header={<BoardPageHeader />}>
       <DragDropContext onDragEnd={onTaskMove}>
         <div className={styles.boardPage__taskContainers}>
-          {boardStore.columns.map(
-            (columnStore) =>
-              !columnStore.isEmpty && (
-                <Droppable droppableId={columnStore.type} key={columnStore.type}>
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                      <TasksContainer
-                        title={columnStore.type}
-                        control={
-                          <TasksSort
-                            onSort={columnStore.sort}
-                            selected={columnStore.options.sort}
-                          />
-                        }>
-                        {columnStore.tasks.map((task, ind) => (
-                          <Draggable key={task.id} draggableId={task.id.toString()} index={ind}>
-                            {(provided, snapshot) => (
-                              <div
-                                key={task.id}
-                                ref={provided.innerRef}
-                                className={getDraggedCardStyle(snapshot.isDragging)}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}>
-                                <TaskCard {...task} />
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                      </TasksContainer>
-                    </div>
-                  )}
-                </Droppable>
-              )
-          )}
+          {!boardStore.tasks.isRejected &&
+            boardStore.columns.map((columnStore) => (
+              <Droppable droppableId={columnStore.type} key={columnStore.type}>
+                {(provided) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <TasksContainer
+                      title={t(`task.status.keys.${columnStore.type}`)}
+                      control={
+                        <TasksSort onSort={columnStore.sort} selected={columnStore.options.sort} />
+                      }>
+                      {columnStore.tasks.map((task, ind) => (
+                        <Draggable key={task.id} draggableId={task.id.toString()} index={ind}>
+                          {(provided, snapshot) => (
+                            <div
+                              key={task.id}
+                              ref={provided.innerRef}
+                              className={getDraggedCardStyle(snapshot.isDragging)}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}>
+                              <TaskCard {...task} />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                    </TasksContainer>
+                  </div>
+                )}
+              </Droppable>
+            ))}
+
           {boardStore.tasks.isRejected && (
             <div className={styles.boardPage__error}>{t('board.errors.load')}</div>
           )}
