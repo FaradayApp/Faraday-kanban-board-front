@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 
 import styles from './TaskEditableComment.module.scss';
 import { type TaskComment, TaskCommentCard, TaskCommentEditCard } from '@/enitities/task';
-import { CheckIcon, CloseIcon, EditIcon, Loader2, TrashIcon } from '@/shared/ui-kit';
+import { CheckIcon, CloseIcon, EditIcon, Loader2, TrashIcon, DeleteConfirm } from '@/shared/ui-kit';
 import { TaskCommentSchema, taskCommentSchema } from './scheme';
 
 type TaskEditableCommentProps = {
@@ -17,6 +18,7 @@ type TaskEditableCommentProps = {
 export const TaskEditableComment = (props: TaskEditableCommentProps) => {
   const { comment, withControls, deleteComment, editComment } = props;
   const [mode, setMode] = useState<'preview' | 'edit'>('preview');
+  const { t } = useTranslation();
 
   const { handleSubmit, control, formState } = useForm<TaskCommentSchema>({
     resolver: zodResolver(taskCommentSchema),
@@ -35,7 +37,13 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
         withControls && (
           <>
             <EditIcon onClick={() => setMode('edit')} />
-            <TrashIcon onClick={() => deleteComment(comment.id)} />
+            <DeleteConfirm
+              title={t('taskComment.controls.delete.title')}
+              approveTitle={t('taskComment.controls.delete.approve')}
+              cancelTitle={t('taskComment.controls.delete.cancel')}
+              onApprove={() => deleteComment(comment.id)}>
+              <TrashIcon />
+            </DeleteConfirm>
           </>
         )
       }
@@ -55,7 +63,9 @@ export const TaskEditableComment = (props: TaskEditableCommentProps) => {
           errorMessage={errors.message?.message}
           controls={
             withControls &&
-            (isSubmitting ? <Loader2 /> : (
+            (isSubmitting ? (
+              <Loader2 />
+            ) : (
               <>
                 <CheckIcon
                   onClick={() => handleSubmit(onSubmit)()}
