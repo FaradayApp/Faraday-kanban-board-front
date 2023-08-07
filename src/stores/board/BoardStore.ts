@@ -73,6 +73,7 @@ export class BoardStore {
       column = new BoardColumnStore(newTask.status.type);
       this.columns.push(column);
     }
+    this.tasks.update([...this.tasks.data, newTask]);
     column.addTask(newTask);
   };
 
