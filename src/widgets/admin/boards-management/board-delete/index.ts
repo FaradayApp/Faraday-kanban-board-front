@@ -1,1 +1,0 @@
-export { BoardDelete } from './BoardDelete';

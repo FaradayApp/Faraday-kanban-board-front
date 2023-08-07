@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 
@@ -8,10 +8,10 @@ import { boardsManagementStore } from '@/stores/admin';
 import {
   BoardCard,
   BoardCreate,
-  BoardDelete,
   BoardManagementPageHeader,
 } from '@/widgets/admin/boards-management';
 import { createBoard, deleteBoard } from '@/features/admin';
+import { Board } from '@/enitities/admin';
 
 export const BoardsManagementPage = observer(() => {
   const { t } = useTranslation();
@@ -20,8 +20,8 @@ export const BoardsManagementPage = observer(() => {
     boardsManagementStore.init();
   }, []);
 
-  const { approveDelete, cancelDelete, openDeleteModal } = useMemo(
-    () => deleteBoard(boardsManagementStore),
+  const onBoardDelete = useCallback(
+    (board: Board) => deleteBoard(boardsManagementStore)(board),
     []
   );
 
@@ -44,15 +44,9 @@ export const BoardsManagementPage = observer(() => {
 
       <div className={styles.boardsList}>
         {boards.map((board) => (
-          <BoardCard key={board.id} board={board} onDelete={() => openDeleteModal(board)} />
+          <BoardCard key={board.id} board={board} onDelete={() => onBoardDelete(board)} />
         ))}
       </div>
-
-      <BoardDelete
-        isOpen={!!boardsManagementStore.boardForDelete}
-        onApprove={approveDelete}
-        onCancel={cancelDelete}
-      />
 
       <BoardCreate
         isOpen={boardsManagementStore.showCreateBoardModal}

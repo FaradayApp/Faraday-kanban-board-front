@@ -7,7 +7,6 @@ import { type Board } from '@/enitities/admin';
 export class BoardsManagementStore {
   boards = new DataCache<Board[]>({ defaultValue: [] });
 
-  boardForDelete: Board | null = null;
   showCreateBoardModal = false;
 
   constructor() {
@@ -26,14 +25,6 @@ export class BoardsManagementStore {
 
   addBoard = (board: Board) => {
     this.boards.update([...this.boards.data, board]);
-  };
-
-  selectBoardForDelete = (board: Board) => {
-    this.boardForDelete = board;
-  };
-
-  removeBoardForDelete = () => {
-    this.boardForDelete = null;
   };
 
   openCreateBoardModal = () => {

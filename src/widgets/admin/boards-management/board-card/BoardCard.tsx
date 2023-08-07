@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import styles from './BoardCard.module.scss';
-import { TextArea, TrashIcon, Link, Heading } from '@/shared/ui-kit';
+import { TextArea, TrashIcon, Link, Heading, DeleteConfirm } from '@/shared/ui-kit';
 import { type Board } from '@/enitities/admin';
 
 type BoardCardProps = {
@@ -20,7 +20,14 @@ export const BoardCard = (props: BoardCardProps) => {
     <article className={styles.boardCard}>
       <header className={styles.boardCard__header}>
         <Heading tag='h3' size='sm' children={title} />
-        <TrashIcon onClick={onDelete} className={styles.boardCard__icon} />
+        <DeleteConfirm
+          title={t('widgetsManagement.deleteModal.message')}
+          approveTitle={t('widgetsManagement.deleteModal.buttons.delete')}
+          cancelTitle={t('widgetsManagement.deleteModal.buttons.cancel')}
+          onApprove={onDelete}
+        >
+          <TrashIcon className={styles.boardCard__icon} />
+        </DeleteConfirm>
       </header>
 
       <TextArea placeholder={t('widgetsManagement.placeholders.note')} defaultValue={title} />
