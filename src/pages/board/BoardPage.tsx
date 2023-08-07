@@ -1,3 +1,4 @@
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,10 +11,39 @@ import clsx from 'clsx';
 
 import styles from './BoardPage.module.scss';
 import { PageContainer } from '@/shared/ui-kit';
-import { type TaskStatus } from '@/enitities/task';
+import { Task, type TaskStatus } from '@/enitities/task';
 import { boardStore, taskInfoStore } from '@/stores';
 import { moveTask } from '@/features/tasks';
 import { BoardPageHeader, TaskCard, TasksContainer, TasksSort } from '@/widgets/board';
+
+type DraggableTasksList = {
+  tasks: Task[];
+};
+
+const DraggableTasksList = observer((props: DraggableTasksList) => {
+  const { tasks } = props;
+
+  const getDraggedCardStyle = (isDragging: boolean) => {
+    return clsx({
+      [styles.boardPage__draggedCard]: isDragging,
+    });
+  };
+
+  return tasks.map((task, ind) => (
+    <Draggable key={task.id} draggableId={task.id.toString()} index={ind}>
+      {(provided, snapshot) => (
+        <div
+          key={task.id}
+          ref={provided.innerRef}
+          className={getDraggedCardStyle(snapshot.isDragging)}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}>
+          <TaskCard {...task} />
+        </div>
+      )}
+    </Draggable>
+  ));
+});
 
 export const BoardPage = observer(() => {
   const { t } = useTranslation();
@@ -39,18 +69,12 @@ export const BoardPage = observer(() => {
     });
   };
 
-  const getDraggedCardStyle = (isDragging: boolean) => {
-    return clsx({
-      [styles.boardPage__draggedCard]: isDragging,
-    });
-  };
-
   return (
     <PageContainer header={<BoardPageHeader />}>
       <DragDropContext onDragEnd={onTaskMove}>
         <div className={styles.boardPage__taskContainers}>
           {!boardStore.tasks.isRejected &&
-            boardStore.columns.map((columnStore) => (
+            toJS(boardStore.columns).map((columnStore) => (
               <Droppable droppableId={columnStore.type} key={columnStore.type}>
                 {(provided) => (
                   <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -59,20 +83,7 @@ export const BoardPage = observer(() => {
                       control={
                         <TasksSort onSort={columnStore.sort} selected={columnStore.options.sort} />
                       }>
-                      {columnStore.tasks.map((task, ind) => (
-                        <Draggable key={task.id} draggableId={task.id.toString()} index={ind}>
-                          {(provided, snapshot) => (
-                            <div
-                              key={task.id}
-                              ref={provided.innerRef}
-                              className={getDraggedCardStyle(snapshot.isDragging)}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}>
-                              <TaskCard {...task} />
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
+                      <DraggableTasksList tasks={columnStore.tasks} />
                     </TasksContainer>
                   </div>
                 )}
