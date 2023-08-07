@@ -47,6 +47,7 @@ export const TaskInfoPage = observer(() => {
 
   return (
     <PageContainer
+      loading={taskInfoStore.taskInfo.isPending}
       header={
         <PageHeader
           title={t('task.title')}

@@ -20,6 +20,7 @@ export const EditProfilePage = observer(() => {
 
   return (
     <PageContainer
+      loading={profileStore.profile.isPending}
       header={<PageHeader title={t('editProfile.title')} navigationFn={openBoardPage} />}>
       {profile && <EditProfileForm me={profile} editProfile={editProfile} />}
     </PageContainer>

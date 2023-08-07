@@ -27,7 +27,9 @@ export const TaskEditPage = observer(() => {
   const data = taskInfoStore.taskInfo.data || null;
 
   return (
-    <PageContainer header={<PageHeader title={t('taskEdit.titles.edit')} />}>
+    <PageContainer
+      loading={taskInfoStore.taskInfo.isPending}
+      header={<PageHeader title={t('taskEdit.titles.edit')} />}>
       {data && <TaskEditForm task={data} editTask={editTask} />}
     </PageContainer>
   );

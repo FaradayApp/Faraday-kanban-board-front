@@ -70,7 +70,7 @@ export const BoardPage = observer(() => {
   };
 
   return (
-    <PageContainer header={<BoardPageHeader />}>
+    <PageContainer loading={boardStore.tasks.isPending} header={<BoardPageHeader />}>
       <DragDropContext onDragEnd={onTaskMove}>
         <div className={styles.boardPage__taskContainers}>
           {!boardStore.tasks.isRejected &&

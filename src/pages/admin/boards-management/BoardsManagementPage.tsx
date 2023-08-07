@@ -33,7 +33,9 @@ export const BoardsManagementPage = observer(() => {
   const boards = boardsManagementStore.boards.data;
 
   return (
-    <PageContainer header={<BoardManagementPageHeader />}>
+    <PageContainer
+      loading={boardsManagementStore.boards.isPending}
+      header={<BoardManagementPageHeader />}>
       <div className={styles.addBoard}>
         <Button as='secondary' onClick={openCreateModal}>
           {t('widgetsManagement.buttons.addWidget')}
@@ -42,11 +44,7 @@ export const BoardsManagementPage = observer(() => {
 
       <div className={styles.boardsList}>
         {boards.map((board) => (
-          <BoardCard 
-            key={board.id}
-            board={board}
-            onDelete={() => openDeleteModal(board)}
-          />
+          <BoardCard key={board.id} board={board} onDelete={() => openDeleteModal(board)} />
         ))}
       </div>
 
