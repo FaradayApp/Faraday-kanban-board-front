@@ -22,14 +22,25 @@ export class BoardColumnStore {
     return this.tasks.length === 0;
   }
 
+  findTaskById = (id: TaskId) => {
+    return this.tasks.find((task) => task.id === id);
+  };
+
   addTask = (task: Task) => {
-    this.tasks.push(task);
+    const existingTask = this.findTaskById(task.id);
+    if (!existingTask) {
+      this.tasks.push(task);
+    }
     if (this.options.sort) {
       this.sort(this.options.sort);
     }
   };
 
   addTaskAtPlace = (task: Task, ind: number) => {
+    const existingTask = this.findTaskById(task.id);
+    if (existingTask) {
+      this.removeTask(task);
+    }
     this.tasks.splice(ind, 0, task);
   };
 
