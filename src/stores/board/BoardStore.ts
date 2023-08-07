@@ -4,6 +4,7 @@ import { getAllTasks } from '@/shared/api';
 import { DataCache } from '@/shared/lib/DataCache';
 import { type TaskStatus, type Task } from '@/enitities/task';
 import { BoardColumnStore } from './BoardColumnStore';
+import { getTaskStatusId } from '@/shared/api/tasks/utils';
 
 type MoveTask = {
   from: TaskStatus;
@@ -12,21 +13,24 @@ type MoveTask = {
   at: number;
 };
 
-function createEmptyColumns(tasks: Task[]) {
+function createEmptyColumns() {
   const columns: Partial<Record<TaskStatus, BoardColumnStore>> = {};
-  tasks.forEach(({ status }) => {
-    const { type } = status;
-    if (!columns[type]) {
-      columns[type] = new BoardColumnStore(type);
-    }
+  const types: TaskStatus[] = ['BACKLOG', 'TODO', 'IN_PROGRESS', 'DONE', 'ARCHIVE'];
+
+  types.forEach((type) => {
+    columns[type] = new BoardColumnStore(type);
   });
   return columns;
 }
 
+function columnsComaprator(a: BoardColumnStore, b: BoardColumnStore) {
+  return getTaskStatusId(a.type) - getTaskStatusId(b.type);
+}
+
 function createColumns(tasks: Task[]) {
-  const columns = createEmptyColumns(tasks);
+  const columns = createEmptyColumns();
   tasks.forEach((task) => columns[task.status.type]?.addTask(task));
-  return Object.values(columns);
+  return Object.values(columns).sort(columnsComaprator);
 }
 
 export class BoardStore {

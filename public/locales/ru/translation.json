@@ -93,7 +93,14 @@
       "todo": "To Do",
       "in_progress": "In Progress",
       "done": "Done",
-      "archive": "Archive"
+      "archive": "Archive",
+      "keys": {
+        "BACKLOG": "Backlog",
+        "TODO": "To Do",
+        "IN_PROGRESS": "In Progress",
+        "DONE": "Done",
+        "ARCHIVE": "Archive"
+      }
     },
     "dates": {
       "start": "Дата постановки",

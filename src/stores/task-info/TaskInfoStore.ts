@@ -26,6 +26,10 @@ export class TaskInfoStore {
       this.taskInfo.update(updatedTaskInfo);
     }
   };
+
+  clear = () => {
+    this.taskInfo.update(null);
+  };
 }
 
 export const taskInfoStore = new TaskInfoStore();
