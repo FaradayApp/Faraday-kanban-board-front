@@ -5,7 +5,7 @@ import { toTaskInfo, validateTaskInfoDto, taskInfoDtoToTask, toEditTaskInfoDto }
 
 export async function editTask(boardUuid: BoardUuid, taskId: TaskId, taskInfo: Partial<TaskInfo>) {
   const options = { body: serialize(toEditTaskInfoDto(taskInfo)) };
-  const response = await request.put(`board/${boardUuid}/tasks/${taskId}/`, options).json();
+  const response = await request.patch(`board/${boardUuid}/tasks/${taskId}/`, options).json();
 
   const updatedTaskInfo = toTaskInfo(validateTaskInfoDto(response));
   const updatedTask = taskInfoDtoToTask(validateTaskInfoDto(response));
