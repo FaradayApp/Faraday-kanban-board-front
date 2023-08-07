@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { PageContainer, PageHeader } from '@/shared/ui-kit';
@@ -12,16 +12,18 @@ import { TaskEditForm } from '@/widgets/task';
 
 export const TaskEditPage = observer(() => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id, boardUuid } = useParams();
+  const navigate = useNavigate();
 
   const editTask = useCallback(
-    (data: Partial<TaskInfo>) => {
+    async (data: Partial<TaskInfo>) => {
       if (id) {
         const taskId = Number.parseInt(id);
-        editTaskInfo(boardStore, taskInfoStore, taskId)(data);
+        await editTaskInfo(boardStore, taskInfoStore, taskId)(data);
+        navigate(`/board/${boardUuid}/task/${id}`);
       }
     },
-    [id]
+    [boardUuid, id, navigate]
   );
 
   const data = taskInfoStore.taskInfo.data || null;
