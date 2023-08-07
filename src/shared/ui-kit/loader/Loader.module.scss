@@ -6,11 +6,11 @@
 
   & div {
     position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--green-0);
-  animation: loader-animation 1.2s linear infinite;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--green-0);
+    animation: loader-animation 1.2s linear infinite;
   }
 
   & div:nth-child(1) {
@@ -61,10 +61,47 @@
 }
 
 @keyframes loader-animation {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+.loader2 {
+  display: inline-block;
+  position: relative;
+
+  & div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--green-0);
+    border-radius: 50%;
+    animation: loader2-animation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--green-0) transparent transparent transparent;
+  }
+
+  & div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  & div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  & div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+}
+
+@keyframes loader2-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
