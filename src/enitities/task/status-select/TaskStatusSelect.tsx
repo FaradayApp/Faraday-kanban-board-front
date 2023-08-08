@@ -29,7 +29,7 @@ export const TaskStatusSelect = (props: TaskStatusSelectProps) => {
 
   return (
     <FloatingSelect
-      label={t('taskEdit.labels.priority')}
+      label={t('task.status.label')}
       options={options}
       value={value}
       onChange={onChange}

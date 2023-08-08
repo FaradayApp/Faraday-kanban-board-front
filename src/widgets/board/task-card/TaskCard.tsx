@@ -34,7 +34,7 @@ export const TaskCard = observer((props: Task) => {
       <div className={styles.taskCard__content}>
         <div className={styles.taskCard__priority}>
           <Text tag='span' size='xsm' weight='light'>
-            {t('task.priority.label')}
+            {t('task.priority.label')}:
           </Text>
           <PriorityTag type={priority.type} />
         </div>

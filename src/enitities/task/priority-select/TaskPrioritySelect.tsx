@@ -27,7 +27,7 @@ export const TaskPrioritySelect = (props: TaskPrioritySelectProps) => {
 
   return (
     <FloatingSelect<Option>
-      label={t('task.status.label')}
+      label={t('task.priority.label')}
       options={options}
       value={value}
       onChange={onChange}
