@@ -40,6 +40,7 @@ export const BoardCreate = (props: BoardCreateProps) => {
           </div>
 
           <Controller
+            shouldUnregister
             name='title'
             control={control}
             defaultValue={''}
