@@ -8,7 +8,7 @@ import dayjs, { type Dayjs } from 'dayjs';
 type FloatingDetepickerProps = {
   label: string;
   value: Dayjs;
-  onChange: (newValue: Dayjs) => void;
+  onChange: (newValue: Dayjs | undefined) => void;
   isInvalid?: boolean;
   errorMessage?: string;
 };
@@ -27,6 +27,8 @@ export const FloatingDetepicker = (props: FloatingDetepickerProps) => {
   const onDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) {
       onChange(dayjs(event.target.value));
+    } else {
+      onChange(undefined);
     }
   };
 

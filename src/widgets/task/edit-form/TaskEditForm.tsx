@@ -5,7 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskEditForm.module.scss';
 import { Button, FloatingDetepicker, InputWithCounter, TextAreaWithCounter } from '@/shared/ui-kit';
-import { type TaskInfo, TaskPrioritySelect, TaskStatusSelect, PerformersSelect } from '@/enitities/task';
+import {
+  type TaskInfo,
+  TaskPrioritySelect,
+  TaskStatusSelect,
+  PerformersSelect,
+} from '@/enitities/task';
 import { type EditTaskSchema, editTaskSchema } from './scheme';
 
 type TaskEditFormProps = {
@@ -16,7 +21,7 @@ type TaskEditFormProps = {
 export const TaskEditForm = observer((props: TaskEditFormProps) => {
   const { task, editTask } = props;
   const { t } = useTranslation();
-  const { handleSubmit, control, register, formState } = useForm<EditTaskSchema>({
+  const { handleSubmit, control, register, formState, resetField } = useForm<EditTaskSchema>({
     resolver: zodResolver(editTaskSchema),
   });
   const { errors, isSubmitting } = formState;
@@ -74,7 +79,7 @@ export const TaskEditForm = observer((props: TaskEditFormProps) => {
           <FloatingDetepicker
             label={t('taskEdit.labels.endDate')}
             value={field.value}
-            onChange={field.onChange}
+            onChange={(date) => (date ? field.onChange(date) : resetField('expiration_date'))}
             errorMessage={expiration_date?.message}
           />
         )}

@@ -16,7 +16,7 @@ type TaskCreateFormProps = {
 export const TaskCreateForm = observer((props: TaskCreateFormProps) => {
   const { addTask } = props;
   const { t } = useTranslation();
-  const { handleSubmit, control, register, formState } = useForm<NewTaskSchema>({
+  const { handleSubmit, control, register, formState, resetField } = useForm<NewTaskSchema>({
     resolver: zodResolver(newTaskSchema),
   });
   const { errors, isSubmitting } = formState;
@@ -78,7 +78,7 @@ export const TaskCreateForm = observer((props: TaskCreateFormProps) => {
           <FloatingDetepicker
             label={t('taskEdit.labels.endDate')}
             value={field.value}
-            onChange={(date) => field.onChange(dayjs(date))}
+            onChange={(date) => date ? field.onChange(dayjs(date)) : resetField('expiration_date')}
             isInvalid={!!expiration_date?.message}
             errorMessage={expiration_date?.message}
           />
