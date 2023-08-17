@@ -1,5 +1,12 @@
 .boardCreate {
+  display: flex;
+  flex-direction: column;
   position: relative;
+  width: 500px;
+
+  @media screen and (max-width: 768px) {
+    max-width: 250px;
+  }
 
   &__message {
     margin-bottom: 20px;
