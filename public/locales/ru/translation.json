@@ -46,11 +46,24 @@
         "cancel": "Отменить"
       }
     },
+    "editModal": {
+      "title": "Изменить виджет",
+      "placeholders": {
+        "note": "Заметка"
+      },
+      "notifications": {
+        "changed": "Виджет изменен"
+      },
+      "buttons": {
+        "submit": "Сохранить"
+      }
+    },
     "addWidgetModal": {
       "message": "Создание нового виджета",
       "placeholders": {
         "link": "Ссылка",
-        "title": "Название"
+        "title": "Название",
+        "note": "Заметка"
       }
     },
     "notifications": {
