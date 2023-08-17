@@ -12,16 +12,25 @@
   font-weight: 500;
 
   cursor: pointer;
-  transition: transform 0.32s ease;
+  transition: all 0.2s ease;
 
   &_primary {
     background: var(--button-bg-primary);
     color: var(--button-text-primary);
+
+    &:hover {
+      background: var(--button-bg-primary-hover);
+    }
   }
 
   &_secondary {
     background: var(--button-bg-secondary);
     color: var(--button-text-secondary);
+
+    &:hover {
+      background: var(--button-bg-primary);
+      color: var(--button-text-primary);
+    }
   }
 
   &:disabled {
