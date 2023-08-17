@@ -6,6 +6,11 @@
     margin-bottom: 14px;
   }
 
+  &__note {
+    display: flex;
+    color: var(--black-100) !important;
+  }
+
   &__footer {
     margin-top: 20px;
     padding-bottom: 30px;
