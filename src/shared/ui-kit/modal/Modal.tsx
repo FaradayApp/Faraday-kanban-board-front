@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
 
 import styles from './Modal.module.scss';
@@ -10,12 +10,13 @@ type ModalProps = PropsWithChildren<{
 
 export const Modal = (props: ModalProps) => {
   const { isOpen, onClose, children } = props;
+  const ref = useRef(null);
 
   return (
-    <Dialog open={isOpen} className={styles.modal} onClose={onClose}>
+    <Dialog open={isOpen} className={styles.modal} onClose={onClose} initialFocus={ref}>
       <Dialog.Overlay as='div' className={styles.modal__bg} aria-hidden='true' />
       
-      <div onClick={onClose} className={styles.modal__content}>
+      <div ref={ref} onClick={onClose} className={styles.modal__content}>
         <Dialog.Panel
           as='div'
           onClick={(event) => event.stopPropagation()}

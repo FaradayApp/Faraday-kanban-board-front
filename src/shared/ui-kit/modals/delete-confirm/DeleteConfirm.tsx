@@ -34,17 +34,19 @@ export const DeleteConfirm = (props: DeleteConfirmProps) => {
       <div onClick={() => setIsOpen(true)}>{children}</div>
 
       <Modal isOpen={isOpen} onClose={cancel}>
-        <div className={styles.boardDelete__message}>
-          <Text size='md' tag='p'>
-            {title}
-          </Text>
+        <div className={styles.boardDelete}>
+          <div className={styles.boardDelete__message}>
+            <Text size='md' tag='p'>
+              {title}
+            </Text>
+          </div>
+          <button onClick={approve} className={deleteButtonClasses}>
+            {approveTitle}
+          </button>
+          <button onClick={cancel} className={cancelButtonClasses}>
+            {cancelTitle}
+          </button>
         </div>
-        <button onClick={approve} className={deleteButtonClasses}>
-          {approveTitle}
-        </button>
-        <button onClick={cancel} className={cancelButtonClasses}>
-          {cancelTitle}
-        </button>
       </Modal>
     </>
   );
