@@ -54,6 +54,10 @@ const router = createBrowserRouter([
         element: <BoardsManagementPage />,
       },
       {
+        path: 'profile',
+        element: <EditProfilePage />,
+      },
+      {
         path: '*',
         element: <Navigate to='/admin/boards' />,
       },

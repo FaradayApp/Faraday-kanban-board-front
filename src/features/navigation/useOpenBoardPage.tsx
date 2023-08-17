@@ -14,6 +14,8 @@ export const useOpenBoardPage = () => {
       navigate(createLink(boardUuid));
     } else if (boardStore.boardUuid) {
       navigate(createLink(boardStore.boardUuid));
+    } else {
+      navigate('/admin/boards')
     }
   };
 
