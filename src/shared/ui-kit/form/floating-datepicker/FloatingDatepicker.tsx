@@ -1,11 +1,11 @@
-import { ChangeEvent, useId, useRef } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useId, useRef } from 'react';
 import clsx from 'clsx';
 
 import styles from './FloatingDatepicker.module.scss';
 import { CalendarIcon, Text } from '@/shared/ui-kit';
 import dayjs, { type Dayjs } from 'dayjs';
 
-type FloatingDetepickerProps = {
+type FloatingDetepickerProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
   label: string;
   value: Dayjs;
   onChange: (newValue: Dayjs | undefined) => void;
@@ -16,7 +16,7 @@ type FloatingDetepickerProps = {
 export const FloatingDetepicker = (props: FloatingDetepickerProps) => {
   const id = useId();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { label, value, errorMessage, isInvalid, onChange } = props;
+  const { label, value, errorMessage, isInvalid, onChange, ...inputProps } = props;
 
   const containerClasses = clsx(styles.floatingDatepicker, {
     [styles.floatingDatepicker_invalid]: isInvalid || errorMessage,
@@ -53,11 +53,10 @@ export const FloatingDetepicker = (props: FloatingDetepickerProps) => {
         aria-invalid={!!errorMessage || isInvalid}
         aria-errormessage={errorMessage}
         onChange={onDateChange}
+        {...inputProps}
       />
 
-      <div className={styles.label}>
-        {label}
-      </div>
+      <div className={styles.label}>{label}</div>
 
       <div className={styles.floatingDatepicker__icon}>
         <CalendarIcon />
