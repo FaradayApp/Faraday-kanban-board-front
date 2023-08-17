@@ -30,7 +30,7 @@ export const BoardsManagementPage = observer(() => {
     []
   );
 
-  const boards = boardsManagementStore.boards.data;
+  const boards = boardsManagementStore.boardsList;
 
   return (
     <PageContainer
