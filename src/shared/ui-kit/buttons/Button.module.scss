@@ -37,8 +37,4 @@
     opacity: 0.8;
     pointer-events: none;
   }
-
-  &:active {
-    transform: translateY(1px) scale(0.98);
-  }
 }
