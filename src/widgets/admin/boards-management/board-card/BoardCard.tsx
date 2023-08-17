@@ -36,7 +36,7 @@ export const BoardCard = (props: BoardCardProps) => {
       </div>
 
       <footer className={styles.boardCard__footer}>
-        <Link withCopy href={link || ''} />
+        <Link withCopy withCopyNotification href={link || ''} />
       </footer>
     </article>
   );
