@@ -15,8 +15,8 @@ export const FloatingTextArea = forwardRef<HTMLTextAreaElement, FloatingTextArea
     const id = useId();
     const { label, className, isInvalid, errorMessage, ...textareaProps } = props;
 
-    const classes = clsx(className, styles.floatingTeaxArea, {
-      [styles.floatingTeaxArea_invalid]: isInvalid || errorMessage,
+    const classes = clsx(className, styles.floatingTextArea, {
+      [styles.floatingTextArea_invalid]: isInvalid || errorMessage,
     });
 
     return (
