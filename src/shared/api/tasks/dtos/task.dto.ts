@@ -1,30 +1,29 @@
 import dayjs from 'dayjs';
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
+import { z } from 'zod';
 
 import { BadResponseError } from '@/shared/errors';
 import { type Task } from '@/enitities/task';
 import { getTaskPriority, getTaskStatus } from '../utils';
 import { UserDto, toUser } from '../../users';
 
-const TaskDto = t.type({
-  id: t.number,
-  title: t.string,
-  expiration_date: t.string,
-  status: t.number,
-  priority: t.number,
-  performers: t.array(UserDto),
-  comments_count: t.number,
+const TaskDto = z.object({
+  id: z.number(),
+  title: z.string(),
+  expiration_date: z.string(),
+  status: z.number(),
+  priority: z.number(),
+  performers: z.array(UserDto),
+  comments_count: z.number(),
 });
 
-export type TaskDto = t.TypeOf<typeof TaskDto>;
+export type TaskDto = z.infer<typeof TaskDto>;
 
 export function validateTaskDto(data: unknown) {
-  const task = TaskDto.decode(data);
-  if (isLeft(task)) {
+  const task = TaskDto.safeParse(data);
+  if (!task.success) {
     throw new BadResponseError();
   } else {
-    return task.right;
+    return task.data;
   }
 }
 

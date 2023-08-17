@@ -1,18 +1,17 @@
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
+import { z } from 'zod';
 import { BadResponseError } from '@/shared/errors';
 
-const AuthTokensDto = t.type({
-  access: t.string,
-  refresh: t.string,
+const AuthTokensDto = z.object({
+  access: z.string(),
+  refresh: z.string(),
 });
 
 export function validateAuthResponse(data: unknown) {
-  const tokens = AuthTokensDto.decode(data);
+  const tokens = AuthTokensDto.safeParse(data);
 
-  if (isLeft(tokens)) {
+  if (!tokens.success) {
     return new BadResponseError();
   } else {
-    return tokens.right;
+    return tokens.data;
   }
 }

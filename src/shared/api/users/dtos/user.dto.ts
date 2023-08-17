@@ -1,27 +1,26 @@
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
+import { z } from 'zod';
 
 import { BadResponseError } from '@/shared/errors';
 import { User } from '@/enitities/user';
 
-export const UserDto = t.type({
-  id: t.number,
-  username: t.string,
-  first_name: t.union([t.string, t.null]),
-  last_name: t.union([t.string, t.null]),
-  avatar: t.union([t.string, t.null]),
+export const UserDto = z.object({
+  id: z.number(),
+  username: z.string(),
+  first_name: z.string().nullable(),
+  last_name: z.string().nullable(),
+  avatar: z.string().nullable(),
 });
 
-export type UserDto = t.TypeOf<typeof UserDto>;
+export type UserDto = z.infer<typeof UserDto>;
 
 export function validateUserDto(data: unknown) {
-  const userDto = UserDto.decode(data);
+  const userDto = UserDto.safeParse(data);
 
-  if (isLeft(userDto)) {
+  if (!userDto.success) {
     throw new BadResponseError();
   }
 
-  return userDto.right;
+  return userDto.data;
 }
 
 export function toUser(userDto: UserDto): User {

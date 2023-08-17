@@ -1,14 +1,13 @@
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
+import { z } from 'zod';
 
 import { serialize } from '@/shared/lib/serialize';
 
-const SavedSession = t.type({
-  access: t.string,
-  refresh: t.string,
+const SavedSession = z.object({
+  access: z.string(),
+  refresh: z.string(),
 });
 
-type SavedSession = t.TypeOf<typeof SavedSession>;
+type SavedSession = z.infer<typeof SavedSession>;
 
 export class SessionLocalStore {
   constructor(private readonly SESSION_KEY: string) {}
@@ -20,13 +19,13 @@ export class SessionLocalStore {
       return null;
     }
 
-    const session = SavedSession.decode(JSON.parse(data));
+    const session = SavedSession.safeParse(JSON.parse(data));
 
-    if (isLeft(session)) {
+    if (!session.success) {
       return null;
     }
 
-    return session.right;
+    return session.data;
   }
 
   async saveSession(session: SavedSession) {
