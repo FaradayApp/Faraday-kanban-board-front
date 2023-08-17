@@ -62,4 +62,9 @@
   --page-container-padding: 20px;
   --page-wide-container: 1980px;
   --page-content-max-width: 900px;
+
+  // ovveride react-toastify
+  --toastify-color-dark: var(--text-primary);
+  --toastify-color-success: var(--green-0);
+  --toastify-color-error: var(--red-0);
 }
