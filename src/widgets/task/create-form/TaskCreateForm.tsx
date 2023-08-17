@@ -78,6 +78,7 @@ export const TaskCreateForm = observer((props: TaskCreateFormProps) => {
           <FloatingDetepicker
             label={t('taskEdit.labels.endDate')}
             value={field.value}
+            min={dayjs().format('YYYY-MM-DD')}
             onChange={(date) => date ? field.onChange(dayjs(date)) : resetField('expiration_date')}
             isInvalid={!!expiration_date?.message}
             errorMessage={expiration_date?.message}

@@ -12,6 +12,7 @@ import {
   PerformersSelect,
 } from '@/enitities/task';
 import { type EditTaskSchema, editTaskSchema } from './scheme';
+import dayjs from 'dayjs';
 
 type TaskEditFormProps = {
   task: TaskInfo;
@@ -79,6 +80,7 @@ export const TaskEditForm = observer((props: TaskEditFormProps) => {
           <FloatingDetepicker
             label={t('taskEdit.labels.endDate')}
             value={field.value}
+            min={dayjs().format('YYYY-MM-DD')}
             onChange={(date) => (date ? field.onChange(date) : resetField('expiration_date'))}
             errorMessage={expiration_date?.message}
           />
