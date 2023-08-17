@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
 
+  &__icon {
+    cursor: pointer;
+  }
+
   &__button {
     display: flex;
     align-items: center;
@@ -12,6 +16,7 @@
     border: none;
 
     color: var(--text-primary);
+    cursor: pointer;
 
     &:hover {
       background: var(--sort-button-bg);

@@ -6,6 +6,17 @@
     margin-bottom: 14px;
   }
 
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__note {
+    display: flex;
+    color: var(--black-100) !important;
+  }
+
   &__footer {
     margin-top: 20px;
     padding-bottom: 30px;

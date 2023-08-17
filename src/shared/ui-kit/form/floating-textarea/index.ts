@@ -1,1 +1,1 @@
-export { FloatingTextArea } from './FloatingTextArea';
+export { FloatingTextArea, FloatingTextAreaAuto } from './FloatingTextArea';

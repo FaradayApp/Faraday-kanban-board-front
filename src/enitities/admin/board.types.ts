@@ -11,3 +11,8 @@ export type Board = {
 export type CreateBoard = {
   title: string;
 };
+
+export type ChangeBoard = {
+  title: string;
+  boardId: BoardId;
+};

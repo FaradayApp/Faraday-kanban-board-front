@@ -1,12 +1,12 @@
-import * as t from 'io-ts';
+import { z } from 'zod';
 
 import { type CreateBoard } from '@/enitities/admin';
 
-const CreateBoardDto = t.type({
-  title: t.string,
+const CreateBoardDto = z.object({
+  title: z.string(),
 });
 
-type CreateBoardDto = t.TypeOf<typeof CreateBoardDto>;
+type CreateBoardDto = z.infer<typeof CreateBoardDto>;
 
 export function toCreateBoardDto(data: CreateBoard): CreateBoardDto {
   return {

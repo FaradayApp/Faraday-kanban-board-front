@@ -1,18 +1,18 @@
-import * as t from 'io-ts';
+import { z } from 'zod';
 
 import { type TaskInfo } from '@/enitities/task';
 import { getTaskPriorityId, getTaskStatusId } from '../utils';
 
-const EditTaskInfoDto = t.partial({
-  title: t.string,
-  description: t.string,
-  expiration_date: t.string,
-  performers: t.array(t.number),
-  status: t.number,
-  priority: t.number,
-});
+const EditTaskInfoDto = z.object({
+  title: z.string(),
+  description: z.string(),
+  expiration_date: z.string(),
+  performers: z.array(z.number()),
+  status: z.number(),
+  priority: z.number(),
+}).partial();
 
-type EditTaskInfoDto = t.TypeOf<typeof EditTaskInfoDto>;
+type EditTaskInfoDto = z.infer<typeof EditTaskInfoDto>;
 
 export function toEditTaskInfoDto(taskInfo: Partial<TaskInfo>): EditTaskInfoDto {
   return {
