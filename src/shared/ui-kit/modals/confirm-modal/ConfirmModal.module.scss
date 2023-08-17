@@ -1,0 +1,52 @@
+.confirmModal {
+  max-width: 250px;
+  
+  &__message {
+    padding: 20px;
+  }
+
+  &__button {
+    padding: 14px;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--gray-0);
+    cursor: pointer;
+    transition: all 0.32s ease;
+
+    &_cancel {
+      color: var(--text-secondary);
+
+      &:hover {
+        background-color: var(--black-20);
+        color: var(--white-0);
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_danger {
+    .confirmModal__button_confirm {
+      color: var(--text-warning);
+
+      &:hover {
+        background-color: var(--red-0);
+        color: var(--white-0);
+      }
+    }
+  }
+
+  &_neutral {
+    .confirmModal__button_confirm {
+      color: var(--text-primary);
+
+      &:hover {
+        background-color: var(--button-bg-primary);
+        color: var(--button-text-primary);
+      }
+    }
+  }
+}

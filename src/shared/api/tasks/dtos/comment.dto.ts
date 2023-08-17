@@ -1,28 +1,27 @@
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
-
-import { BadResponseError } from '@/shared/errors';
-import { UserDto, toUser } from '../../users';
-import { TaskComment } from '@/enitities/task';
+import { z } from 'zod';
 import dayjs from 'dayjs';
 
-export const TaskCommentDto = t.type({
-  id: t.number,
-  text: t.string,
-  created_at: t.string,
+import { BadResponseError } from '@/shared/errors';
+import { TaskComment } from '@/enitities/task';
+import { UserDto, toUser } from '../../users';
+
+export const TaskCommentDto = z.object({
+  id: z.number(),
+  text: z.string(),
+  created_at: z.string(),
   user: UserDto,
 });
 
-type TaskCommentDto = t.TypeOf<typeof TaskCommentDto>;
+type TaskCommentDto = z.infer<typeof TaskCommentDto>;
 
 export function validateTaskCommentDto(data: unknown) {
-  const commentDto = TaskCommentDto.decode(data);
+  const commentDto = TaskCommentDto.safeParse(data);
 
-  if (isLeft(commentDto)) {
+  if (!commentDto.success) {
     throw new BadResponseError();
   }
 
-  return commentDto.right;
+  return commentDto.data;
 }
 
 export function toTaskComment(taskDto: TaskCommentDto): TaskComment {

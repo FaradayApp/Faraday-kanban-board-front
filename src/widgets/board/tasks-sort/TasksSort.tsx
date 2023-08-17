@@ -30,7 +30,7 @@ export const TasksSort = observer((props: TasksSortProps) => {
 
   return (
     <>
-      <OptionsIcon onClick={() => setOpen(true)} />
+      <OptionsIcon onClick={() => setOpen(true)} className={styles.sortButtons__icon} />
 
       <Sheet isOpen={isOpen} onClose={() => setOpen(false)} snapPoints={[220, 0]}>
         <Sheet.Container>

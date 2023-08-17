@@ -15,6 +15,7 @@
   
   --red-0: #f25c5c;
   --green-0: #97c15c;
+  --green-1: #78a53d;
   --yellow-0: #f2ad5c;
 
   // backgrounds
@@ -48,6 +49,7 @@
 
   // buttons
   --button-bg-primary: var(--green-0);
+  --button-bg-primary-hover: var(--green-1);
   --button-text-primary: var(--white-0);
 
   --button-bg-secondary: var(--gray-0);
@@ -60,5 +62,11 @@
 
   //contianers
   --page-container-padding: 20px;
-  --page-wide-container: 900px;
+  --page-wide-container: 1980px;
+  --page-content-max-width: 900px;
+
+  // ovveride react-toastify
+  --toastify-color-dark: var(--text-primary);
+  --toastify-color-success: var(--green-0);
+  --toastify-color-error: var(--red-0);
 }

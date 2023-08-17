@@ -1,4 +1,8 @@
 .boardDelete {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+
   &__message {
     padding: 20px;
   }

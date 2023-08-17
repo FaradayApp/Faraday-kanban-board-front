@@ -1,26 +1,26 @@
-import * as t from 'io-ts';
+import { z } from 'zod';
 
 import { NewTask } from '@/enitities/task';
 import { getTaskPriorityId, getTaskStatusId } from '../utils';
 
-const CreateNewTaskDto = t.type({
-  title: t.string,
-  description: t.string,
-  expiration_date: t.string,
-  performers: t.array(t.number),
-  status: t.number,
-  priority: t.number,
+const CreateNewTaskDto = z.object({
+  title: z.string(),
+  description: z.string(),
+  expiration_date: z.string(),
+  performers: z.array(z.number()),
+  status: z.number(),
+  priority: z.number(),
 });
 
-type CreateNewTaskDto = t.TypeOf<typeof CreateNewTaskDto>;
+type CreateNewTaskDto = z.infer<typeof CreateNewTaskDto>;
 
 export function toCreateNewTaskDto(newTask: NewTask): CreateNewTaskDto {
-  return CreateNewTaskDto.encode({
+  return {
     title: newTask.title,
     description: newTask.description,
     expiration_date: newTask.expiration_date.format('YYYY-MM-DD'),
     performers: newTask.performers.map((user) => user.id),
     status: getTaskStatusId(newTask.status),
     priority: getTaskPriorityId(newTask.priority),
-  });
+  };
 }

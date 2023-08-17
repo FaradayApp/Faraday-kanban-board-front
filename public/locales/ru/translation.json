@@ -26,6 +26,11 @@
       "login": "Войти"
     }
   },
+  "exitModal": {
+    "title": "Вы уверены, что хотите выйти?",
+    "approve": "Выйти",
+    "cancel": "Остаться"
+  },
   "widgetsManagement": {
     "title": "Управление виджетами",
     "placeholders": {
@@ -41,12 +46,28 @@
         "cancel": "Отменить"
       }
     },
+    "editModal": {
+      "title": "Изменить виджет",
+      "placeholders": {
+        "note": "Заметка"
+      },
+      "notifications": {
+        "changed": "Виджет изменен"
+      },
+      "buttons": {
+        "submit": "Сохранить"
+      }
+    },
     "addWidgetModal": {
       "message": "Создание нового виджета",
       "placeholders": {
         "link": "Ссылка",
-        "title": "Название"
+        "title": "Название",
+        "note": "Заметка"
       }
+    },
+    "notifications": {
+      "boardCreated": "Виджет добавлен"
     }
   },
   "board": {
@@ -137,5 +158,8 @@
     "buttons": {
       "submit": "Сохранить"
     }
+  },
+  "common": {
+    "copied": "Скопировано"
   }
 }

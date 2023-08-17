@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './BoardCreate.module.scss';
 import { CreateBoard } from '@/enitities/admin';
-import { Modal, CloseIcon, Text, Button, FloatingTextArea } from '@/shared/ui-kit';
+import { Modal, CloseIcon, Text, Button } from '@/shared/ui-kit';
 import { type CreateBoardSchema, createBoardSchema } from './scheme';
+import { FloatingTextAreaAuto } from '@/shared/ui-kit/form/floating-textarea/FloatingTextArea';
 
 type BoardCreateProps = {
   isOpen: boolean;
@@ -16,7 +17,7 @@ type BoardCreateProps = {
 export const BoardCreate = (props: BoardCreateProps) => {
   const { isOpen, onCancel, onCreate } = props;
   const { t } = useTranslation();
-  const { handleSubmit, register, formState } = useForm<CreateBoardSchema>({
+  const { handleSubmit, control, formState } = useForm<CreateBoardSchema>({
     resolver: zodResolver(createBoardSchema),
   });
   const { errors, isSubmitting } = formState;
@@ -37,10 +38,20 @@ export const BoardCreate = (props: BoardCreateProps) => {
               {t('widgetsManagement.addWidgetModal.message')}
             </Text>
           </div>
-          <FloatingTextArea
-            {...register('title')}
-            label={t('widgetsManagement.addWidgetModal.placeholders.title')}
-            errorMessage={title?.message}
+
+          <Controller
+            shouldUnregister
+            name='title'
+            control={control}
+            defaultValue={''}
+            render={({ field }) => (
+              <FloatingTextAreaAuto
+                value={field.value}
+                onChange={(event) => field.onChange(event.target.value)}
+                label={t('widgetsManagement.addWidgetModal.placeholders.note')}
+                errorMessage={title?.message}
+              />
+            )}
           />
         </div>
         <Button disabled={isSubmitting} as='secondary' className={styles.boardCreate__button}>

@@ -1,5 +1,4 @@
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
+import { z } from 'zod';
 import dayjs from 'dayjs';
 
 import { Task, TaskInfo } from '@/enitities/task';
@@ -8,27 +7,27 @@ import { TaskCommentDto, toTaskComment } from './comment.dto';
 import { getTaskPriority, getTaskStatus } from '../utils';
 import { UserDto, toUser } from '../../users';
 
-const TaskInfoDto = t.type({
-  id: t.number,
-  title: t.string,
-  staging_date: t.string,
-  expiration_date: t.string,
-  status: t.number,
-  priority: t.number,
+const TaskInfoDto = z.object({
+  id: z.number(),
+  title: z.string(),
+  staging_date: z.string(),
+  expiration_date: z.string(),
+  status: z.number(),
+  priority: z.number(),
   producer: UserDto,
-  performers: t.array(UserDto),
-  description: t.string,
-  comments: t.array(TaskCommentDto),
+  performers: z.array(UserDto),
+  description: z.string(),
+  comments: z.array(TaskCommentDto),
 });
 
-type TaskInfoDto = t.TypeOf<typeof TaskInfoDto>;
+type TaskInfoDto = z.infer<typeof TaskInfoDto>;
 
 export function validateTaskInfoDto(data: unknown) {
-  const taskInfoDto = TaskInfoDto.decode(data);
-  if (isLeft(taskInfoDto)) {
+  const taskInfoDto = TaskInfoDto.safeParse(data);
+  if (!taskInfoDto.success) {
     throw new BadResponseError();
   }
-  return taskInfoDto.right;
+  return taskInfoDto.data;
 }
 
 export function toTaskInfo(taskInfoDto: TaskInfoDto): TaskInfo {

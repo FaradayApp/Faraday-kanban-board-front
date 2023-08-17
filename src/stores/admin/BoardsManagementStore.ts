@@ -4,6 +4,10 @@ import { getAllBoards } from '@/shared/api/admin';
 import { DataCache } from '@/shared/lib/DataCache';
 import { type Board } from '@/enitities/admin';
 
+function boardsComparator(a: Board, b: Board) {
+  return a.title.localeCompare(b.title);
+}
+
 export class BoardsManagementStore {
   boards = new DataCache<Board[]>({ defaultValue: [] });
 
@@ -11,6 +15,10 @@ export class BoardsManagementStore {
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get boardsList() {
+    return this.boards.data.slice().sort(boardsComparator);
   }
 
   init = async () => {
@@ -26,6 +34,11 @@ export class BoardsManagementStore {
   addBoard = (board: Board) => {
     this.boards.update([...this.boards.data, board]);
   };
+
+  updateBoard = (board: Board) => {
+    this.removeBoard(board.id);
+    this.addBoard(board);
+  }
 
   openCreateBoardModal = () => {
     this.showCreateBoardModal = true;

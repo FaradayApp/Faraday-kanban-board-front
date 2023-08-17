@@ -1,6 +1,8 @@
+import i18n from 'i18next';
 import { CreateBoard } from '@/enitities/admin';
 import { BoardsManagementStore } from '@/stores/admin';
 import { createBoard as createBoardApi } from '@/shared/api/admin';
+import { successNotification } from '@/shared/lib/notify';
 
 export function createBoard(boardManagementStore: BoardsManagementStore) {
   const openCreateModal = () => {
@@ -11,6 +13,7 @@ export function createBoard(boardManagementStore: BoardsManagementStore) {
     const createdBoard = await createBoardApi(data);
     boardManagementStore.addBoard(createdBoard);
     boardManagementStore.closeCreateBoardModal();
+    successNotification(i18n.t('widgetsManagement.notifications.boardCreated'));
   };
 
   const closeCreateModal = () => {

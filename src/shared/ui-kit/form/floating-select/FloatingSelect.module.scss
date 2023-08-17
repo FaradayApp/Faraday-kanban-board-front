@@ -2,12 +2,14 @@
 
 .select {
   position: relative;
+  cursor: pointer;
 
   &__button {
     @include floatingForm();
     background: none;
     height: 54px;
     color: var(--text-primary);
+    cursor: pointer;
 
     &_filled {
       > .select__label {

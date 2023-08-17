@@ -1,25 +1,24 @@
 import dayjs from 'dayjs';
-import * as t from 'io-ts';
-import { isLeft } from 'fp-ts/Either';
+import { z } from 'zod';
 
 import { BadResponseError } from '@/shared/errors';
 import { type Board } from '@/enitities/admin';
 
-const BoardDto = t.type({
-  id: t.number,
-  uuid: t.union([t.string, t.null]),
-  title: t.union([t.string, t.null]),
-  created_at: t.string,
+const BoardDto = z.object({
+  id: z.number(),
+  uuid: z.string().nullable(),
+  title: z.string().nullable(),
+  created_at: z.string(),
 });
 
-type BoardDto = t.TypeOf<typeof BoardDto>;
+type BoardDto = z.infer<typeof BoardDto>;
 
 export function validateBoardDto(data: unknown) {
-  const board = BoardDto.decode(data);
-  if (isLeft(board)) {
+  const board = BoardDto.safeParse(data);
+  if (!board.success) {
     throw new BadResponseError();
   }
-  return board.right;
+  return board.data;
 }
 
 export function toBoard(dto: BoardDto): Board {
