@@ -35,6 +35,11 @@ export class BoardsManagementStore {
     this.boards.update([...this.boards.data, board]);
   };
 
+  updateBoard = (board: Board) => {
+    this.removeBoard(board.id);
+    this.addBoard(board);
+  }
+
   openCreateBoardModal = () => {
     this.showCreateBoardModal = true;
   };
