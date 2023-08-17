@@ -52,6 +52,9 @@
         "link": "Ссылка",
         "title": "Название"
       }
+    },
+    "notifications": {
+      "boardCreated": "Виджет добавлен"
     }
   },
   "board": {
