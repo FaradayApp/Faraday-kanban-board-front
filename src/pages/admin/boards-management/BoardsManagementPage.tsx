@@ -11,7 +11,8 @@ import {
   BoardManagementPageHeader,
 } from '@/widgets/admin/boards-management';
 import { createBoard, deleteBoard } from '@/features/admin';
-import { Board } from '@/enitities/admin';
+import { Board, ChangeBoard } from '@/enitities/admin';
+import { changeBoard } from '@/features/admin/boards/change-board';
 
 export const BoardsManagementPage = observer(() => {
   const { t } = useTranslation();
@@ -22,6 +23,11 @@ export const BoardsManagementPage = observer(() => {
 
   const onBoardDelete = useCallback(
     (board: Board) => deleteBoard(boardsManagementStore)(board),
+    []
+  );
+
+  const onBoardEdit = useCallback(
+    (board: ChangeBoard) => changeBoard(boardsManagementStore)(board),
     []
   );
 
@@ -44,7 +50,7 @@ export const BoardsManagementPage = observer(() => {
 
       <div className={styles.boardsList}>
         {boards.map((board) => (
-          <BoardCard key={board.id} board={board} onDelete={() => onBoardDelete(board)} />
+          <BoardCard key={board.id} board={board} onEdit={onBoardEdit} onDelete={() => onBoardDelete(board)} />
         ))}
       </div>
 
