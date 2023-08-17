@@ -26,6 +26,11 @@
       "login": "Войти"
     }
   },
+  "exitModal": {
+    "title": "Вы уверены, что хотите выйти?",
+    "approve": "Выйти",
+    "cancel": "Остаться"
+  },
   "widgetsManagement": {
     "title": "Управление виджетами",
     "placeholders": {
