@@ -5,7 +5,7 @@ ARG BUILD_CONTEXT
 WORKDIR /app
 COPY ./ ./
 
-ENV VITE_BASE_URL=https://shildichat.sixhands.co/api
+ENV VITE_BASE_URL=https://shildichat.sixhands.co/v0/api
 ENV VITE_SITE_URL=https://shildichat.sixhands.co
 RUN yarn install
 RUN yarn build
