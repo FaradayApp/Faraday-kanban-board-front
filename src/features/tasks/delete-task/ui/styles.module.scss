@@ -1,0 +1,32 @@
+.notification {
+  background-color: var(--black-200);
+  color: var(--gray-50);
+  max-width: 95vw;
+  border-radius: 4px;
+  padding: 14px 16px;
+  margin: 0px auto 64px auto;
+}
+
+.notification_error {
+  background-color: var(--red-0);
+  color: var(--gray-50);
+}
+
+.notification__body {
+  padding: 0px;
+}
+
+.notification__closeButton {
+  display: flex;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  color: var(--green-2);
+}
+
+.notification__progressBar {
+  background: var(--green-2) !important;
+  color: var(--green-2);
+}

@@ -46,6 +46,7 @@ export class BoardStore {
   init = async () => {
     if (this.tasks.isEmpty && this.boardUuid) {
       await this.tasks.set(() => getAllTasks(this.boardUuid));
+
       runInAction(() => {
         this.columns = createColumns(this.tasks.data);
       });
@@ -106,6 +107,16 @@ export class BoardStore {
     }
 
     Object.assign(outdatedTask, updatedTask);
+  };
+
+  removeTask = (id: TaskId) => {
+    const task = this.findTaskById(id);
+
+    if (task) {
+      const column = this.findColumnByStatus(task?.status.type);
+      column?.removeTask(task);
+      this.tasks.update(this.tasks.data.filter((task) => task.id !== id));
+    }
   };
 }
 

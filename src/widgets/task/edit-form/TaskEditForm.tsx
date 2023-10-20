@@ -4,7 +4,14 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './TaskEditForm.module.scss';
-import { Button, FloatingDetepicker, InputWithCounter, TextAreaWithCounter } from '@/shared/ui-kit';
+import {
+  Button,
+  DeleteConfirm,
+  FloatingDetepicker,
+  InputWithCounter,
+  Text,
+  TextAreaWithCounter,
+} from '@/shared/ui-kit';
 import {
   type TaskInfo,
   TaskPrioritySelect,
@@ -17,10 +24,11 @@ import dayjs from 'dayjs';
 type TaskEditFormProps = {
   task: TaskInfo;
   editTask: (task: Partial<TaskInfo>) => void;
+  deleteTask: () => void;
 };
 
 export const TaskEditForm = observer((props: TaskEditFormProps) => {
-  const { task, editTask } = props;
+  const { task, editTask, deleteTask } = props;
   const { t } = useTranslation();
   const { handleSubmit, control, register, formState, resetField } = useForm<EditTaskSchema>({
     resolver: zodResolver(editTaskSchema),
@@ -102,9 +110,26 @@ export const TaskEditForm = observer((props: TaskEditFormProps) => {
         )}
       />
 
-      <Button disabled={isSubmitting} type='submit'>
-        {t('taskEdit.buttons.save')}
-      </Button>
+      <div className={styles.form__controls}>
+        <Button disabled={isSubmitting} type='submit'>
+          {t('taskEdit.buttons.save')}
+        </Button>
+
+        {task.canEdit && (
+          <DeleteConfirm
+            title={t('taskEdit.deleteModal.title')}
+            approveTitle={t('taskEdit.deleteModal.buttons.delete')}
+            cancelTitle={t('taskEdit.deleteModal.buttons.cancel')}
+            onApprove={deleteTask}
+          >
+            <button type='button' className={styles.form__deleteButton}>
+              <Text tag='span' size='md' weight='normal'>
+                {t('taskEdit.buttons.delete')}
+              </Text>
+            </button>
+          </DeleteConfirm>
+        )}
+      </div>
     </form>
   );
 });
