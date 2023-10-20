@@ -40,6 +40,7 @@ export type TaskInfo = {
   producer: User;
   performers: User[];
   comments: TaskComment[],
+  canEdit: boolean;
 };
 
 export type TaskComment = {
