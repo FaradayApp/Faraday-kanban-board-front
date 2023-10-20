@@ -27,7 +27,7 @@ export const FloatingSelect = <T extends SelectOption>(props: FloatingSelectProp
     [styles.select__button_invalid]: isInvalid || errorMessage,
   });
 
-  const selectedOption = useMemo(() => {
+  const selectedOption = useMemo<SelectOption | null>(() => {
     return options.find((option) => option.value === value) || null;
   }, [options, value]);
 
