@@ -7,8 +7,8 @@ COPY ./ ./
 
 ENV VITE_BASE_URL=https://shildichat.sixhands.co/v0/api
 ENV VITE_SITE_URL=https://shildichat.sixhands.co
-RUN yarn install
-RUN yarn build
+RUN npm ci
+RUN npm run build
 
 #webserver
 FROM nginx:stable-alpine

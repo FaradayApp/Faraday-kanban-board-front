@@ -18,6 +18,7 @@ const TaskInfoDto = z.object({
   performers: z.array(UserDto),
   description: z.string(),
   comments: z.array(TaskCommentDto),
+  can_edit: z.boolean().optional(),
 });
 
 type TaskInfoDto = z.infer<typeof TaskInfoDto>;
@@ -42,6 +43,7 @@ export function toTaskInfo(taskInfoDto: TaskInfoDto): TaskInfo {
     producer: toUser(taskInfoDto.producer),
     performers: taskInfoDto.performers.map(toUser),
     comments: taskInfoDto.comments.map(toTaskComment),
+    canEdit: taskInfoDto.can_edit || false,
   };
 }
 
