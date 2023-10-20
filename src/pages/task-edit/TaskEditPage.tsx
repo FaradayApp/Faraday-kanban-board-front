@@ -7,32 +7,39 @@ import { PageContainer, PageHeader } from '@/shared/ui-kit';
 import { type TaskInfo } from '@/enitities/task';
 import { boardStore } from '@/stores/board';
 import { taskInfoStore } from '@/stores/task-info';
-import { editTaskInfo } from '@/features/tasks';
+import { editTaskInfo, deleteTask as deleteTaskFeature } from '@/features/tasks';
 import { TaskEditForm } from '@/widgets/task';
 
 export const TaskEditPage = observer(() => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { id, boardUuid } = useParams();
-  const navigate = useNavigate();
+  const taskId = Number.parseInt(id || "");
 
   const editTask = useCallback(
     async (data: Partial<TaskInfo>) => {
-      if (id) {
-        const taskId = Number.parseInt(id);
+      if (taskId) {
         await editTaskInfo(boardStore, taskInfoStore, taskId)(data);
-        navigate(`/board/${boardUuid}/task/${id}`);
+        navigate(`/board/${boardUuid}/task/${taskId}`);
       }
     },
-    [boardUuid, id, navigate]
+    [boardUuid, navigate, taskId]
   );
+
+  const deleteTask = useCallback(() => {
+    if (taskId) {
+      deleteTaskFeature(taskId, navigate);
+    }
+  }, [navigate, taskId]);
 
   const data = taskInfoStore.taskInfo.data || null;
 
   return (
     <PageContainer
       loading={taskInfoStore.taskInfo.isPending}
-      header={<PageHeader title={t('taskEdit.titles.edit')} />}>
-      {data && <TaskEditForm task={data} editTask={editTask} />}
+      header={<PageHeader title={t('taskEdit.titles.edit')} />}
+    >
+      {data && <TaskEditForm task={data} editTask={editTask} deleteTask={deleteTask} />}
     </PageContainer>
   );
 });
