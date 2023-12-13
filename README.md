@@ -1,4 +1,5 @@
-# SchildiChat_kanban
+# Faradey-chat-kanban-board
+
 
 
 
