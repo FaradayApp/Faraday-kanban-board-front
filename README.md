@@ -11,6 +11,7 @@
 
 ## Инструкция по использованию
 ### Авторизация
+Введите свой логин и пароль. После ввода данных нажмите кнопку для входа в систему.
 <p align="center">
   <img src="https://github.com/FaradeyApp/.github/blob/main/images/kanban-board/1.1.1.PNG">
 </p>
@@ -18,11 +19,13 @@
 ---
 
 ### Добавить виджет
+На главной странице выберите опцию добавления виджетов.
+
 <p align="center">
   <img src="https://github.com/FaradeyApp/.github/blob/main/images/kanban-board/1.2.jpg">
 </p>
 
-#### Ввести название заметки
+Введите название заметки в предусмотренное поле.
 <p align="center">
   <img src="https://github.com/FaradeyApp/.github/blob/main/images/kanban-board/2.PNG">
 </p>
@@ -30,6 +33,7 @@
 ---
 
 ### Перейти по ссылке созданной заметки
+Найдите созданную заметку на панели или в списке заметок. Кликните по заметке для перехода к её содержимому.
 <p align="center">
   <img src="https://github.com/FaradeyApp/.github/blob/main/images/kanban-board/3.PNG">
 </p> 
