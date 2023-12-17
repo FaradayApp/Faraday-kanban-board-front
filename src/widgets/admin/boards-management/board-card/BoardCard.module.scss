@@ -1,0 +1,29 @@
+.boardCard {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__note {
+    display: flex;
+    color: var(--black-100) !important;
+  }
+
+  &__footer {
+    margin-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid var(--gray-0);
+  }
+
+  &__icon {
+    cursor: pointer;
+  }
+}

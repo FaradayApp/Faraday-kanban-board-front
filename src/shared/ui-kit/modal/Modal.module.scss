@@ -1,0 +1,33 @@
+.modal {
+  position: relative;
+
+  &__bg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #00000080;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    border-radius: 8px;
+    background: var(--layer-0);
+  }
+}

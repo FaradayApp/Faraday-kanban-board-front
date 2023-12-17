@@ -1,0 +1,178 @@
+{
+  "authForm": {
+    "title": "Авторизация",
+    "labels": {
+      "login": "Логин",
+      "password": "Пароль"
+    },
+    "buttons": {
+      "submit": "Войти",
+      "register": "Регистрация"
+    },
+    "errors": {
+      "wrongCredentials": "Неправильные логин или пароль"
+    }
+  },
+  "registrationForm": {
+    "title": "Регистрация",
+    "labels": {
+      "login": "Логин",
+      "password": "Пароль",
+      "firstName": "Имя",
+      "lastName": "Фамилия"
+    },
+    "buttons": {
+      "submit": "Создать аккаунт",
+      "login": "Войти"
+    }
+  },
+  "exitModal": {
+    "title": "Вы уверены, что хотите выйти?",
+    "approve": "Выйти",
+    "cancel": "Остаться"
+  },
+  "widgetsManagement": {
+    "title": "Управление виджетами",
+    "placeholders": {
+      "note": "Заметка"
+    },
+    "buttons": {
+      "addWidget": "Добавить виджет"
+    },
+    "deleteModal": {
+      "message": "Вы уверены, что хотите удалить виджет?",
+      "buttons": {
+        "delete": "Удалить",
+        "cancel": "Отменить"
+      }
+    },
+    "editModal": {
+      "title": "Изменить виджет",
+      "placeholders": {
+        "note": "Заметка"
+      },
+      "notifications": {
+        "changed": "Виджет изменен"
+      },
+      "buttons": {
+        "submit": "Сохранить"
+      }
+    },
+    "addWidgetModal": {
+      "message": "Создание нового виджета",
+      "placeholders": {
+        "link": "Ссылка",
+        "title": "Название",
+        "note": "Заметка"
+      }
+    },
+    "notifications": {
+      "boardCreated": "Виджет добавлен"
+    }
+  },
+  "board": {
+    "title": "Задачи",
+    "sort": {
+      "byDate": "По дате окончания задачи",
+      "byName": "По названию задачи",
+      "byPriority": "По приоритету задачи"
+    },
+    "errors": {
+      "load": "Ошибка при получении списка задач, неверный id доски или нет прав доступа к этой доске"
+    }
+  },
+  "taskEdit": {
+    "titles": {
+      "create": "Создание задачи",
+      "edit": "Редактирование задачи"
+    },
+    "labels": {
+      "name": "Название задачи",
+      "priority": "Приоритет",
+      "status": "Статус",
+      "description": "Описание задачи",
+      "endDate": "Дата окончания",
+      "workers": "Ответственный по задаче"
+    },
+    "buttons": {
+      "save": "Сохранить",
+      "delete": "Удалить задачу"
+    },
+    "deleteModal": {
+      "title": "Вы уверены, что хотите удалить задачу?",
+      "buttons": {
+        "delete": "Удалить",
+        "cancel": "Отменить"
+      },
+      "notifications": {
+        "deleted": "Задача удалена!",
+        "deleteError": "Ошибка при удалении задачи",
+        "restoreButton": "Отменить"
+      }
+    }
+  },
+  "task": {
+    "title": "Задача",
+    "priority": {
+      "label": "Приоритет",
+      "level": {
+        "high": "Высокий",
+        "medium": "Средний",
+        "low": "Низкий"
+      }
+    },
+    "status": {
+      "label": "Статус",
+      "backlog": "Backlog",
+      "todo": "To Do",
+      "in_progress": "In Progress",
+      "done": "Done",
+      "archive": "Archive",
+      "keys": {
+        "BACKLOG": "Backlog",
+        "TODO": "To Do",
+        "IN_PROGRESS": "In Progress",
+        "DONE": "Done",
+        "ARCHIVE": "Archive"
+      }
+    },
+    "dates": {
+      "start": "Дата постановки",
+      "end": "Дата окончания"
+    },
+    "producer": "Постановщик",
+    "workers": "Ответственные по задаче",
+    "labels": {
+      "comment": "Комментарий"
+    },
+    "buttons": {
+      "save": "Сохранить"
+    },
+    "performers": {
+      "notFound": "Пользователи не найдены или уже добавлены в задачу"
+    }
+  },
+  "taskComment": {
+    "controls": {
+      "delete": {
+        "title": "Удалить комментарий?",
+        "approve": "Удалить",
+        "cancel": "Отменить"
+      }
+    }
+  },
+  "editProfile": {
+    "title": "Редактирование профиля",
+    "labels": {
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "avatar": "Загрузить аватар"
+    },
+    "buttons": {
+      "submit": "Сохранить"
+    }
+  },
+  "common": {
+    "copied": "Скопировано"
+  }
+}

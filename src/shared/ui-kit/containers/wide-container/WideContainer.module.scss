@@ -1,0 +1,19 @@
+.wideContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100vw;
+  height: -webkit-fill-available;
+
+  background: var(--layer-1);
+
+  &__content {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+    max-width: var(--page-wide-container);
+  }
+}

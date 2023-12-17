@@ -1,0 +1,22 @@
+.priorityTag {
+  display: flex;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 6px;
+  line-height: 12px;
+
+  &_high {
+    color: var(--priority-tag-text-0);
+    background: var(--priority-tag-bg-0);
+  }
+
+  &_medium {
+    color: var(--priority-tag-text-1);
+    background: var(--priority-tag-bg-1);
+  }
+
+  &_low {
+    color: var(--priority-tag-text-2);
+    background: var(--priority-tag-bg-2);
+  }
+}

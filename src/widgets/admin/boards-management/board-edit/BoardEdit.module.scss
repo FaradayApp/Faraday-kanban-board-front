@@ -1,0 +1,53 @@
+.boardEdit {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 500px;
+
+  @media screen and (max-width: 768px) {
+    max-width: 250px;
+  }
+
+  &__message {
+    margin-bottom: 20px;
+    padding-right: 20px;
+
+    line-height: 24px;
+    letter-spacing: 0.16px;
+  }
+
+  &__body {
+    padding: 20px;
+  }
+
+  &__button {
+    padding: 14px;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--gray-0);
+    cursor: pointer;
+    transition: all 0.32s ease;
+    border-radius: 0;
+
+    &:hover {
+      background-color: var(--button-bg-primary);
+      color: var(--white-0);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__closeIcon {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    background: none;
+    border: none;
+  }
+}

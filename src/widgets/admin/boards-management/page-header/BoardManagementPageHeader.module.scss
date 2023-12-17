@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+}

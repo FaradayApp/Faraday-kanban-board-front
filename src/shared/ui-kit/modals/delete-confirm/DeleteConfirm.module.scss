@@ -1,0 +1,36 @@
+.boardDelete {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+
+  &__message {
+    padding: 20px;
+  }
+
+  &__button {
+    padding: 14px;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--gray-0);
+    cursor: pointer;
+    transition: all 0.32s ease;
+    
+    &_delete {
+      color: var(--text-warning);
+
+      &:hover {
+        background-color: var(--red-0);
+        color: var(--white-0);
+      }
+    }
+
+    &_cancel {
+      color: var(--text-secondary);
+
+      &:hover {
+        background-color: var(--black-20);
+        color: var(--white-0);
+      }
+    }
+  }
+}

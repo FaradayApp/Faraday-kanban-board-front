@@ -1,0 +1,1 @@
+export { WideContainer } from './WideContainer';

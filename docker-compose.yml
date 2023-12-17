@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        - BUILD_CONTEXT=schildichat-kanban-frontend
+    container_name: schildichat-kanban-frontend
+    ports:
+      - "5034:5000"
+    expose:
+      - 5034
+    restart: always
+

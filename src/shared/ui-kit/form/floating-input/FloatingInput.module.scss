@@ -1,0 +1,41 @@
+@import '@/shared/styles/floating-form.scss';
+
+.floatingInput {
+  @include floatingForm();
+  height: 54px;
+
+  &_invalid {
+    border-color: var(--input-border-error);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: 16px;
+  }
+
+  > .floatingInput__label {
+    @include floatingLabel();
+    display: flex;
+    align-items: center;
+  }
+
+  > .floatingInput__input {
+    @include floatingControl();
+  }
+
+  > .floatingInput__input:focus,
+  > .floatingInput__input:not(:placeholder-shown) {
+    ~ .floatingInput__label {
+      @include floatingLabelFilled();
+    }
+  }
+
+  > .floatingInput__input:-webkit-autofill {
+    ~ .floatingInput__label {
+      @include floatingLabelFilled();
+    }
+  }
+}
